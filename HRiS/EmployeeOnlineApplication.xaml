@@ -1,0 +1,196 @@
+﻿<Controls:MetroWindow x:Class="HRiS.EmployeeOnlineApplication"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" GlowBrush="Black"
+        xmlns:local="clr-namespace:HRiS.Model"
+        Title="Employee's Online Application" Height="721.03" ResizeMode="NoResize" Width="1300" ShowInTaskbar="True" WindowStartupLocation="CenterScreen" WindowTitleBrush="#FF001834" ShowMaxRestoreButton="False" ShowMinButton="False" Loaded="MetroWindow_Loaded">
+    <Controls:MetroWindow.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF001834"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Arial"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" >
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFB0B0B0"/>
+                    <Setter Property="Foreground" Value="#FF19283F"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="FontFamily" Value="Arial"></Setter>
+
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <local:RowNumberConverter x:Key="rowNumberConverter"/>
+    </Controls:MetroWindow.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Rectangle Fill="#FF001834"></Rectangle>
+        <Image x:Name="pic1"  Height="90" VerticalAlignment="Top" Source="Images/letranbataanlogo.png" Margin="0,40,0,0" Stretch="UniformToFill" Width="90"></Image>
+        <Label VerticalContentAlignment="Center" FontSize="25" Content="EMPLOYEE'S ONLINE APPLICATION"  Grid.ColumnSpan="2" FontWeight="Bold" Padding="5" VerticalAlignment="Bottom" HorizontalContentAlignment="Right" Background="{x:Null}" Foreground="White" Height="46" Margin="-177,0,1021,269" RenderTransformOrigin="0.5,0.5" >
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="270"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Grid  Grid.ColumnSpan="2" Background="#FF6E0000" Height="35" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Note: Fields with asterisk (*) is required." HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="14" Foreground="White" FontWeight="Bold" FontStyle="Italic"/>
+        </Grid>
+        <Grid Grid.Column="1" Margin="10"   >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Column="0" Grid.Row="1" BorderBrush="#FF001834" BorderThickness="2" Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontWeight="Bold" Content="Job Title:*"/>
+                    <Label Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontWeight="Bold" Content="Description:"/>
+
+                    <Label Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontWeight="Bold" Content="Qualifications:"/>
+                    <Label Grid.Row="6" Grid.Column="0" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontWeight="Bold" Content="Type:"/>
+                    <Label Grid.Row="7" Grid.Column="0" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontWeight="Bold" Content="Is Active:*"/>
+
+                    <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Margin="5,2" Controls:TextBoxHelper.Watermark="Job Title" Name="txtJobTitle"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="2" TextWrapping="Wrap" Margin="5,2" Controls:TextBoxHelper.Watermark="Job Description" Name="txtDescription"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="3" TextWrapping="Wrap" Margin="5,2" Controls:TextBoxHelper.Watermark="Job Qualifications" Name="txtQualification"/>
+                    <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="4"  TextWrapping="Wrap" Margin="5,2" Controls:TextBoxHelper.Watermark="Job Type" Name="txtType"/>
+                    <ComboBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="4" Margin="5,2" Controls:TextBoxHelper.Watermark="Job Status" Name="cbStatus">
+                        <ComboBoxItem>True</ComboBoxItem>
+                        <ComboBoxItem>False</ComboBoxItem>
+                    </ComboBox>
+
+
+                    <Button Grid.Row="8" Grid.Column="2" Margin="5,2" Content="ADD" Name="btnAdd" Click="btnAdd_Click" />
+                    <Button Grid.Row="8" Grid.Column="3" Margin="5,2,5,0" Content="SAVE" Name="btnSave" IsEnabled="False" Click="btnSave_Click" />
+                    <Button Grid.Row="8" Grid.Column="4" Margin="5,2" Content="REFRESH" Name="btnRefresh" Click="btnRefresh_Click" />
+                </Grid>
+            </Border>
+
+            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" Margin="10">
+                <Label Content="List of Online Job Tiles"  FontWeight="Bold" VerticalAlignment="Top" Background="#FF001834" Foreground="White"/>
+                <DataGrid  BorderThickness="1"  x:Name="dgJobTitle" IsReadOnly="True"
+                      RowHeight="30" ColumnWidth="*" 
+                      AutoGenerateColumns="False" SelectionMode="Single" BorderBrush="Black" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" Height="270" SelectionChanged="dgJobTitle_SelectionChanged">
+                    <DataGrid.RowStyle>
+                        <Style BasedOn="{StaticResource MetroDataGridRow}"  TargetType="{x:Type DataGridRow}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsActive}" Value="true" >
+                                    <Setter Property="Foreground"  Value="Black" />
+                                    <Setter Property="FontWeight"  Value="Bold" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsActive}" Value="false" >
+                                    <Setter Property="Foreground"  Value="Gray" />
+                                    <Setter Property="FontWeight"  Value="Normal" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width=".2*">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding
+                     Converter="{StaticResource rowNumberConverter}">
+                                    <Binding />
+                                    <Binding
+                        RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}" />
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Job Title" Width="*" Binding="{Binding JobTitle}"/>
+                        <DataGridTextColumn Header="Description" Width="2*" Binding="{Binding Description}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+
+
+            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="10">
+                <Label Content="" Name="lblPos" FontWeight="Bold" VerticalAlignment="Top" Background="#FF001834" Foreground="White"/>
+                <DataGrid  BorderThickness="1"  x:Name="dgAppJob" IsReadOnly="True"
+                      RowHeight="30" ColumnWidth="*" 
+                      AutoGenerateColumns="False" SelectionMode="Single" BorderBrush="Black" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" Height="272" >
+                    <DataGrid.ContextMenu>
+                        <ContextMenu >
+                            <MenuItem Name="viewApplication" Click="viewApplication_Click" >
+                                <MenuItem.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Rectangle Fill="#FF001834" Width="14.6" Height="15" Margin="-15,0,10,0">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Visual="{StaticResource appbar_eye}" Stretch="Fill" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                            <TextBlock><Run Text="View Job Application"/></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </MenuItem.HeaderTemplate>
+                            </MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width=".2*">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding
+                     Converter="{StaticResource rowNumberConverter}">
+                                    <Binding />
+                                    <Binding
+                        RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}" />
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Applicant Name" Width="*" Binding="{Binding ApplicantName}"/>
+                        <DataGridTextColumn Header="Applicant Address" Width="2*" Binding="{Binding ApplicantAddress}"/>
+                        <DataGridTextColumn Header="Telephone No" Width="*" Binding="{Binding TelNo}"/>
+                        <DataGridTextColumn Header="Mobile No" Width="*" Binding="{Binding MobileNo}"/>
+                        <DataGridTextColumn Header="Status" Width="*" Binding="{Binding StatusDescription}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+
+    </Controls:MetroWindow>

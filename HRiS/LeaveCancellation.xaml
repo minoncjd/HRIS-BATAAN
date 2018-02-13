@@ -1,0 +1,173 @@
+﻿<Controls:MetroWindow x:Class="HRiS.LeaveCancellation"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="clr-namespace:HRiS.Model"
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" GlowBrush="Black"
+      Title="Leave - Cancellation List" Height="721.03" ResizeMode="NoResize" Width="1280" ShowInTaskbar="True" WindowStartupLocation="CenterScreen" WindowTitleBrush="#FF001834" ShowMaxRestoreButton="False" ShowMinButton="False" Loaded="MetroWindow_Loaded">
+    <Controls:MetroWindow.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="black" />
+            <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
+            <Setter Property="FontFamily" Value="arial"></Setter>
+
+
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="FontFamily" Value="arial"></Setter>
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF001834"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Arial"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" >
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFB0B0B0"/>
+                    <Setter Property="Foreground" Value="#FF19283F"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="FontFamily" Value="Arial"></Setter>
+
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <local:RowNumberConverter x:Key="rowNumberConverter"/>
+    </Controls:MetroWindow.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="lblheader" VerticalContentAlignment="Center" FontSize="25" Content=""  Grid.ColumnSpan="2" FontWeight="Bold" Padding="5" VerticalAlignment="Top" HorizontalContentAlignment="Right" Background="#FF6E0000" Foreground="White" Height="35"></Label>
+        <Grid Grid.Column="1" Margin="0,35,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Margin="10,5,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Right" FontWeight="Bold" VerticalContentAlignment="Center">Search by:</Label>
+                <RadioButton Grid.Row="0" Grid.Column="1" Content="Employee Number" FontWeight="Bold" Name="rbEmpnum" FontSize="11" GroupName="S" Checked="rbEmpnum_Checked"  />
+                <RadioButton Grid.Row="0" Grid.Column="2" Content="Employee Name" FontWeight="Bold" Name="rbEmpname" GroupName="S" Checked="rbEmpname_Checked" />
+
+
+                <TextBox Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" Margin="5,2,5,5" Name="txtSearch" CharacterCasing="Upper"/>
+                <DatePicker Grid.Row="1" Grid.Column="3" Margin="5,0,5,5" Name="dpStart" Controls:TextBoxHelper.Watermark="Start Date"/>
+                <DatePicker Grid.Row="2" Grid.Column="4" Margin="5,0,5,5" Name="dpEnd" Controls:TextBoxHelper.Watermark="End Date"/>
+
+                <Button x:Name="btnSearch" Content="SEARCH"  Grid.Row="0" Grid.Column="5" Margin="5,0,0,5" Click="btnSearch_Click"  IsDefault="True" />
+                <Button x:Name="btnRefresh" Content="REFRESH"  Grid.Row="1" Grid.Column="5" Margin="5,0,0,5" Click="btnRefresh_Click"/>
+
+            </Grid>
+
+            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" Margin="10" Grid.ColumnSpan="2" Grid.RowSpan="3">
+                <Label Content="Leave - Cancellation List"  FontWeight="Bold" VerticalAlignment="Top" Background="#FF001834" Foreground="White"/>
+                <DataGrid  BorderThickness="1"  x:Name="dgLeaveCancel" AutoGenerateColumns="False"
+                      RowHeight="35" SelectionMode="Single" BorderBrush="Black" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" Height="538" IsReadOnly="True">
+                    <DataGrid.RowStyle>
+                        <Style BasedOn="{StaticResource MetroDataGridRow}"  TargetType="{x:Type DataGridRow}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsActive}" Value="true" >
+                                    <Setter Property="Foreground"  Value="Black" />
+                                    <Setter Property="FontWeight"  Value="Bold" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsActive}" Value="false" >
+                                    <Setter Property="Foreground"  Value="Gray" />
+                                    <Setter Property="FontWeight"  Value="Normal" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width=".4*">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding
+                     Converter="{StaticResource rowNumberConverter}">
+                                    <Binding />
+                                    <Binding
+                        RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}" />
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        
+                        <DataGridTextColumn Header="Employee" Width="2*" Binding="{Binding EmployeeName}"/>
+                        <DataGridTextColumn Header="Date Filed" Width="*" Binding="{Binding DateFiled,StringFormat=d}"/>
+                        <DataGridTextColumn Header="Start Date" Width="*" Binding="{Binding StartDate,StringFormat=d}"/>
+                        <DataGridTextColumn Header="End Date" Width="*" Binding="{Binding EndDate,StringFormat=d}"/>
+                        <DataGridTextColumn Header="Type" Width=".6*" Binding="{Binding Type}"/>
+                        <DataGridTextColumn Header="Reason" Width="1.5*" Binding="{Binding Reason}"/>
+                        <DataGridTextColumn Header="Day/s" Width=".7*" Binding="{Binding Days}"/>
+                        <DataGridTextColumn Header="Status" Width="2.2*" Binding="{Binding Status}"/>
+                        
+                        <DataGridTextColumn Header="Cancellation Status" Width="1.7*" Binding="{Binding LeaveCancelStatus}"/>
+                        <DataGridTextColumn Header="Cancel Date" Width="1.2*" Binding="{Binding CancelDate,StringFormat=d}"/>
+
+                        <DataGridTemplateColumn Width=".7*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button  Margin="1" Name="btnCancel"  Background="Transparent" ToolTip="Cancel Leave" Click="btnCancel_Click">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Rectangle Fill="Red" Width="15" Height="15" Margin="0,0,5,0">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Visual="{StaticResource appbar_cancel}" Stretch="Fill" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width=".7*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button  Margin="1" Name="btnPrint"  Background="Transparent" ToolTip="Print Form" Click="btnPrint_Click" >
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Rectangle Fill="Black" Width="15" Height="15" Margin="0,0,5,0">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Visual="{StaticResource appbar_printer}" Stretch="Fill" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+
+    </Controls:MetroWindow>

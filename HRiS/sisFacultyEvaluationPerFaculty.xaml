@@ -1,0 +1,274 @@
+﻿<Controls:MetroWindow x:Class="HRiS.sisFacultyEvaluationPerFaculty"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:HRiS.Model"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" GlowBrush="Black"
+        Title="SIS Faculty Evaluation Per Faculty" Height="721.03" ResizeMode="NoResize" Width="1054" ShowInTaskbar="True" WindowStartupLocation="CenterScreen" WindowTitleBrush="#FF001834" ShowMaxRestoreButton="False" ShowMinButton="False" Loaded="MetroWindow_Loaded">
+    <Controls:MetroWindow.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="black" />
+            <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
+            <Setter Property="FontFamily" Value="arial"></Setter>
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF001834"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Arial"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" >
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFB0B0B0"/>
+                    <Setter Property="Foreground" Value="#FF19283F"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="FontFamily" Value="Arial"></Setter>
+
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <local:RowNumberConverter x:Key="rowNumberConverter"/>
+        <Style x:Key="GroupHeaderStyle" TargetType="{x:Type GroupItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                        <Expander x:Name="exp" IsExpanded="True" Background="White" Foreground="#FF001834">
+                            <Expander.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontWeight="ExtraBold" Foreground="Maroon" Text="{Binding Name}"/>
+                                </StackPanel>
+                            </Expander.Header>
+                            <ItemsPresenter/>
+                        </Expander>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Controls:MetroWindow.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="#FF001834" Grid.Row="1"></Rectangle>
+        <Image x:Name="pic1"  Height="90" VerticalAlignment="Top" Source="Images/letranbataanlogo.png" Margin="0,40,0,0" Stretch="UniformToFill" Width="90" Grid.Row="1"></Image>
+        <Label VerticalContentAlignment="Center" Grid.Row="1" FontSize="25" Content="SIS Faculty Evaluation Per Faculty"  Grid.ColumnSpan="2" FontWeight="Bold" Padding="5" VerticalAlignment="Bottom" HorizontalContentAlignment="Right" Background="{x:Null}" Foreground="White" Height="42" Margin="-173,0,778,257" RenderTransformOrigin="0.5,0.5" >
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="270"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Grid  Grid.ColumnSpan="2" Background="#FF6E0000" Height="35">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+        </Grid>
+
+        <ScrollViewer Grid.Column="1" Margin="0,0,0,0" Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="250"/>
+                    <RowDefinition Height="350" />
+                    <RowDefinition Height="350"/>
+                    <RowDefinition Height="350"/>
+                    <RowDefinition Height="350"/>
+                </Grid.RowDefinitions>
+
+                <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Header="Schedule Details" Background="#FF001834" BorderBrush="#FF001834" >
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0" Content="INSTRUCTOR:" HorizontalContentAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <Label Grid.Column="0" Grid.Row="1" Content="DEPARTMENT:" HorizontalContentAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <Label Grid.Column="0" Grid.Row="2" Content="POSITION:" HorizontalContentAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <Label Grid.Column="0" Grid.Row="3" Content="DESIGNATION:" HorizontalContentAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <Label Grid.Column="0" Grid.Row="4" Content="RESPONDENTS:" HorizontalContentAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <Label Grid.Column="0" Grid.Row="5" Content="OVERALL MEAN:" HorizontalContentAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"/>
+
+                        <Label Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Left" VerticalAlignment="Center" Name="lblInstructor"/>
+                        <Label Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" HorizontalContentAlignment="Left" VerticalAlignment="Center" Name="lblDepartment"/>
+                        <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" HorizontalContentAlignment="Left" VerticalAlignment="Center" Name="lblPosition"/>
+                        <Label Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" HorizontalContentAlignment="Left" VerticalAlignment="Center" Name="lblDesignation"/>
+                        <Label Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" HorizontalContentAlignment="Left" VerticalAlignment="Center" Name="lblRespondents"/>
+                        <Label Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" HorizontalContentAlignment="Left" VerticalAlignment="Center" Name="lblOverallMean" FontWeight="Bold"/>
+                        
+                        <Grid Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Margin="5,2" Content="VIEW COMMENT" Name="btnComment" Grid.Column="1" Click="btnComment_Click"/>
+                            <Button Margin="5,2" Content="PRINT EVALUATION" Name="btnPrintRpt" Grid.Column="2" Click="btnPrintRpt_Click"/>
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Header="Instructional Skill and Competencies (50%)" Background="#FF001834" BorderBrush="#FF001834" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+
+                        <DataGrid  BorderThickness="1"  x:Name="dgSkill" AutoGenerateColumns="False" RowHeight="35" SelectionMode="Single" BorderBrush="Black" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" IsReadOnly="True" Grid.ColumnSpan="2" Margin="3">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width=".2*">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding
+                     Converter="{StaticResource rowNumberConverter}">
+                                            <Binding />
+                                            <Binding
+                        RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}" />
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Evaluation Question" Width="2*" Binding="{Binding QuestionDescription}"/>
+                                <DataGridTextColumn Header="Result" Width=".5*" Binding="{Binding Result}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Label Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontWeight="Bold" Name="lblMeanSkill"/>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Header="Work Attitude (25%)" Background="#FF001834" BorderBrush="#FF001834" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+
+                        <DataGrid  BorderThickness="1"  x:Name="dgWork" AutoGenerateColumns="False" RowHeight="35" SelectionMode="Single" BorderBrush="Black" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" IsReadOnly="True" Grid.ColumnSpan="2" Margin="3">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width=".2*">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding
+                     Converter="{StaticResource rowNumberConverter}">
+                                            <Binding />
+                                            <Binding
+                        RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}" />
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Evaluation Question" Width="2*" Binding="{Binding QuestionDescription}"/>
+                                <DataGridTextColumn Header="Result" Width=".5*" Binding="{Binding Result}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Label Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontWeight="Bold" Name="lblMeanWork"/>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Header="Classroom Management (25%)" Background="#FF001834" BorderBrush="#FF001834" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+
+                        <DataGrid  BorderThickness="1"  x:Name="dgClassroom" AutoGenerateColumns="False" RowHeight="35" SelectionMode="Single" BorderBrush="Black" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" IsReadOnly="True" Grid.ColumnSpan="2" Margin="3">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width=".2*">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding
+                     Converter="{StaticResource rowNumberConverter}">
+                                            <Binding />
+                                            <Binding
+                        RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}" />
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Evaluation Question" Width="2*" Binding="{Binding QuestionDescription}"/>
+                                <DataGridTextColumn Header="Result" Width=".5*" Binding="{Binding Result}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Label Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontWeight="Bold" Name="lblMeanClassroom"/>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Header="Comments" Background="#FF001834" BorderBrush="#FF001834" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+
+                        <DataGrid  BorderThickness="1"  x:Name="dgComments" AutoGenerateColumns="False" RowHeight="35" SelectionMode="Single" BorderBrush="Black" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" IsReadOnly="True" Grid.ColumnSpan="2" Margin="3">
+                            <DataGrid.GroupStyle>
+                                <GroupStyle ContainerStyle="{StaticResource GroupHeaderStyle}">
+                                    <GroupStyle.Panel>
+                                        <ItemsPanelTemplate>
+                                            <DataGridRowsPresenter/>
+                                        </ItemsPanelTemplate>
+                                    </GroupStyle.Panel>
+                                </GroupStyle>
+                            </DataGrid.GroupStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Evaluation Question" Width="*" Binding="{Binding Comment}"/>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </ScrollViewer>
+
+
+
+    </Grid>
+
+</Controls:MetroWindow>

@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="softrakModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'softrak.dbo.LEAVES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="LEAVES">
+          <Key>
+            <PropertyRef Name="USERNAME" />
+            <PropertyRef Name="EMPN" />
+            <PropertyRef Name="DATE_FROM" />
+            <PropertyRef Name="DATE_TO" />
+            <PropertyRef Name="CODE" />
+            <PropertyRef Name="TYPE" />
+          </Key>
+          <Property Name="USERNAME" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EMPN" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="DATE_FROM" Type="smalldatetime" Nullable="false" />
+          <Property Name="DATE_TO" Type="smalldatetime" Nullable="false" />
+          <Property Name="TIME_FROM" Type="datetime" />
+          <Property Name="TIME_TO" Type="datetime" />
+          <Property Name="CODE" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="TYPE" Type="int" Nullable="false" />
+          <Property Name="ENTRYDATE" Type="smalldatetime" />
+          <Property Name="CREDITS" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'softrak.dbo.TIME00' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TIME00">
+          <Key>
+            <PropertyRef Name="EMPN" />
+            <PropertyRef Name="DTIME" />
+            <PropertyRef Name="MODE" />
+          </Key>
+          <Property Name="EMPN" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="DTIME" Type="datetime" Nullable="false" />
+          <Property Name="MODE" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="TAG" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityContainer Name="softrakModelStoreContainer">
+          <EntitySet Name="LEAVES" EntityType="Self.LEAVES" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [LEAVES].[USERNAME] AS [USERNAME], 
+    [LEAVES].[EMPN] AS [EMPN], 
+    [LEAVES].[DATE_FROM] AS [DATE_FROM], 
+    [LEAVES].[DATE_TO] AS [DATE_TO], 
+    [LEAVES].[TIME_FROM] AS [TIME_FROM], 
+    [LEAVES].[TIME_TO] AS [TIME_TO], 
+    [LEAVES].[CODE] AS [CODE], 
+    [LEAVES].[TYPE] AS [TYPE], 
+    [LEAVES].[ENTRYDATE] AS [ENTRYDATE], 
+    [LEAVES].[CREDITS] AS [CREDITS]
+    FROM [dbo].[LEAVES] AS [LEAVES]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TIME00" EntityType="Self.TIME00" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TIME00].[EMPN] AS [EMPN], 
+    [TIME00].[DTIME] AS [DTIME], 
+    [TIME00].[MODE] AS [MODE], 
+    [TIME00].[TAG] AS [TAG]
+    FROM [dbo].[TIME00] AS [TIME00]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="softrakModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="LEAf">
+          <Key>
+            <PropertyRef Name="USERNAME" />
+            <PropertyRef Name="EMPN" />
+            <PropertyRef Name="DATE_FROM" />
+            <PropertyRef Name="DATE_TO" />
+            <PropertyRef Name="CODE" />
+            <PropertyRef Name="TYPE" />
+          </Key>
+          <Property Name="USERNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EMPN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DATE_FROM" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DATE_TO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TIME_FROM" Type="DateTime" Precision="3" />
+          <Property Name="TIME_TO" Type="DateTime" Precision="3" />
+          <Property Name="CODE" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TYPE" Type="Int32" Nullable="false" />
+          <Property Name="ENTRYDATE" Type="DateTime" Precision="0" />
+          <Property Name="CREDITS" Type="Double" />
+        </EntityType>
+        <EntityType Name="TIME00">
+          <Key>
+            <PropertyRef Name="EMPN" />
+            <PropertyRef Name="DTIME" />
+            <PropertyRef Name="MODE" />
+          </Key>
+          <Property Name="EMPN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DTIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MODE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="TAG" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="softrakEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LEAVES" EntityType="Self.LEAf" />
+          <EntitySet Name="TIME00" EntityType="Self.TIME00" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="softrakModelStoreContainer" CdmEntityContainer="softrakEntities">
+          <EntitySetMapping Name="LEAVES">
+            <EntityTypeMapping TypeName="softrakModel.LEAf">
+              <MappingFragment StoreEntitySet="LEAVES">
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="EMPN" ColumnName="EMPN" />
+                <ScalarProperty Name="DATE_FROM" ColumnName="DATE_FROM" />
+                <ScalarProperty Name="DATE_TO" ColumnName="DATE_TO" />
+                <ScalarProperty Name="TIME_FROM" ColumnName="TIME_FROM" />
+                <ScalarProperty Name="TIME_TO" ColumnName="TIME_TO" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="ENTRYDATE" ColumnName="ENTRYDATE" />
+                <ScalarProperty Name="CREDITS" ColumnName="CREDITS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIME00">
+            <EntityTypeMapping TypeName="softrakModel.TIME00">
+              <MappingFragment StoreEntitySet="TIME00">
+                <ScalarProperty Name="EMPN" ColumnName="EMPN" />
+                <ScalarProperty Name="DTIME" ColumnName="DTIME" />
+                <ScalarProperty Name="MODE" ColumnName="MODE" />
+                <ScalarProperty Name="TAG" ColumnName="TAG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

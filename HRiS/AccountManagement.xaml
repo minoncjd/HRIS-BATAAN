@@ -1,0 +1,352 @@
+﻿<Controls:MetroWindow x:Class="HRiS.AccountManagement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="clr-namespace:HRiS.Model"
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" GlowBrush="Black"
+      Title="Account Management" Height="721.03" ResizeMode="NoResize" Width="1280" ShowInTaskbar="True" WindowStartupLocation="CenterScreen" WindowTitleBrush="#FF001834" ShowMaxRestoreButton="False" ShowMinButton="False" Loaded="MetroWindow_Loaded" >
+    <Controls:MetroWindow.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="black" />
+            <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
+            <Setter Property="FontFamily" Value="arial"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="FontFamily" Value="arial"></Setter>
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF001834"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Arial"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" >
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFB0B0B0"/>
+                    <Setter Property="Foreground" Value="#FF19283F"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="FontFamily" Value="Arial"></Setter>
+
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <local:RowNumberConverter x:Key="rowNumberConverter"/>
+    </Controls:MetroWindow.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="170"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Controls:MetroAnimatedTabControl TabStripPlacement="Left" Margin="5" Name="tcAccountManagement" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" SelectionChanged="tcAccountManagement_SelectionChanged">
+            <TabItem Controls:ControlsHelper.HeaderFontSize="26" Header="Adminstator">
+                <DataGrid  BorderThickness="1"  x:Name="dgAdmin" AutoGenerateColumns="False" Margin="10"
+                      RowHeight="35" SelectionMode="Single" BorderBrush="Black" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" IsReadOnly="True">
+                    <!--<DataGrid.ContextMenu>
+                        <ContextMenu >
+                            <MenuItem Name="miChangeRole" Click="miChangeRole_Click" >
+                                <MenuItem.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Rectangle Fill="#FF001834" Width="14.6" Height="15" Margin="-15,0,10,0">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Visual="{StaticResource appbar_edit_box}" Stretch="Fill" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                            <TextBlock><Run Text="Change User Role."/></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </MenuItem.HeaderTemplate>
+                            </MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>-->
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width=".3*">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding
+                     Converter="{StaticResource rowNumberConverter}">
+                                    <Binding />
+                                    <Binding
+                        RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}" />
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Employee Number" Width="*" Binding="{Binding EmployeeNumber}"/>
+                        <DataGridTextColumn Header="Employee" Width="1.5*" Binding="{Binding EmployeeName}"/>
+                        <DataGridTextColumn Header="Department" Width="1.5*" Binding="{Binding Department}"/>
+                        <DataGridTextColumn Header="Employee Position" Width="*" Binding="{Binding EmployeePosition}"/>
+                        <DataGridTextColumn Header="Email" Width="2*" Binding="{Binding Email}"/>
+
+                        <DataGridTemplateColumn Width=".7*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button  Margin="1" Name="btnReset"  Background="Transparent" ToolTip="Reset Password" Click="btnReset_Click">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Rectangle Fill="Black" Width="15" Height="15" Margin="0,0,5,0">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Visual="{StaticResource appbar_refresh}" Stretch="Fill" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Controls:ControlsHelper.HeaderFontSize="26" Header="Employee">
+                <DataGrid  BorderThickness="1"  x:Name="dgEmployee" AutoGenerateColumns="False" Margin="10"
+                      RowHeight="35" SelectionMode="Single" BorderBrush="Black" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width=".3*">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding
+                     Converter="{StaticResource rowNumberConverter}">
+                                    <Binding />
+                                    <Binding
+                        RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}" />
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Employee Number" Width="*" Binding="{Binding EmployeeNumber}"/>
+                        <DataGridTextColumn Header="Employee" Width="1.5*" Binding="{Binding EmployeeName}"/>
+                        <DataGridTextColumn Header="Department" Width="1.5*" Binding="{Binding Department}"/>
+                        <DataGridTextColumn Header="Employee Position" Width="*" Binding="{Binding EmployeePosition}"/>
+                        <DataGridTextColumn Header="Email" Width="2*" Binding="{Binding Email}"/>
+
+                        <DataGridTemplateColumn Width=".7*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button  Margin="1" Name="btnReset"  Background="Transparent" ToolTip="Reset Password" Click="btnReset_Click">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Rectangle Fill="Black" Width="15" Height="15" Margin="0,0,5,0">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Visual="{StaticResource appbar_refresh}" Stretch="Fill" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Controls:ControlsHelper.HeaderFontSize="26" Header="Faculty">
+                <DataGrid  BorderThickness="1"  x:Name="dgFaculty" AutoGenerateColumns="False" Margin="10"
+                      RowHeight="35" SelectionMode="Single" BorderBrush="Black" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width=".3*">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding
+                     Converter="{StaticResource rowNumberConverter}">
+                                    <Binding />
+                                    <Binding
+                        RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}" />
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Employee Number" Width="*" Binding="{Binding EmployeeNumber}"/>
+                        <DataGridTextColumn Header="Employee" Width="1.5*" Binding="{Binding EmployeeName}"/>
+                        <DataGridTextColumn Header="Department" Width="1.5*" Binding="{Binding Department}"/>
+                        <DataGridTextColumn Header="Employee Position" Width="*" Binding="{Binding EmployeePosition}"/>
+                        <DataGridTextColumn Header="Email" Width="2*" Binding="{Binding Email}"/>
+
+                        <DataGridTemplateColumn Width=".7*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button  Margin="1" Name="btnReset"  Background="Transparent" ToolTip="Reset Password" Click="btnReset_Click">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Rectangle Fill="Black" Width="15" Height="15" Margin="0,0,5,0">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Visual="{StaticResource appbar_refresh}" Stretch="Fill" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Controls:ControlsHelper.HeaderFontSize="26" Header="Faculty Head">
+                <DataGrid  BorderThickness="1"  x:Name="dgFacultyHead" AutoGenerateColumns="False" Margin="10"
+                      RowHeight="35" SelectionMode="Single" BorderBrush="Black" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width=".3*">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding
+                     Converter="{StaticResource rowNumberConverter}">
+                                    <Binding />
+                                    <Binding
+                        RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}" />
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Employee Number" Width="*" Binding="{Binding EmployeeNumber}"/>
+                        <DataGridTextColumn Header="Employee" Width="1.5*" Binding="{Binding EmployeeName}"/>
+                        <DataGridTextColumn Header="Department" Width="1.5*" Binding="{Binding Department}"/>
+                        <DataGridTextColumn Header="Employee Position" Width="*" Binding="{Binding EmployeePosition}"/>
+                        <DataGridTextColumn Header="Email" Width="2*" Binding="{Binding Email}"/>
+
+                        <DataGridTemplateColumn Width=".7*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button  Margin="1" Name="btnReset"  Background="Transparent" ToolTip="Reset Password" Click="btnReset_Click">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Rectangle Fill="Black" Width="15" Height="15" Margin="0,0,5,0">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Visual="{StaticResource appbar_refresh}" Stretch="Fill" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Controls:ControlsHelper.HeaderFontSize="26" Header="Guidance">
+                <DataGrid  BorderThickness="1"  x:Name="dgGuidance" AutoGenerateColumns="False" Margin="10"
+                      RowHeight="35" SelectionMode="Single" BorderBrush="Black" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width=".3*">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding
+                     Converter="{StaticResource rowNumberConverter}">
+                                    <Binding />
+                                    <Binding
+                        RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}" />
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Employee Number" Width="*" Binding="{Binding EmployeeNumber}"/>
+                        <DataGridTextColumn Header="Employee" Width="1.5*" Binding="{Binding EmployeeName}"/>
+                        <DataGridTextColumn Header="Department" Width="1.5*" Binding="{Binding Department}"/>
+                        <DataGridTextColumn Header="Employee Position" Width="*" Binding="{Binding EmployeePosition}"/>
+                        <DataGridTextColumn Header="Email" Width="2*" Binding="{Binding Email}"/>
+
+                        <DataGridTemplateColumn Width=".7*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button  Margin="1" Name="btnReset"  Background="Transparent" ToolTip="Reset Password" Click="btnReset_Click">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Rectangle Fill="Black" Width="15" Height="15" Margin="0,0,5,0">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Visual="{StaticResource appbar_refresh}" Stretch="Fill" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Controls:ControlsHelper.HeaderFontSize="26" Header="HR">
+                <DataGrid  BorderThickness="1"  x:Name="dgHR" AutoGenerateColumns="False" Margin="10"
+                      RowHeight="35" SelectionMode="Single" BorderBrush="Black" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width=".3*">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding
+                     Converter="{StaticResource rowNumberConverter}">
+                                    <Binding />
+                                    <Binding
+                        RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}" />
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Employee Number" Width="*" Binding="{Binding EmployeeNumber}"/>
+                        <DataGridTextColumn Header="Employee" Width="1.5*" Binding="{Binding EmployeeName}"/>
+                        <DataGridTextColumn Header="Department" Width="1.5*" Binding="{Binding Department}"/>
+                        <DataGridTextColumn Header="Employee Position" Width="*" Binding="{Binding EmployeePosition}"/>
+                        <DataGridTextColumn Header="Email" Width="2*" Binding="{Binding Email}"/>
+
+                        <DataGridTemplateColumn Width=".7*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button  Margin="1" Name="btnReset"  Background="Transparent" ToolTip="Reset Password" Click="btnReset_Click">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Rectangle Fill="Black" Width="15" Height="15" Margin="0,0,5,0">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Visual="{StaticResource appbar_refresh}" Stretch="Fill" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Controls:ControlsHelper.HeaderFontSize="26" Header="Registrar">
+                <DataGrid  BorderThickness="1"  x:Name="dgRegistrar" AutoGenerateColumns="False" Margin="10"
+                      RowHeight="35" SelectionMode="Single" BorderBrush="Black" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="Black" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width=".3*">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding
+                     Converter="{StaticResource rowNumberConverter}">
+                                    <Binding />
+                                    <Binding
+                        RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}" />
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Employee Number" Width="*" Binding="{Binding EmployeeNumber}"/>
+                        <DataGridTextColumn Header="Employee" Width="1.5*" Binding="{Binding EmployeeName}"/>
+                        <DataGridTextColumn Header="Department" Width="1.5*" Binding="{Binding Department}"/>
+                        <DataGridTextColumn Header="Employee Position" Width="*" Binding="{Binding EmployeePosition}"/>
+                        <DataGridTextColumn Header="Email" Width="2*" Binding="{Binding Email}"/>
+
+                        <DataGridTemplateColumn Width=".7*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button  Margin="1" Name="btnReset"  Background="Transparent" ToolTip="Reset Password" Click="btnReset_Click">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Rectangle Fill="Black" Width="15" Height="15" Margin="0,0,5,0">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Visual="{StaticResource appbar_refresh}" Stretch="Fill" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </Controls:MetroAnimatedTabControl>
+
+        <Button Grid.Row="1" Grid.Column="0" Margin="5" Name="btnAdd" Click="btnAdd_Click">ADD NEW ACCOUNT</Button>
+    </Grid>
+
+</Controls:MetroWindow>
+

@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="letrandbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblstudinfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ACnumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IDnumber" Type="varchar" MaxLength="30" />
+          <Property Name="Course" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" />
+          <Property Name="BirthDate" Type="date" />
+          <Property Name="EduLevel" Type="varchar" MaxLength="20" />
+          <Property Name="GradeYear" Type="varchar" MaxLength="20" />
+          <Property Name="Section" Type="varchar" MaxLength="30" />
+          <Property Name="Address" Type="varchar" MaxLength="150" />
+          <Property Name="Guardian" Type="varchar" MaxLength="50" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="40" />
+          <Property Name="YearEnd" Type="date" />
+          <Property Name="CardStatus" Type="tinyint" />
+          <Property Name="Pic" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tbltimein">
+          <Key>
+            <PropertyRef Name="IDlog" />
+          </Key>
+          <Property Name="IDlog" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDnumber" Type="varchar" MaxLength="20" />
+          <Property Name="TimeIn" Type="datetime2" Precision="0" />
+          <Property Name="FolderName" Type="varchar" MaxLength="50" />
+          <Property Name="EntryCAp" Type="varbinary(max)" />
+          <Property Name="Status" Type="varchar" MaxLength="8" />
+        </EntityType>
+        <EntityContainer Name="letrandbModelStoreContainer">
+          <EntitySet Name="tblstudinfo" EntityType="Self.tblstudinfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbltimein" EntityType="Self.tbltimein" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="letrandbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblstudinfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ACnumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDnumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Course" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" />
+          <Property Name="EduLevel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="GradeYear" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Section" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Guardian" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="YearEnd" Type="DateTime" Precision="0" />
+          <Property Name="CardStatus" Type="Byte" />
+          <Property Name="Pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityContainer Name="TurnstileEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblstudinfoes" EntityType="Self.tblstudinfo" />
+          <EntitySet Name="tbltimeins" EntityType="letrandbModel.tbltimein" />
+        </EntityContainer>
+        <EntityType Name="tbltimein">
+          <Key>
+            <PropertyRef Name="IDlog" />
+          </Key>
+          <Property Name="IDlog" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDnumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TimeIn" Type="DateTime" Precision="0" />
+          <Property Name="FolderName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EntryCAp" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Status" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="letrandbModelStoreContainer" CdmEntityContainer="TurnstileEntities">
+          <EntitySetMapping Name="tblstudinfoes">
+            <EntityTypeMapping TypeName="letrandbModel.tblstudinfo">
+              <MappingFragment StoreEntitySet="tblstudinfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ACnumber" ColumnName="ACnumber" />
+                <ScalarProperty Name="IDnumber" ColumnName="IDnumber" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="EduLevel" ColumnName="EduLevel" />
+                <ScalarProperty Name="GradeYear" ColumnName="GradeYear" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Guardian" ColumnName="Guardian" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="YearEnd" ColumnName="YearEnd" />
+                <ScalarProperty Name="CardStatus" ColumnName="CardStatus" />
+                <ScalarProperty Name="Pic" ColumnName="Pic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbltimeins">
+            <EntityTypeMapping TypeName="letrandbModel.tbltimein">
+              <MappingFragment StoreEntitySet="tbltimein">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="EntryCAp" ColumnName="EntryCAp" />
+                <ScalarProperty Name="FolderName" ColumnName="FolderName" />
+                <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
+                <ScalarProperty Name="IDnumber" ColumnName="IDnumber" />
+                <ScalarProperty Name="IDlog" ColumnName="IDlog" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

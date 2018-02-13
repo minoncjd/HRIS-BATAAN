@@ -1,0 +1,87 @@
+﻿<Controls:MetroWindow x:Class="HRiS.UpdateAttendanceType"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" GlowBrush="Black"
+        Title="Update Attendance Type" Height="600" Width="550"  ShowInTaskbar="True" WindowStartupLocation="CenterScreen" WindowTitleBrush="#FF001834" ShowMaxRestoreButton="False" ShowMinButton="False" Loaded="MetroWindow_Loaded" Closing="MetroWindow_Closing">
+    <Controls:MetroWindow.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF001834"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Arial"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" >
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFB0B0B0"/>
+                    <Setter Property="Foreground" Value="#FF19283F"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="FontFamily" Value="Arial"></Setter>
+
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="LargeTileStyle" TargetType="Controls:Tile">
+            <Setter Property="Width" Value="300" />
+            <Setter Property="Height" Value="125" />
+            <Setter Property="TitleFontSize" Value="10" />
+            <Setter Property="Background" Value="#FF002753"/>
+        </Style>
+        <Style x:Key="SmallTileStyle" TargetType="Controls:Tile">
+            <Setter Property="Width" Value="125" />
+            <Setter Property="Height" Value="125" />
+            <Setter Property="TitleFontSize" Value="10" />
+            <Setter Property="Background" Value="#FF002753"/>
+        </Style>
+    </Controls:MetroWindow.Resources>
+    <Grid>
+        <GroupBox Background="#FF001834" BorderBrush="#FF001834">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".4*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" HorizontalContentAlignment="Right"  Grid.Row="1" Content="Employee Name:"/>
+                <Label Grid.Column="0" HorizontalContentAlignment="Right"  Grid.Row="2" Content="Date:"/>
+                <Label Grid.Column="0" HorizontalContentAlignment="Right"  Grid.Row="3" Content="Time In:"/>
+                <Label Grid.Column="0" HorizontalContentAlignment="Right"  Grid.Row="4" Content="Break Out:"/>
+                <Label Grid.Column="0" HorizontalContentAlignment="Right"  Grid.Row="5" Content="Break In:"/>
+                <Label Grid.Column="0" HorizontalContentAlignment="Right"  Grid.Row="6" Content="Time Out:"/>
+                <Label Grid.Column="0" HorizontalContentAlignment="Right"  Grid.Row="7" Content="Remark:"/>
+                <TextBox Grid.Column="1" Grid.Row="1" Margin="5,5,60,5" Controls:TextBoxHelper.Watermark="Employee Name" Name="txtEmployee" IsReadOnly="True"/>
+                <DatePicker Grid.Row="2" Grid.Column="2" Margin="5,5,60,5" IsEnabled="False" Name="dpDate"/>
+                <wpfTool:TimePicker  x:Name="timeIn" Grid.Column="1" Grid.Row="3" Margin="5,5,251,5" FontSize="16" StartTime="6:00"  />
+                <wpfTool:TimePicker x:Name="breakOut" Grid.Column="1" Grid.Row="4" Margin="5,5,251,5" FontSize="16" StartTime="6:00"  />
+                <wpfTool:TimePicker x:Name="breakIn" Grid.Column="1" Grid.Row="5" Margin="5,5,251,5" FontSize="16" StartTime="6:00"  />
+                <wpfTool:TimePicker x:Name="timeOut" Grid.Column="1" Grid.Row="6" Margin="5,5,251,5" FontSize="16" StartTime="6:00"  />
+                <TextBox Grid.Column="1" Grid.Row="7" Margin="5,5,60,5" Controls:TextBoxHelper.Watermark="Remark" Name="txtRemark"/>
+                <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Content="UPDATE EMPLOYEE ATTENDANCE" Name="btnUpdate" Margin="76,20,64,31" Grid.RowSpan="2" Click="btnUpdate_Click"/>
+
+            </Grid>
+
+        </GroupBox>
+    </Grid>
+</Controls:MetroWindow>
