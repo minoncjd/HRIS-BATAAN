@@ -186,7 +186,6 @@ namespace HRiS.Model
         public virtual DbSet<HRISOnlineJobApplicationStatu> HRISOnlineJobApplicationStatus { get; set; }
         public virtual DbSet<HRISOnlineJobApplicationWorkExperience> HRISOnlineJobApplicationWorkExperiences { get; set; }
         public virtual DbSet<HRISOvertime> HRISOvertimes { get; set; }
-        public virtual DbSet<HRISOvertimeDetail> HRISOvertimeDetails { get; set; }
         public virtual DbSet<HRISPostTraining> HRISPostTrainings { get; set; }
         public virtual DbSet<HRISSubstituteClass> HRISSubstituteClasses { get; set; }
         public virtual DbSet<HRISSubstituteDetail> HRISSubstituteDetails { get; set; }
@@ -279,6 +278,7 @@ namespace HRiS.Model
         public virtual DbSet<LeaveBalance> LeaveBalances { get; set; }
         public virtual DbSet<Leave> Leaves { get; set; }
         public virtual DbSet<EmployeeHistory> EmployeeHistories { get; set; }
+        public virtual DbSet<HRISOvertimeDetail> HRISOvertimeDetails { get; set; }
     
         public virtual ObjectResult<GetHRiSBirthdayCelebrants_Result> GetHRiSBirthdayCelebrants(Nullable<int> mONTH_KEY)
         {

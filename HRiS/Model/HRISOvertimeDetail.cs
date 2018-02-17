@@ -16,10 +16,11 @@ namespace HRiS.Model
     {
         public int EmployeeOvertimeDetailsID { get; set; }
         public Nullable<int> EmployeeOvertimeID { get; set; }
-        public System.DateTime OvertimeDateStart { get; set; }
-        public System.DateTime OvertimeDateEnd { get; set; }
+        public System.DateTime Date { get; set; }
         public string CalendarDay { get; set; }
         public string Reason { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
     
         public virtual HRISOvertime HRISOvertime { get; set; }
     }

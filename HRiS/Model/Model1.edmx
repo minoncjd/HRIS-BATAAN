@@ -2280,10 +2280,11 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.GraduateCurriculum' doe
           </Key>
           <Property Name="EmployeeOvertimeDetailsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeOvertimeID" Type="int" />
-          <Property Name="OvertimeDateStart" Type="datetime" Nullable="false" />
-          <Property Name="OvertimeDateEnd" Type="datetime" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="CalendarDay" Type="nvarchar" MaxLength="50" />
           <Property Name="Reason" Type="nvarchar" MaxLength="250" />
+          <Property Name="StartTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="EndTime" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="HRISPostTraining">
           <Key>
@@ -11569,19 +11570,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="DateFiled" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_HRISOvertime_Employee" FromRole="HRISOvertime" ToRole="Employee" />
-          <NavigationProperty Name="HRISOvertimeDetails" Relationship="Self.FK_HRISOvertimeDetails_HRISOvertime" FromRole="HRISOvertime" ToRole="HRISOvertimeDetails" />
-        </EntityType>
-        <EntityType Name="HRISOvertimeDetail">
-          <Key>
-            <PropertyRef Name="EmployeeOvertimeDetailsID" />
-          </Key>
-          <Property Name="EmployeeOvertimeDetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeOvertimeID" Type="Int32" />
-          <Property Name="OvertimeDateStart" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="OvertimeDateEnd" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CalendarDay" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Reason" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="HRISOvertime" Relationship="Self.FK_HRISOvertimeDetails_HRISOvertime" FromRole="HRISOvertimeDetails" ToRole="HRISOvertime" />
+          <NavigationProperty Name="HRISOvertimeDetails" Relationship="LetranIntegratedSystemModel.FK_HRISOvertimeDetails_HRISOvertime" FromRole="HRISOvertime" ToRole="HRISOvertimeDetail" />
         </EntityType>
         <EntityType Name="HRISPostTraining">
           <Key>
@@ -16129,18 +16118,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HRISOvertimeDetails_HRISOvertime">
-          <End Role="HRISOvertime" Type="Self.HRISOvertime" Multiplicity="0..1" />
-          <End Role="HRISOvertimeDetails" Type="Self.HRISOvertimeDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HRISOvertime">
-              <PropertyRef Name="EmployeeOvertimeID" />
-            </Principal>
-            <Dependent Role="HRISOvertimeDetails">
-              <PropertyRef Name="EmployeeOvertimeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_HRISSubstituteDetails_HRISSubstituteClass">
           <End Role="HRISSubstituteClass" Type="Self.HRISSubstituteClass" Multiplicity="1" />
           <End Role="HRISSubstituteDetails" Type="Self.HRISSubstituteDetail" Multiplicity="*" />
@@ -17057,7 +17034,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <EntitySet Name="HRISOnlineJobApplicationStatus" EntityType="Self.HRISOnlineJobApplicationStatu" />
           <EntitySet Name="HRISOnlineJobApplicationWorkExperiences" EntityType="Self.HRISOnlineJobApplicationWorkExperience" />
           <EntitySet Name="HRISOvertimes" EntityType="Self.HRISOvertime" />
-          <EntitySet Name="HRISOvertimeDetails" EntityType="Self.HRISOvertimeDetail" />
           <EntitySet Name="HRISPostTrainings" EntityType="Self.HRISPostTraining" />
           <EntitySet Name="HRISSubstituteClasses" EntityType="Self.HRISSubstituteClass" />
           <EntitySet Name="HRISSubstituteDetails" EntityType="Self.HRISSubstituteDetail" />
@@ -18158,10 +18134,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
             <End Role="HRISOnlineJobApplication" EntitySet="HRISOnlineJobApplications" />
             <End Role="HRISOnlineJobApplicationWorkExperience" EntitySet="HRISOnlineJobApplicationWorkExperiences" />
           </AssociationSet>
-          <AssociationSet Name="FK_HRISOvertimeDetails_HRISOvertime" Association="Self.FK_HRISOvertimeDetails_HRISOvertime">
-            <End Role="HRISOvertime" EntitySet="HRISOvertimes" />
-            <End Role="HRISOvertimeDetails" EntitySet="HRISOvertimeDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_HRISSubstituteDetails_HRISSubstituteClass" Association="Self.FK_HRISSubstituteDetails_HRISSubstituteClass">
             <End Role="HRISSubstituteClass" EntitySet="HRISSubstituteClasses" />
             <End Role="HRISSubstituteDetails" EntitySet="HRISSubstituteDetails" />
@@ -18523,6 +18495,11 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
             <Parameter Name="endDate" Mode="In" Type="String" />
             <Parameter Name="bioid" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="HRISOvertimeDetails" EntityType="LetranIntegratedSystemModel.HRISOvertimeDetail" />
+          <AssociationSet Name="FK_HRISOvertimeDetails_HRISOvertime" Association="LetranIntegratedSystemModel.FK_HRISOvertimeDetails_HRISOvertime">
+            <End Role="HRISOvertime" EntitySet="HRISOvertimes" />
+            <End Role="HRISOvertimeDetail" EntitySet="HRISOvertimeDetails" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="GetHRiSBirthdayCelebrants_Result">
           <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="102" />
@@ -19008,6 +18985,31 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <Property Type="String" Name="Late" Nullable="true" MaxLength="5" />
           <Property Type="String" Name="UnderTime" Nullable="true" MaxLength="5" />
         </ComplexType>
+        <EntityType Name="HRISOvertimeDetail">
+          <Key>
+            <PropertyRef Name="EmployeeOvertimeDetailsID" />
+          </Key>
+          <Property Name="EmployeeOvertimeDetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeOvertimeID" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CalendarDay" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Reason" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HRISOvertime" Relationship="LetranIntegratedSystemModel.FK_HRISOvertimeDetails_HRISOvertime" FromRole="HRISOvertimeDetail" ToRole="HRISOvertime" />
+          <Property Name="StartTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EndTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_HRISOvertimeDetails_HRISOvertime">
+          <End Type="LetranIntegratedSystemModel.HRISOvertime" Role="HRISOvertime" Multiplicity="0..1" />
+          <End Type="LetranIntegratedSystemModel.HRISOvertimeDetail" Role="HRISOvertimeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HRISOvertime">
+              <PropertyRef Name="EmployeeOvertimeID" />
+            </Principal>
+            <Dependent Role="HRISOvertimeDetail">
+              <PropertyRef Name="EmployeeOvertimeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -21201,18 +21203,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HRISOvertimeDetails">
-            <EntityTypeMapping TypeName="LetranIntegratedSystemModel.HRISOvertimeDetail">
-              <MappingFragment StoreEntitySet="HRISOvertimeDetails">
-                <ScalarProperty Name="EmployeeOvertimeDetailsID" ColumnName="EmployeeOvertimeDetailsID" />
-                <ScalarProperty Name="EmployeeOvertimeID" ColumnName="EmployeeOvertimeID" />
-                <ScalarProperty Name="OvertimeDateStart" ColumnName="OvertimeDateStart" />
-                <ScalarProperty Name="OvertimeDateEnd" ColumnName="OvertimeDateEnd" />
-                <ScalarProperty Name="CalendarDay" ColumnName="CalendarDay" />
-                <ScalarProperty Name="Reason" ColumnName="Reason" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="HRISPostTrainings">
             <EntityTypeMapping TypeName="LetranIntegratedSystemModel.HRISPostTraining">
               <MappingFragment StoreEntitySet="HRISPostTraining">
@@ -22886,6 +22876,19 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="HRISOvertimeDetails">
+            <EntityTypeMapping TypeName="LetranIntegratedSystemModel.HRISOvertimeDetail">
+              <MappingFragment StoreEntitySet="HRISOvertimeDetails">
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="CalendarDay" ColumnName="CalendarDay" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EmployeeOvertimeID" ColumnName="EmployeeOvertimeID" />
+                <ScalarProperty Name="EmployeeOvertimeDetailsID" ColumnName="EmployeeOvertimeDetailsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -22907,6 +22910,592 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
+    <Diagrams>
+      <Diagram DiagramId="630bd5bd44094346a6d03cc8ad56f688" Name="Diagram1">
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AcademicArea" Width="1.5" PointX="12.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AcademicAreaHead" Width="1.5" PointX="15.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AcademicDepartment" Width="1.5" PointX="0.75" PointY="171.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AcademicDepartmentHead" Width="1.5" PointX="17.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AccountingBook" Width="1.5" PointX="12.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Action" Width="1.5" PointX="15.5" PointY="167.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Adjustment" Width="1.5" PointX="23.75" PointY="211" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AdjustmentDetailFee" Width="1.5" PointX="24.75" PointY="171.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AdjustmentDetail" Width="1.5" PointX="21.5" PointY="165.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AdmissionExamDate" Width="1.5" PointX="3" PointY="177.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AdmissionExamResult" Width="1.5" PointX="5.25" PointY="177" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AdmissionExamResultType" Width="1.5" PointX="3" PointY="159.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AdmissionMarketingEffortsCareerFair" Width="1.5" PointX="10" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AdmissionMarketingEffortsCareerTalk" Width="1.5" PointX="10" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AdmissionMarketingEffortsMaterial" Width="1.5" PointX="10" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AdmissionMarketingEffortsSchool" Width="1.5" PointX="7.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Aircon" Width="1.5" PointX="21.5" PointY="187.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Annoucement_Table" Width="1.5" PointX="17.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ApplicationEncourageDetail" Width="1.5" PointX="16.5" PointY="171.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ApplicationEncourageQuestion" Width="1.5" PointX="14.25" PointY="160.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ApplicationPlanDetail" Width="1.5" PointX="10.5" PointY="170.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ApplicationPlanQuestion" Width="1.5" PointX="8.25" PointY="166.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ApplicationSurveyDetail" Width="1.5" PointX="10.5" PointY="184.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ApplicationSurveyQuestion" Width="1.5" PointX="8.25" PointY="185.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.APVoucher" Width="1.5" PointX="28.75" PointY="195.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.APVoucherDetail" Width="1.5" PointX="11" PointY="165.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Area" Width="1.5" PointX="1.5" PointY="187.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ARMessage" Width="1.5" PointX="20.75" PointY="243.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AspNetRole" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AspNetUserClaim" Width="1.5" PointX="10" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AspNetUserLogin" Width="1.5" PointX="10" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AspNetUserRole" Width="1.5" PointX="13" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AspNetUser" Width="1.5" PointX="7.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Assessment" Width="1.5" PointX="21.5" PointY="195.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AttendanceElementary" Width="1.5" PointX="15.5" PointY="228.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AttendanceKinder" Width="1.5" PointX="18.5" PointY="227.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.AttendanceSH" Width="1.5" PointX="21.5" PointY="221.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.BackAccount" Width="1.5" PointX="28.75" PointY="221.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.BackAccountPayment" Width="1.5" PointX="31" PointY="223.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.BalanceDueOverride" Width="1.5" PointX="10.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Bank" Width="1.5" PointX="22" PointY="155.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Bank_Account" Width="1.5" PointX="24.25" PointY="155.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.BankTransaction" Width="1.5" PointX="29.5" PointY="173.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.BasicEducationOther" Width="1.5" PointX="21.25" PointY="227.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.bdorefno" Width="1.5" PointX="17.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CancelledOR" Width="1.5" PointX="0.75" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CashierDCR" Width="1.5" PointX="14.75" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CashierDCRDetail" Width="1.5" PointX="17" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CashierDCRVoid" Width="1.5" PointX="17" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CategoryNewsTable" Width="1.5" PointX="2.75" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CDSVoucher" Width="1.5" PointX="26.5" PointY="194.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CDSVoucherDetail" Width="1.5" PointX="19.25" PointY="189" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ChangeOfGrade" Width="1.5" PointX="19.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ChangeOfGradeDoctoral" Width="1.5" PointX="16.25" PointY="216.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ChangeOfGradeMasteral" Width="1.5" PointX="21.25" PointY="216.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ChartOfAccount" Width="1.5" PointX="17" PointY="190.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.City" Width="1.5" PointX="19.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ClubJH" Width="1.5" PointX="19.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CoaBank" Width="1.5" PointX="27.25" PointY="170.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.COAccountType" Width="1.5" PointX="19.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CounselingRecord" Width="1.5" PointX="21.5" PointY="231.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CreditCardPayment" Width="1.5" PointX="24.25" PointY="150.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CRSVoucher" Width="1.5" PointX="17" PointY="150.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CRSVoucherDetail" Width="1.5" PointX="27.25" PointY="173.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Curriculum" Width="1.5" PointX="3" PointY="171.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Curriculum_Subject" Width="1.5" PointX="16.25" PointY="174.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CustomerSurvey" Width="1.5" PointX="0.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CustomerSurveyDetail" Width="1.5" PointX="3" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CustomerSurveyQuestion" Width="1.5" PointX="0.75" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Discount" Width="1.5" PointX="21.5" PointY="235.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.DiscountCategory" Width="1.5" PointX="0.75" PointY="181.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.DiscountType" Width="1.5" PointX="3" PointY="180.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.DMCM" Width="1.5" PointX="23.5" PointY="215.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EducationalLevel" Width="1.5" PointX="0.75" PointY="176.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EducationalLevel4" Width="1.5" PointX="19.75" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Employee" Width="1.5" PointX="3.75" PointY="187.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmployeeAnnouncement" Width="1.5" PointX="19.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmployeeDepartment" Width="1.5" PointX="8" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmployeeDesignation" Width="1.5" PointX="1.5" PointY="193.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmployeeDivision" Width="1.5" PointX="5.75" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmployeeEducation" Width="1.5" PointX="6" PointY="191.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmployeeFeedback" Width="1.5" PointX="6" PointY="188.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmployeeJob" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmployeeLevel" Width="1.5" PointX="1.5" PointY="196" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmployeePosition" Width="1.5" PointX="1.5" PointY="198.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmployeeRank" Width="1.5" PointX="1.5" PointY="202" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmployeeSeminar" Width="1.5" PointX="6" PointY="197.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmployeeStatu" Width="1.5" PointX="1.5" PointY="204.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmployeeWork" Width="1.5" PointX="9" PointY="197.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EnlistmentDate" Width="1.5" PointX="13.25" PointY="186.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EnlistmentSystemParameter" Width="1.5" PointX="6" PointY="172.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Event" Width="1.5" PointX="15" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EventSubject" Width="1.5" PointX="12.75" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EventType" Width="1.5" PointX="12.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.FacilityType" Width="1.5" PointX="14.75" PointY="156.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Faculty" Width="1.5" PointX="6" PointY="180.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.FacultyArea" Width="1.5" PointX="1.5" PointY="207.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.FacultyLoading" Width="1.5" PointX="22.25" PointY="181.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.FacultyLoadingDisclosure" Width="1.5" PointX="24.5" PointY="182.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Fee" Width="1.5" PointX="19.25" PointY="179.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GJVoucher" Width="1.5" PointX="17" PointY="146.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GJVoucherDetail" Width="1.5" PointX="19.25" PointY="146.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GLBeginningBalance" Width="1.5" PointX="26.25" PointY="190.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GLYear" Width="1.5" PointX="25" PointY="160.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GradeCollege" Width="1.5" PointX="27.25" PointY="227.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GradeCredit" Width="1.5" PointX="19.25" PointY="234.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GradeDoctoral" Width="1.5" PointX="27.25" PointY="232.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GradeElementary" Width="1.5" PointX="24.25" PointY="222" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GradeElemOld" Width="1.5" PointX="10.75" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GradeJH" Width="1.5" PointX="24.25" PointY="229" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GradeKinder" Width="1.5" PointX="26.25" PointY="213.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GradeKinderDetail" Width="1.5" PointX="28.5" PointY="211.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GradeKinderQuestion" Width="1.5" PointX="20" PointY="162.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GradeKinderQuestionSubject" Width="1.5" PointX="22.25" PointY="172.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GradeKinderRemark" Width="1.5" PointX="18.5" PointY="216.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GradeMasteral" Width="1.5" PointX="21.25" PointY="211.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GradeSH" Width="1.5" PointX="16.25" PointY="232.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GraduationApplication" Width="1.5" PointX="21.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceEvent" Width="1.5" PointX="16.25" PointY="288" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceImportantPerson" Width="1.5" PointX="15.5" PointY="247.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceOtherPeople" Width="1.5" PointX="15.5" PointY="250.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidancePersonalDescription" Width="1.5" PointX="15.5" PointY="253.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceProblemChecklist" Width="1.5" PointX="15.5" PointY="256.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceQuestionType" Width="1.5" PointX="22" PointY="205.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceReferral" Width="1.5" PointX="15.5" PointY="267.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceReferralReason" Width="1.5" PointX="18.5" PointY="273.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceReferralReasonAnswer" Width="1.5" PointX="20.75" PointY="267.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceSeminar" Width="1.5" PointX="16.25" PointY="259.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceSibling" Width="1.5" PointX="15.5" PointY="263.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceStudentEvent" Width="1.5" PointX="18.5" PointY="267" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceStudentInfo" Width="1.5" PointX="15.5" PointY="272" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceStudentSeminar" Width="1.5" PointX="18.5" PointY="264" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceStudentTest" Width="1.5" PointX="26.5" PointY="222.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceSurvey" Width="1.5" PointX="24.25" PointY="202.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceSurveyAnswer" Width="1.5" PointX="26.5" PointY="217.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceSurveyAnswerConcern" Width="1.5" PointX="28.75" PointY="218.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceSurveyAnswerDetail" Width="1.5" PointX="28.75" PointY="215.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceSurveyDetail" Width="1.5" PointX="26.5" PointY="203.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceSurveyQuestion" Width="1.5" PointX="24.25" PointY="204.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GuidanceTest" Width="1.5" PointX="24.25" PointY="236" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Holiday" Width="1.5" PointX="2.75" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISActivityType" Width="1.5" PointX="6.75" PointY="215.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISApplicationCertificateEmployment" Width="1.5" PointX="3" PointY="155.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISBiometricsUser" Width="1.5" PointX="4.75" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISChangeVacationLeave" Width="1.5" PointX="6" PointY="203.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISChangeVacationLeaveDetail" Width="1.5" PointX="8.25" PointY="204.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISLeaveCancellation" Width="1.5" PointX="14.25" PointY="201.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISMakeUpClass" Width="1.5" PointX="22.25" PointY="158.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISMakeUpClassDetail" Width="1.5" PointX="24.5" PointY="167" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISNoticeofAbsence" Width="1.5" PointX="6" PointY="205.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISOffCampusActivity" Width="1.5" PointX="6" PointY="209.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISOnlineJobApplication" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISOnlineJobApplicationEducation" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISOnlineJobApplicationLicens" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISOnlineJobApplicationSeminar" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISOnlineJobApplicationStatu" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISOnlineJobApplicationWorkExperience" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISOvertime" Width="1.5" PointX="6" PointY="212.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISPostTraining" Width="1.5" PointX="9" PointY="192" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISSubstituteClass" Width="1.5" PointX="22.25" PointY="162.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISSubstituteDetail" Width="1.5" PointX="24.5" PointY="163.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Institutional" Width="1.5" PointX="6.75" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.JournalVoucher" Width="1.5" PointX="15" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.JVDetail" Width="1.5" PointX="17.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Lab" Width="1.5" PointX="24.5" PointY="178.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.LeaveApprovedStatu" Width="1.5" PointX="21.75" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.LeaveCredit" Width="1.5" PointX="21.75" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.LeaveType" Width="1.5" PointX="9.75" PointY="208.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Log" Width="1.5" PointX="21.75" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Miscellaneou" Width="1.5" PointX="6" PointY="168.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ORSery" Width="1.5" PointX="23.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.OtherClient" Width="1.5" PointX="13.25" PointY="223.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Others" Width="1.5" PointX="24.5" PointY="175" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Paycode" Width="1.5" PointX="18.5" PointY="202.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Payee" Width="1.5" PointX="14.75" PointY="196.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Payment" Width="1.5" PointX="15.5" PointY="221.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.PaymentDetail" Width="1.5" PointX="20.75" PointY="208" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Paymode" Width="1.5" PointX="3" PointY="162.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.PaySchedule" Width="1.5" PointX="6" PointY="184.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Period" Width="1.5" PointX="11" PointY="173.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Permit" Width="1.5" PointX="19.25" PointY="172.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.PermitParameter" Width="1.5" PointX="16.25" PointY="184.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.PermitType" Width="1.5" PointX="17" PointY="187.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.PreReq" Width="1.5" PointX="19.25" PointY="175.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Proficiency" Width="1.5" PointX="15.5" PointY="163.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Progam" Width="1.5" PointX="3" PointY="166.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ProgamCurriculum" Width="1.5" PointX="8.25" PointY="169.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ProjectedStat" Width="1.5" PointX="19.25" PointY="184.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Promissory" Width="1.5" PointX="20.75" PointY="240.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Queue" Width="1.5" PointX="23.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Region" Width="1.5" PointX="1.5" PointY="190.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.RegistrarLog" Width="1.5" PointX="15.5" PointY="284.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Requirement" Width="1.5" PointX="16.25" PointY="244.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Room" Width="1.5" PointX="17" PointY="155.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Schedule" Width="1.5" PointX="19.25" PointY="165.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.ScheduleStatu" Width="1.5" PointX="17" PointY="159.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.SchoolDaysElementary" Width="1.5" PointX="13.25" PointY="236" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.SchoolDaysKinder" Width="1.5" PointX="13.25" PointY="239" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.SchoolYear" Width="1.5" PointX="14.75" PointY="191.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Section" Width="1.5" PointX="13.25" PointY="169.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.SickLeaveType" Width="1.5" PointX="23.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Signatory" Width="1.5" PointX="23.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.sisItem" Width="1.5" PointX="23.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.sisSH" Width="1.5" PointX="23.75" PointY="190.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Student" Width="1.5" PointX="13.25" PointY="257.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Student_Curriculum" Width="1.5" PointX="18.5" PointY="220.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Student_Requirement" Width="1.5" PointX="18.5" PointY="269.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Student_Section" Width="1.5" PointX="18.5" PointY="207.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.StudentApplication" Width="1.5" PointX="8.25" PointY="172.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.StudentClearance" Width="1.5" PointX="15.5" PointY="290.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.StudentCurriculumStatu" Width="1.5" PointX="23.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.StudentDemographic" Width="1.5" PointX="15.5" PointY="298.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.StudentMaxUnit" Width="1.5" PointX="15.5" PointY="213.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.StudentSchedule" Width="1.5" PointX="21.5" PointY="190.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.StudentStatu" Width="1.5" PointX="16.25" PointY="210.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.StudentWithQualifying" Width="1.5" PointX="18.5" PointY="224.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.SubChartOfAccount" Width="1.5" PointX="17" PointY="196.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Subject" Width="1.5" PointX="14" PointY="173.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.SubjectElective" Width="1.5" PointX="16.25" PointY="178.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.SubjectEquivalent" Width="1.5" PointX="16.25" PointY="181.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Supplemental" Width="1.5" PointX="27.5" PointY="178.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.SystemParameter" Width="1.5" PointX="22.25" PointY="175.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Technician" Width="1.5" PointX="23.75" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.TechnicianServiceRequisition" Width="1.5" PointX="23.75" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Transaction" Width="1.5" PointX="27.25" PointY="160" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.TShirt" Width="1.5" PointX="0.75" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Tuition" Width="1.5" PointX="5.25" PointY="164.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Variou" Width="1.5" PointX="24.5" PointY="186" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Zipcode" Width="1.5" PointX="1.5" PointY="210.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.back2016" Width="1.5" PointX="2.75" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.BackAccountCopy" Width="1.5" PointX="4.75" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.backaccounth" Width="1.5" PointX="6.75" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.backelem" Width="1.5" PointX="16.75" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.backpayment20161stsem" Width="1.5" PointX="18.75" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.coaold" Width="1.5" PointX="25.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.cocurr2015" Width="1.5" PointX="25.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.cocurr2016" Width="1.5" PointX="25.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.CollegeCurriculum" Width="1.5" PointX="12.75" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.GraduateCurriculum" Width="1.5" PointX="25.75" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HSClubMember" Width="1.5" PointX="25.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.intranet_leave_tran" Width="1.5" PointX="20.75" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.SeniorHighCurriculum" Width="1.5" PointX="25.75" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISEmployeeSchedule" Width="1.5" PointX="18" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISShift" Width="1.5" PointX="15.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.BiometricsLogData" Width="1.5" PointX="8.75" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmploymentType" Width="1.5" PointX="27.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISEmployeeAbsent" Width="1.5" PointX="27.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.LeaveBalance" Width="1.5" PointX="6" PointY="220.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.Leave" Width="1.5" PointX="12" PointY="195.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmployeeHistory" Width="1.5" PointX="11" PointY="187.625" IsExpanded="true" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AcademicDepartment_AcaDeptID_APVoucherDetails_AcaDeptID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CDSVoucherDetails_AcademicDepartment" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GLBeginningBalance_AcademicDepartment" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Curriculum_AcademicDepartment" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_DiscountCategory_AcademicDepartment" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_DMCM_AcademicDepartment" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Employee_AcademicDepartment1" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_FacultyLoading_AcademicDepartment" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISApplicationCertificateEmployment_AcademicDepartment" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AccountingBook_AccountingBookID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Action_Section" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Adjustment_PaymentID_Payment_PaymentID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Adjustment_StudentSectionID_Student_Section_Student_SectionID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AdjustmentDetails_Adjustment" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AdjustmentDetailFees_AdjustmentDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AdjustmentDetailFees_Fee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AdjustmentDetails_Schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AdmissionExamDate_EducationalLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AdmissionExamResult_AdmissionExamDate" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_StudentApplication_AdmissionExamDate" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AdmissionExamResult_AdmissionExamResultType" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AdmissionExamResult_StudentApplication" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AdmissionMarketingEffortsCareerFair_AdmissionMarketingEffortsSchool" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AdmissionMarketingEffortsCareerTalk_AdmissionMarketingEffortsSchool" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AdmissionMarketingEffortsMaterials_AdmissionMarketingEffortsSchool" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Aircon_Fee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ApplicationEncourageDetails_ApplicationEncourageDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ApplicationEncourageDetails_StudentApplication" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ApplicationPlanDetails_ApplicationPlanQuestion" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ApplicationPlanDetails_StudentApplication" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ApplicationSurveyDetail_ApplicationSurveyQuestion" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ApplicationSurveyDetail_StudentApplication" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_APVoucher_APVoucherID_APVoucherDetails_APVoucherID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CDSVoucher_APVoucher" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Payee_PayeeID_APVoucher_PayeeID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Area_Area" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Employee_Area_Residential" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Employee_Area1_Provincial" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Zipcode_Area" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ARMessage_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ARMessage_Student_Section" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Assessment_Fee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Assessment_Student_Section" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AttendanceElementary_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AttendanceElementary_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AttendaceKinder_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AttendaceKinder_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AttendanceSHS_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_AttendanceSHS_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_BackAccount_DMCM" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_BackAccount_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_BackAccount_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_BackAccount_Period1" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_BackAccount_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_BackAccount_Student_Section" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_BackAccountPayment_BackAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_BackAccountPayment_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Bank_Account_Bank" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CoaBank_Bank" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CreditCardPayment_Bank" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CDSVoucher_Bank_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_BankTransaction_Bank_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_BankTransaction_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_BankTransaction_Transaction" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_BasicEducationOther_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_BasicEducationOther_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_BasicEducationOther_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CashierDCRDetails_CashierDCR" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CashierDCRVoid_CashierDCR" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CDSVoucher_CDSVoucherDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CDSVoucherDetails_CDSVoucher" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CDSVoucher_Payee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CDSVoucher_SchoolYear" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CDSVoucherDetails_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CDSVoucherDetails_SubChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ChangeOfGradeDoctoral_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ChangeOfGradeDoctoral_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ChangeOfGradeDoctoral_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ChangeOfGradeMasteral_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ChangeOfGradeMasteral_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ChangeOfGradeMasteral_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GLBeginningBalance_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CoaBank_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_DiscountCategory_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_DiscountType_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_DiscountType_ChartOfAccounts1" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_DMCM_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Fee_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Paycode_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_SubChartOfAccounts_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CounselingRecord_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CounselingRecord_Student1" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CRSVoucher_SchoolYear" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CRSVoucher_CRSVoucher" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CRSVoucherDetails_CRSVoucher" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Curriculum_Subject_Curriculum" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Section_Curriculum" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Curriculum_EducationalLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Curriculum_PreReq" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Payment_Curriculum" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ProgamCurriculum_Curriculum" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Student_Curriculum_Curriculum" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Student_Section_Curriculum" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_StudentWithQualifying_Curriculum" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Tuition_Curriculum" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Curriculum_Subject_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CustomerSurveyDetail_CustomerSurvey" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CustomerSurveyDetail_CustomerSurveyQuestion" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Discount_DiscountType" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Discount_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Discount_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Discount_DiscountCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_DiscountCategory_SubChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_DiscountType_DiscountCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_DiscountType_DiscountCategory1" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_DiscountType_EducationalLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_DiscountType_SubChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_DMCM_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_DMCM_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_DMCM_SubChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_EnlistmentSystemParameter_EducationalLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Faculty_EducationalLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Miscellaneous_EducationalLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Payment_EducationalLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_PaySchedule_EducationalLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Period_EducationalLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_PermitParameter_EducationalLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ProjectedStat_EducationalLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_StudentApplication_EducationalLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Subject_EducationalLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Supplemental_EducationalLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_SystemParameters_EducationalLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Employee_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Employee_EmployeeDesignation" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Employee_EmployeeLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Employee_EmployeePosition" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Employee_EmployeeStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Employee_FacultyArea" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Employee_Zipcode_Provincial" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Employee_Zipcode1_Residential" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_EmployeeEducation_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_EmployeeFeedback_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_EmployeeSeminar_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_EmployeeWork_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Faculty_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceReferral_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceReferral_Employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISChangeVacationLeave_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISMakeUpClass_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISNoticeofAbsence_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISOffCampusActivity_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISOvertime_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISPostTraining_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISSubstituteClass_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISSubstituteClass_Employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_EmployeeDepartment_EmployeeDivision" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISOnlineJobApplication_EmployeeJob" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_EmployeePosition_EmployeeRank" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_EmployeeWork_EmployeeStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_EnlistmentDate_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_EnlistmentSystemParameter_EnlistmentSystemParameter" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_EnlistmentSystemParameter_Progam" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Event_EventSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Event_EventType" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Room_FacilityType" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Schedule_Faculty" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_FacultyLoading_Faculty" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeCollege_Faculty" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeDoctoral_Faculty" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeKinder_Faculty" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeMasteral_Faculty" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Subject_FacultyArea" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_FacultyLoadingDisclosureRequirement_FacultyLoading" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_FacultyLoading_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Fee_SchoolYear" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Lab_Fee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Others_Fee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Various_Fee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Fee_SubChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Miscellaneous_Fee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Supplemental_Fee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Tuition_Fee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GJVoucherDetails_GJVoucher" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GJVoucher_SchoolYear" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GLBeginningBalance_SchoolYear" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GLBeginningBalance_SubChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Transaction_GLYear" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeCollege_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeCollege_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeCollege_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeCredit_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeCredit_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeDoctoral_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeDoctoral_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeDoctoral_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeElementary_GradeElementary" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeElementary_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeElementary_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeJHS_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeJHS_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeJHS_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeKinder_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeKinder_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeKinder_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeKinderDetails_GradeKinder" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeKinderDetails_GradeKinderQuestion" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeKinderQuestionSubject_GradeKinderQuestionSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeKinderQuestionSubject_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeKinderRemark_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeKinderRemark_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeMasteral_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeMasteral_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeMasteral_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeSHS_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeSHS_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GradeSHS_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceStudentEvent_GuidanceEvent" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceImportantPerson_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceOtherPeople_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidancePersonalDescription_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceProblemChecklist_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceSurveyQuestion_GuidanceQuestionType" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceReferral_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceReferralReasonAnswer_GuidanceReferral" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceReferralReasonAnswer_GuidanceReferralReason" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceStudentSeminar_GuidanceSeminar" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Sibling_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceStudentEvent_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceStudentInfo_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceStudentSeminar_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceStudentTest_GuidanceTest" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceStudentTest_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceStudentTest_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceSurveyDetails_GuidanceSurvey" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceSurveyAnswer_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceSurveyAnswer_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceSurveyAnswerConcern_GuidanceSurveyAnswer" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceSurveyAnswerDetail_GuidanceSurveyAnswer" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceSurveyAnswerDetail_GuidanceSurveyDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_GuidanceSurveyDetails_GuidanceSurveyQuestion" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISPostTraining_HRISActivityType" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISChangeVacationLeaveDetails_HRISChangeVacationLeave" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISMakeUpClassDetails_HRISMakeUpClass" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISMakeUpClassDetails_Room" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISMakeUpClassDetails_Schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISOnlineJobApplication_HRISOnlineJobApplicationStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISOnlineJobApplicationEducation_HRISOnlineJobApplication" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISOnlineJobApplicationLicenses_HRISOnlineJobApplication" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISOnlineJobApplicationSeminar_HRISOnlineJobApplication" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISOnlineJobApplicationWorkExperience_HRISOnlineJobApplication" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISSubstituteDetails_HRISSubstituteClass" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISSubstituteDetails_Schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_JVDetails_JVID_JournalVoucher_JVID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Lab_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Payment_OtherClient" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Others_Section" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Others_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Paycode_SubChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_PaymentDetails_Paycode" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_PaySchedule_Paycode" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_SubChartOfAccounts_Payee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Payment_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Payment_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_PaymentDetails_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_PaymentDetails_Student_Section" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Tuition_Paymode" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_PaySchedule_Paymode" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Student_Section_Paymode" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_PaySchedule_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Section_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Period_SchoolYear" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Permit_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_PermitParameter_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ProjectedStat_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_SchoolDaysElementar_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_SchoolDaysKinderID_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Student_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_StudentApplication_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_StudentMaxUnit_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_SystemParameters_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Permit_PermitType" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_PreReq_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_PreReq_Subject1" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Proficiency_Section" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ProgamCurriculum_Progam" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ProjectedStat_Progam" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Tuition_Progam" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Various_Progam" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Promissory_Student_Section" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_RegistrarLogs_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Student_Requirement_Requirement" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Schedule_Room" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Schedule_Section" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Schedule_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_StudentSchedule_Schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Schedule_ScheduleStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Schedule_Section2" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Student_Section_Section" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_sisSHS_StudentSchedule" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Student_Requirement_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Student_Curriculum_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Student_Section_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_StudentClearance_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_StudentDemographic_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_StudentMaxUnit_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_StudentWithQualifying_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Student_Section_StudentStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_StudentSchedule_Student_Section" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Subject_Subject_Component" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_SubjectElective_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_SubjectElective_Subject1" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_SubjectEquivalent_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_SubjectEquivalent_SubjectEquivalent" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.HRISEmployeeSchedule_ShiftCode_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_ChartOfAccounts_SchoolYear" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_LeaveBalance_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Leave_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISChangeVacationLeaveDetails_Leave" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISLeaveCancellation_Leave" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_Leave_LeaveType" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_EmployeeHistory_AcademicDepartment" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_EmployeeHistory_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_EmployeeHistory_EmployeePosition" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_APVoucher_CDSVoucher" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CRSVoucherDetails_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_CRSVoucherDetails_SubChartOfAccounts" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISOvertimeDetail" Width="1.5" PointX="8.25" PointY="212.375" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISOvertimeDetails_HRISOvertime" />
+      </Diagram>
+    </Diagrams>
   </Designer>
 </edmx:Edmx>

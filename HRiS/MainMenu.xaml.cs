@@ -502,6 +502,14 @@ namespace HRiS
             this.Cursor = Cursors.Arrow;
         }
 
+        private void TileOT_Click(object sender, RoutedEventArgs e)
+        {
+            this.Cursor = Cursors.Wait;
+            AddEmployeeOvertime x = new AddEmployeeOvertime();
+            x.ShowDialog();
+            this.Cursor = Cursors.Arrow;
+        }
+
 
 
         //private void HamburgerMenuControl_OnItemClick(object sender, ItemClickEventArgs e)

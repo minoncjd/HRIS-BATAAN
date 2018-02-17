@@ -197,6 +197,9 @@
     <Compile Include="AddEmployeeLeave.xaml.cs">
       <DependentUpon>AddEmployeeLeave.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddEmployeeOvertime.xaml.cs">
+      <DependentUpon>AddEmployeeOvertime.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddEmployeeSchedule.xaml.cs">
       <DependentUpon>AddEmployeeSchedule.xaml</DependentUpon>
     </Compile>
@@ -1484,6 +1487,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddEmployeeLeave.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddEmployeeOvertime.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
