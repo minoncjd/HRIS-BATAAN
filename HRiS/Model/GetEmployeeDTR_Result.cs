@@ -13,7 +13,7 @@ namespace HRiS.Model
     
     public partial class GetEmployeeDTR_Result
     {
-        public Nullable<System.DateTime> DATE { get; set; }
+        public System.DateTime DATE { get; set; }
         public string DAY { get; set; }
         public string EmployeeNo { get; set; }
         public string Name { get; set; }

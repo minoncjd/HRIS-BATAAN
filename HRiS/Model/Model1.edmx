@@ -18490,16 +18490,16 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
             <End Role="SubChartOfAccount" EntitySet="SubChartOfAccounts" />
             <End Role="CRSVoucherDetail" EntitySet="CRSVoucherDetails" />
           </AssociationSet>
-          <FunctionImport Name="GetEmployeeDTR" ReturnType="Collection(LetranIntegratedSystemModel.GetEmployeeDTR_Result)">
-            <Parameter Name="startDate" Mode="In" Type="String" />
-            <Parameter Name="endDate" Mode="In" Type="String" />
-            <Parameter Name="bioid" Mode="In" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="HRISOvertimeDetails" EntityType="LetranIntegratedSystemModel.HRISOvertimeDetail" />
           <AssociationSet Name="FK_HRISOvertimeDetails_HRISOvertime" Association="LetranIntegratedSystemModel.FK_HRISOvertimeDetails_HRISOvertime">
             <End Role="HRISOvertime" EntitySet="HRISOvertimes" />
             <End Role="HRISOvertimeDetail" EntitySet="HRISOvertimeDetails" />
           </AssociationSet>
+          <FunctionImport Name="GetEmployeeDTR" ReturnType="Collection(LetranIntegratedSystemModel.GetEmployeeDTR_Result)">
+            <Parameter Name="startDate" Mode="In" Type="String" />
+            <Parameter Name="endDate" Mode="In" Type="String" />
+            <Parameter Name="bioid" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="GetHRiSBirthdayCelebrants_Result">
           <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="102" />
@@ -18966,25 +18966,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="GetEmployeeDTR_Result">
-          <Property Type="DateTime" Name="DATE" Nullable="true" />
-          <Property Type="String" Name="DAY" Nullable="true" MaxLength="3" />
-          <Property Type="String" Name="EmployeeNo" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="102" />
-          <Property Type="String" Name="AcaAcronym" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="EmployeePositionName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="StartTime" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="EndTime" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="TIMEIN" Nullable="true" MaxLength="15" />
-          <Property Type="String" Name="BREAKOUT" Nullable="true" MaxLength="15" />
-          <Property Type="String" Name="BREAKIN" Nullable="true" MaxLength="15" />
-          <Property Type="String" Name="TIMEOUT" Nullable="true" MaxLength="15" />
-          <Property Type="String" Name="LeaveCode" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="TotalHours" Nullable="true" MaxLength="6" />
-          <Property Type="String" Name="TotalWorkingHours" Nullable="true" MaxLength="5" />
-          <Property Type="String" Name="Late" Nullable="true" MaxLength="5" />
-          <Property Type="String" Name="UnderTime" Nullable="true" MaxLength="5" />
-        </ComplexType>
         <EntityType Name="HRISOvertimeDetail">
           <Key>
             <PropertyRef Name="EmployeeOvertimeDetailsID" />
@@ -19010,6 +18991,25 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetEmployeeDTR_Result">
+          <Property Type="DateTime" Name="DATE" Nullable="true" />
+          <Property Type="String" Name="DAY" Nullable="true" MaxLength="3" />
+          <Property Type="String" Name="EmployeeNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="102" />
+          <Property Type="String" Name="AcaAcronym" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="EmployeePositionName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="StartTime" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EndTime" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="TIMEIN" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="BREAKOUT" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="BREAKIN" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="TIMEOUT" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="LeaveCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TotalHours" Nullable="true" MaxLength="8000" />
+          <Property Type="String" Name="TotalWorkingHours" Nullable="true" MaxLength="8000" />
+          <Property Type="String" Name="Late" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="UnderTime" Nullable="true" MaxLength="6" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -22853,6 +22853,19 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="HRISOvertimeDetails">
+            <EntityTypeMapping TypeName="LetranIntegratedSystemModel.HRISOvertimeDetail">
+              <MappingFragment StoreEntitySet="HRISOvertimeDetails">
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="CalendarDay" ColumnName="CalendarDay" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EmployeeOvertimeID" ColumnName="EmployeeOvertimeID" />
+                <ScalarProperty Name="EmployeeOvertimeDetailsID" ColumnName="EmployeeOvertimeDetailsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetEmployeeDTR" FunctionName="LetranIntegratedSystemModel.Store.GetEmployeeDTR">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LetranIntegratedSystemModel.GetEmployeeDTR_Result">
@@ -22876,19 +22889,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="HRISOvertimeDetails">
-            <EntityTypeMapping TypeName="LetranIntegratedSystemModel.HRISOvertimeDetail">
-              <MappingFragment StoreEntitySet="HRISOvertimeDetails">
-                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-                <ScalarProperty Name="Reason" ColumnName="Reason" />
-                <ScalarProperty Name="CalendarDay" ColumnName="CalendarDay" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="EmployeeOvertimeID" ColumnName="EmployeeOvertimeID" />
-                <ScalarProperty Name="EmployeeOvertimeDetailsID" ColumnName="EmployeeOvertimeDetailsID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

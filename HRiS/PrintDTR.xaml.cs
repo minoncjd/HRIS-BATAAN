@@ -125,27 +125,23 @@ namespace HRiS
                 if (rbAll.IsChecked == true)
                 {
                     employees = (from a in db.Employees
-                                        where !(a.bioid == null) && a.Archive == false
-                                        select a).Distinct().ToList();
+                                 where !(a.bioid == null) && a.Archive == false && a.EmployeeDepartmentID != null
+                                 select a).ToList();
                 }
                 else if (rbDepartment.IsChecked == true)
                 {
-                    employees = db.Employees.Where(m => m.EmployeeDepartmentID == deptid).ToList();
+                    employees = db.Employees.Where(m => m.EmployeeDepartmentID == deptid && m.EmployeeDepartmentID != null).ToList();
                 }
                 else if (rbEmployeeNumber.IsChecked == true)
                 {
-                    employees = db.Employees.Where(m => m.EmployeeID == empid).ToList();
+                    employees = db.Employees.Where(m => m.EmployeeID == empid && m.EmployeeDepartmentID != null).ToList();
                 }           
 
                 foreach (var emp in employees)
-                {                    
-                    //var attendance = db.GetEmployeeDTR(startDate, endDate, emp.bioid).ToList();
-                   // var tlate = attendance.Where(m => m.Late != null).Aggregate(TimeSpan.Zero, (sumSoFar, nextMyObject) => sumSoFar + TimeSpan.Parse(nextMyObject.Late));
-                    //var tundertime = attendance.Where(m => m.UnderTime != null).Aggregate(TimeSpan.Zero, (sumSoFar, nextMyObject) => sumSoFar + TimeSpan.Parse(nextMyObject.UnderTime));
-
+                {
+                                      
                     var qry = from a in db.GetEmployeeDTR(startDate, endDate, emp.bioid)
-                              select a;
-
+                              select a;                 
                     lresult.AddRange(qry);
 
                 }
