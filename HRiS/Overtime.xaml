@@ -106,12 +106,13 @@
                         </DataGridTextColumn>
 
                         <DataGridTextColumn Header="Employee" Width="2*" Binding="{Binding EmployeeName}"/>
-
-                        
+                        <DataGridTextColumn Header="OT Date" Width="*" Binding="{Binding OTDate}"/>
+                        <DataGridTextColumn Header="Time" Width="*" Binding="{Binding Time}"/>
                         <DataGridTextColumn Header="File Date" Width="*" Binding="{Binding DateFiled,StringFormat=d}"/>
+                        <DataGridTextColumn Header="Reason" Width="2*" Binding="{Binding Reason}"/>
 
 
-                        <DataGridTemplateColumn Width=".7*">
+                        <!--<DataGridTemplateColumn Width=".7*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button  Margin="1" Name="btnprint"  Background="Transparent" ToolTip="Print" Click="btnprint_Click">
@@ -125,7 +126,7 @@
                                     </Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        </DataGridTemplateColumn>-->
 
                     </DataGrid.Columns>
                 </DataGrid>

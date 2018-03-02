@@ -101,7 +101,12 @@ namespace HRiS.Model
             public string EmployeeNumber { get; set; }
             public string EmployeeName { get; set; }
             public DateTime DateFiled { get; set; }
-           
+
+            public DateTime OTDate { get; set; }
+            public string Reason { get; set; }
+            public string Time  { get; set; }
+          
+
         }
 
         public class AccountManagementList

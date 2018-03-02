@@ -16,14 +16,14 @@ namespace HRiS.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class EmployeeDTR_Test : ReportClass {
+    public class SisFacultyCollegeResult : ReportClass {
         
-        public EmployeeDTR_Test() {
+        public SisFacultyCollegeResult() {
         }
         
         public override string ResourceName {
             get {
-                return "EmployeeDTR Test.rpt";
+                return "SisFacultyCollegeResult.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace HRiS.Reports {
         
         public override string FullResourceName {
             get {
-                return "HRiS.Reports.EmployeeDTR Test.rpt";
+                return "HRiS.Reports.SisFacultyCollegeResult.rpt";
             }
             set {
                 // Do nothing
@@ -87,12 +87,20 @@ namespace HRiS.Reports {
                 return this.ReportDefinition.Sections[4];
             }
         }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_PeriodID {
+            get {
+                return this.DataDefinition.ParameterFields[0];
+            }
+        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedEmployeeDTR_Test : Component, ICachedReport {
+    public class CachedSisFacultyCollegeResult : Component, ICachedReport {
         
-        public CachedEmployeeDTR_Test() {
+        public CachedSisFacultyCollegeResult() {
         }
         
         [Browsable(false)]
@@ -129,7 +137,7 @@ namespace HRiS.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            EmployeeDTR_Test rpt = new EmployeeDTR_Test();
+            SisFacultyCollegeResult rpt = new SisFacultyCollegeResult();
             rpt.Site = this.Site;
             return rpt;
         }

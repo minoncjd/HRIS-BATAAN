@@ -64,22 +64,22 @@ namespace HRiS
             {
                 using (var db = new LetranIntegratedSystemEntities())
                 {
-                    //EList = new List<HRiSClass.EmpCombo>();
+                    EList = new List<HRiSClass.EmpCombo>();
 
-                    //var emp = db.Employees.Where(m => m.Archive == false).ToList();
+                    var emp = db.Employees.Where(m => m.Archive == false).ToList();
 
-                    //foreach (var i in emp)
-                    //{
-                    //    HRiSClass.EmpCombo ec = new HRiSClass.EmpCombo();
-                    //    ec.EmployeeID = i.EmployeeID;
-                    //    ec.EmployeeNumber = i.EmployeeNo;
-                    //    ec.EmployeeName = i.LastName.ToUpper() + ", " + i.FirstName.ToUpper();
-                    //    EList.Add(ec);
-                    //}
+                    foreach (var i in emp)
+                    {
+                        HRiSClass.EmpCombo ec = new HRiSClass.EmpCombo();
+                        ec.EmployeeID = i.EmployeeID;
+                        ec.EmployeeNumber = i.EmployeeNo;
+                        ec.EmployeeName = i.LastName.ToUpper() + ", " + i.FirstName.ToUpper();
+                        EList.Add(ec);
+                    }
 
-                    //cbEmployee.ItemsSource = EList.OrderBy(m => m.EmployeeName);
-                    //cbEmployee.DisplayMemberPath = "EmployeeName";
-                    //cbEmployee.SelectedValuePath = "EmployeeID";
+                    cbEmployee.ItemsSource = EList.OrderBy(m => m.EmployeeName);
+                    cbEmployee.DisplayMemberPath = "EmployeeName";
+                    cbEmployee.SelectedValuePath = "EmployeeID";
 
                     cbDepartment.ItemsSource = db.AcademicDepartments.OrderBy(m => m.AcaDepartmentName).ToList();
                     cbDepartment.DisplayMemberPath = "AcaDepartmentName";
@@ -111,57 +111,97 @@ namespace HRiS
 
             var startDate = dpStartDate.SelectedDate.Value.ToShortDateString();
             var endDate = dpEndDate.SelectedDate.Value.ToShortDateString();
-            //var empid = Convert.ToInt32(cbEmployee.SelectedValue);
-            var empid = 3029;
+            //var reporttype = Convert.ToInt32(cbReportType.SelectedValue);
+            var reporttype =1;
+            var empid = Convert.ToInt32(cbEmployee.SelectedValue);          
             var deptid = Convert.ToInt32(cbDepartment.SelectedValue);
            
 
             using (var db = new LetranIntegratedSystemEntities())
             {
+                
                 List<Model.Employee> employees = new List<Model.Employee>();
                 lEmployeeAttendanceList = new List<EmployeeAttendanceList>();
                 List<GetEmployeeDTR_Result> lresult = new List<GetEmployeeDTR_Result>();
+               
+                //if (rbAll.IsChecked == true)
+                //{
+                //    //employees = (from a in db.Employees
+                //    //             where !(a.bioid == null) && a.Archive == false && a.EmployeeDepartmentID != null
+                //    //             select a).Distinct().ToList();
 
-                if (rbAll.IsChecked == true)
+                //    employees = db.Employees.Where(m => m.bioid != null && m.EmployeeDepartmentID != null && m.Archive == false).ToList();
+
+                //}
+
+                if (reporttype == 1)
                 {
-                    //employees = (from a in db.Employees
-                    //             where !(a.bioid == null) && a.Archive == false && a.EmployeeDepartmentID != null
-                    //             select a).Distinct().ToList();
+                    if (rbDepartment.IsChecked == true)
+                    {
+                        employees = db.Employees.Where(m => m.EmployeeDepartmentID == deptid && m.EmployeeDepartmentID != null && m.bioid != null && m.Archive == false).ToList();
+                    }
+                    else if (rbEmployeeNumber.IsChecked == true)
+                    {
+                        employees = db.Employees.Where(m => m.EmployeeID == empid && m.EmployeeDepartmentID != null).ToList();
+                    }
 
-                    employees = db.Employees.Where(m => m.bioid != null && m.EmployeeDepartmentID != null && m.Archive == false).ToList();
+                    foreach (var emp in employees)
+                    {
 
-                }
-                else if (rbDepartment.IsChecked == true)
-                {
-                    employees = db.Employees.Where(m => m.EmployeeDepartmentID == deptid && m.EmployeeDepartmentID != null && m.bioid != null && m.Archive == false).ToList();
-                }
-                else if (rbEmployeeNumber.IsChecked == true)
-                {
-                    employees = db.Employees.Where(m => m.EmployeeID == empid && m.EmployeeDepartmentID != null).ToList();
-                }           
+                        var qry = from a in db.GetEmployeeDTR(startDate, endDate, emp.bioid)
+                                  select a;
+                        lresult.AddRange(qry);
 
-                foreach (var emp in employees)
-                {
-                                      
-                    var qry = from a in db.GetEmployeeDTR(startDate, endDate, emp.bioid)
-                              select a;                 
-                    lresult.AddRange(qry);
+                    }
 
-                }
+                    Mouse.OverrideCursor = Cursors.Arrow;
+                    PrintWindow x = new PrintWindow();
 
-                Mouse.OverrideCursor = Cursors.Arrow;
-                PrintWindow x = new PrintWindow();
-
-                x.rptid = 29;
-                x.startDate = dpStartDate.SelectedDate.Value.ToString("MM/dd/yy");
-                x.endDate = dpEndDate.SelectedDate.Value.ToString("MM/dd/yy");
+                    x.rptid = 29;
                 
-                x.Report29 = lresult;
-                x.ShowDialog();
+                    x.startDate = dpStartDate.SelectedDate.Value.ToString("MM/dd/yy");
+                    x.endDate = dpEndDate.SelectedDate.Value.ToString("MM/dd/yy");
+
+                    x.Report29 = lresult;
+                    x.ShowDialog();
+                }
+
+                else if (reporttype == 2)
+                {
+                    if (rbDepartment.IsChecked == true)
+                    {
+                        employees = db.Employees.Where(m => m.EmployeeDepartmentID == deptid && m.EmployeeDepartmentID != null && m.bioid != null && m.Archive == false).ToList();
+                    }
+                    else if (rbEmployeeNumber.IsChecked == true)
+                    {
+                        employees = db.Employees.Where(m => m.EmployeeID == empid && m.EmployeeDepartmentID != null).ToList();
+                    }
+
+                    foreach (var emp in employees)
+                    {
+                        
+                        var qry = from a in db.GetEmployeeDTR(startDate, endDate, emp.bioid)
+                                  select a;
+                        lresult.AddRange(qry);
+
+                    }
+
+                    Mouse.OverrideCursor = Cursors.Arrow;
+                    PrintWindow x = new PrintWindow();
+
+                    x.rptid = 30;
+                    x.startDate = dpStartDate.SelectedDate.Value.ToString("MM/dd/yy");
+                    x.endDate = dpEndDate.SelectedDate.Value.ToString("MM/dd/yy");
+                    x.department = cbDepartment.Text;
+                    x.Report30 = lresult;
+                    x.ShowDialog();
+                }
+                
 
             }                         
         }
     }
+
 
     public class EmployeeAttendanceList
     {

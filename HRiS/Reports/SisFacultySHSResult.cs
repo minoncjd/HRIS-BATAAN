@@ -16,14 +16,14 @@ namespace HRiS.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class EmployeeDTR_Test : ReportClass {
+    public class SisFacultySHSResult : ReportClass {
         
-        public EmployeeDTR_Test() {
+        public SisFacultySHSResult() {
         }
         
         public override string ResourceName {
             get {
-                return "EmployeeDTR Test.rpt";
+                return "SisFacultySHSResult.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace HRiS.Reports {
         
         public override string FullResourceName {
             get {
-                return "HRiS.Reports.EmployeeDTR Test.rpt";
+                return "HRiS.Reports.SisFacultySHSResult.rpt";
             }
             set {
                 // Do nothing
@@ -87,12 +87,28 @@ namespace HRiS.Reports {
                 return this.ReportDefinition.Sections[4];
             }
         }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_PeriodID {
+            get {
+                return this.DataDefinition.ParameterFields[0];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_Semester {
+            get {
+                return this.DataDefinition.ParameterFields[1];
+            }
+        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedEmployeeDTR_Test : Component, ICachedReport {
+    public class CachedSisFacultySHSResult : Component, ICachedReport {
         
-        public CachedEmployeeDTR_Test() {
+        public CachedSisFacultySHSResult() {
         }
         
         [Browsable(false)]
@@ -129,7 +145,7 @@ namespace HRiS.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            EmployeeDTR_Test rpt = new EmployeeDTR_Test();
+            SisFacultySHSResult rpt = new SisFacultySHSResult();
             rpt.Site = this.Site;
             return rpt;
         }

@@ -26,6 +26,7 @@ namespace HRiS.Model
         public string BREAKIN { get; set; }
         public string TIMEOUT { get; set; }
         public string LeaveCode { get; set; }
+        public decimal Days { get; set; }
         public string TotalHours { get; set; }
         public int EmployeeID { get; set; }
         public string RemainingBreak { get; set; }

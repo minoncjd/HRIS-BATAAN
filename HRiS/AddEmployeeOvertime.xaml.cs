@@ -29,7 +29,7 @@ namespace HRiS
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //LoadComboBox();
+            LoadComboBox();
         }
 
         public void LoadComboBox()
@@ -75,8 +75,8 @@ namespace HRiS
                 {              
                     using (var db = new LetranIntegratedSystemEntities())
                     {
-                        //var empid = Convert.ToInt32(cbEmp.SelectedValue);
-                        var empid = 3029;
+                        var empid = Convert.ToInt32(cbEmp.SelectedValue);
+                        //var empid = 3029;
                         HRISOvertime ho = new HRISOvertime();
                         HRISOvertimeDetail hd = new HRISOvertimeDetail();
                         ho.EmployeeID = empid;

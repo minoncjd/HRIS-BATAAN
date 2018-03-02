@@ -510,6 +510,15 @@ namespace HRiS
             this.Cursor = Cursors.Arrow;
         }
 
+        private void mOverTime_Click(object sender, RoutedEventArgs e)
+        {
+            this.Cursor = Cursors.Wait;
+            Overtime x = new Overtime();
+            x.ShowDialog();
+            this.Cursor = Cursors.Arrow;
+
+        }
+
 
 
         //private void HamburgerMenuControl_OnItemClick(object sender, ItemClickEventArgs e)

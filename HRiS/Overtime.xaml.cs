@@ -40,18 +40,25 @@ namespace HRiS
                 OTRList = new List<HRiSClass.OvertimeRequestList>();
                 using(var db = new LetranIntegratedSystemEntities())
                 {
-                    var otreq = db.HRISOvertimes.ToList();
-
+                    
+                    //var otreq = db.HRISOvertimes.ToList();
+                    var otreq = (from a in db.HRISOvertimes
+                                 join b in db.HRISOvertimeDetails on a.EmployeeOvertimeID equals b.EmployeeOvertimeID
+                                 join c in db.Employees on a.EmployeeID equals c.EmployeeID
+                                 select new { a.EmployeeOvertimeID, a.EmployeeID, c.EmployeeNo, Name = c.LastName + ", " + c.FirstName, a.DateFiled, b.Date, Time = b.StartTime + " - " + b.EndTime, b.Reason }).ToList();
                     foreach(var x in otreq)
                     {
                       
                             HRiSClass.OvertimeRequestList otr = new HRiSClass.OvertimeRequestList();
 
                             otr.OTID = x.EmployeeOvertimeID;
-                            otr.EmployeeID = x.Employee.EmployeeID;
-                            otr.EmployeeNumber = x.Employee.EmployeeNo;
-                            otr.EmployeeName = x.Employee.LastName.ToUpper() + ", " + x.Employee.FirstName.ToUpper();
+                            otr.EmployeeID = x.EmployeeID;
+                            otr.EmployeeNumber = x.EmployeeNo;
+                            otr.EmployeeName = x.Name.ToUpper();
                             otr.DateFiled = x.DateFiled;
+                            otr.OTDate = x.Date;
+                            otr.Time = x.Time;
+                            otr.Reason = x.Reason;
                             OTRList.Add(otr);
                     }
                     dgOTReq.ItemsSource = OTRList.OrderByDescending(m => m.DateFiled);

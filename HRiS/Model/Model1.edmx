@@ -19005,6 +19005,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <Property Type="String" Name="BREAKIN" Nullable="true" MaxLength="15" />
           <Property Type="String" Name="TIMEOUT" Nullable="true" MaxLength="15" />
           <Property Type="String" Name="LeaveCode" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Days" Nullable="true" Precision="10" Scale="1" />
           <Property Type="String" Name="TotalHours" Nullable="true" MaxLength="8000" />
           <Property Type="Int32" Name="EmployeeID" Nullable="true" />
           <Property Type="String" Name="RemainingBreak" Nullable="true" MaxLength="6" />
@@ -22884,6 +22885,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
                 <ScalarProperty Name="BREAKIN" ColumnName="BREAKIN" />
                 <ScalarProperty Name="TIMEOUT" ColumnName="TIMEOUT" />
                 <ScalarProperty Name="LeaveCode" ColumnName="LeaveCode" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
                 <ScalarProperty Name="TotalHours" ColumnName="TotalHours" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="RemainingBreak" ColumnName="RemainingBreak" />

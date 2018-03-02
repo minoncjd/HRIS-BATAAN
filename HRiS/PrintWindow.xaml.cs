@@ -31,6 +31,7 @@ namespace HRiS
         public List<BalanceList> Report4 = new List<BalanceList>();
         public List<AbsentList> Report28 = new List<AbsentList>();
         public List<GetEmployeeDTR_Result> Report29 = new List<GetEmployeeDTR_Result>();
+        public List<GetEmployeeDTR_Result> Report30 = new List<GetEmployeeDTR_Result>();
         public List<LeaveUsageList> Report5 = new List<LeaveUsageList>();
         public List<TransactionList> Report6 = new List<TransactionList>();
         public List<HistoryList> Report7 = new List<HistoryList>();
@@ -57,7 +58,7 @@ namespace HRiS
         public int MakeupID;
         public int SubID;
         public int ApplicationID;
-
+        public string department;
         public PrintWindow()
         {
             InitializeComponent();
@@ -365,6 +366,22 @@ namespace HRiS
                                 report.SetParameterValue("StartDate", startDate);
                                 report.SetParameterValue("EndDate", endDate);
                                 report.SetParameterValue("regular", "08:00");
+                                crViewer1.ViewerCore.ReportSource = report;
+                            }
+
+                        }
+
+                        else if (ReportID == 30)
+                        {
+                            if (Report30.Count > 0)
+                            {
+                                report = new Reports.AttendanceSummary();
+                                report.SetDatabaseLogon("softrack", "softrack");
+                                report.SetDataSource(Report30);
+                                report.SetParameterValue("StartDate", startDate);
+                                report.SetParameterValue("EndDate", endDate);
+                                report.SetParameterValue("Department", department);
+
                                 crViewer1.ViewerCore.ReportSource = report;
                             }
 

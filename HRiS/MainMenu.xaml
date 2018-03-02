@@ -235,6 +235,16 @@
                             </MenuItem.Icon>
                         </MenuItem>
 
+                        <MenuItem  VerticalContentAlignment="Center" Header="Over Time" Background="White" Name="mOverTime" Click="mOverTime_Click">
+                            <MenuItem.Icon>
+                                <Rectangle Fill="#FF002753" Width="15" Height="15">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Visual="{StaticResource appbar_man_walk}" Stretch="Fill" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
                         <MenuItem  VerticalContentAlignment="Center" Header="Employee History" Background="White" Name="mEmployeeHistoryList" Click="mEmployeeHistoryList_Click">
                             <MenuItem.Icon>
                                 <Rectangle Fill="#FF002753" Width="15" Height="15">
