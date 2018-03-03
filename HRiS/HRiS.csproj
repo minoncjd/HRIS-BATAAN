@@ -52,10 +52,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>102F3C8CAA3F14245F817240134DE930EB410486</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>C0B080A13D700F4D1389FB3E4E4E43FE125B9D3C</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>jay2.pfx</ManifestKeyFile>
+    <ManifestKeyFile>jay3.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -67,7 +67,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>jay2.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>jay3.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
@@ -260,6 +260,9 @@
     <Compile Include="PrintDTR.xaml.cs">
       <DependentUpon>PrintDTR.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PrintSISResult.xaml.cs">
+      <DependentUpon>PrintSISResult.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Reports\AttendanceSummary.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -332,10 +335,10 @@
       <DependentUpon>SisFacultySHSResult.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\SISShsDetailedPerPeriod.cs">
+    <Compile Include="Reports\SISDetailedResultPerPeriodSHS.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SISShsDetailedPerPeriod.rpt</DependentUpon>
+      <DependentUpon>SISDetailedResultPerPeriodSHS.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\SISStatisticsPerSection.cs">
@@ -1658,6 +1661,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PrintSISResult.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UpdateAttendanceType.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1970,9 +1977,9 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SISPerFacultyRPT.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\SISShsDetailedPerPeriod.rpt">
+    <EmbeddedResource Include="Reports\SISDetailedResultPerPeriodSHS.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SISShsDetailedPerPeriod.cs</LastGenOutput>
+      <LastGenOutput>SISDetailedResultPerPeriodSHS.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\SISStatisticsPerSection.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1986,6 +1993,7 @@
     <None Include="HRiS_TemporaryKey.pfx" />
     <None Include="jay.pfx" />
     <None Include="jay2.pfx" />
+    <None Include="jay3.pfx" />
     <None Include="key.pfx" />
     <EntityDeploy Include="Model\Turnsitle.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

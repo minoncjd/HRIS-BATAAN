@@ -16,14 +16,14 @@ namespace HRiS.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class SISShsDetailedPerPeriod : ReportClass {
+    public class SISDetailedResultPerPeriodSHS : ReportClass {
         
-        public SISShsDetailedPerPeriod() {
+        public SISDetailedResultPerPeriodSHS() {
         }
         
         public override string ResourceName {
             get {
-                return "SISShsDetailedPerPeriod.rpt";
+                return "SISDetailedResultPerPeriodSHS.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace HRiS.Reports {
         
         public override string FullResourceName {
             get {
-                return "HRiS.Reports.SISShsDetailedPerPeriod.rpt";
+                return "HRiS.Reports.SISDetailedResultPerPeriodSHS.rpt";
             }
             set {
                 // Do nothing
@@ -122,9 +122,9 @@ namespace HRiS.Reports {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedSISShsDetailedPerPeriod : Component, ICachedReport {
+    public class CachedSISDetailedResultPerPeriodSHS : Component, ICachedReport {
         
-        public CachedSISShsDetailedPerPeriod() {
+        public CachedSISDetailedResultPerPeriodSHS() {
         }
         
         [Browsable(false)]
@@ -161,7 +161,7 @@ namespace HRiS.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            SISShsDetailedPerPeriod rpt = new SISShsDetailedPerPeriod();
+            SISDetailedResultPerPeriodSHS rpt = new SISDetailedResultPerPeriodSHS();
             rpt.Site = this.Site;
             return rpt;
         }

@@ -24,6 +24,8 @@ namespace HRiS
     public partial class PrintWindow : MetroWindow
     {
         public int rptid;
+        public int period;
+        public int sem;
         ReportDocument report;
         public List<OnProcessList> Report1 = new List<OnProcessList>();
         public List<ApprovedList> Report2 = new List<ApprovedList>();
@@ -384,8 +386,26 @@ namespace HRiS
 
                                 crViewer1.ViewerCore.ReportSource = report;
                             }
-
                         }
+
+                        else if (ReportID == 31)
+                        {                           
+                            report = new Reports.SISDetailedResultPerPeriod();
+                            report.SetDatabaseLogon("softrack", "softrack");
+                            report.SetParameterValue("@PERID_KEY", period);                         
+
+                            crViewer1.ViewerCore.ReportSource = report;
+                        }
+
+                        else if (ReportID == 32)
+                        {
+                            report = new Reports.SISDetailedResultPerPeriodSHS();
+                            report.SetDatabaseLogon("softrack", "softrack");
+                            report.SetParameterValue("@PERID_KEY", period);
+                            report.SetParameterValue("@Semid", period);
+                            crViewer1.ViewerCore.ReportSource = report;
+                        }
+
                     }
                     else
                     {

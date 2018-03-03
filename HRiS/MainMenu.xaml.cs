@@ -519,6 +519,14 @@ namespace HRiS
 
         }
 
+        private void TileSIS_Click(object sender, RoutedEventArgs e)
+        {
+            this.Cursor = Cursors.Wait;
+            PrintSISResult x = new PrintSISResult();
+            x.ShowDialog();
+            this.Cursor = Cursors.Arrow;
+        }
+
 
 
         //private void HamburgerMenuControl_OnItemClick(object sender, ItemClickEventArgs e)
