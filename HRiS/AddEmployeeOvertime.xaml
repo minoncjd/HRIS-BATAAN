@@ -63,7 +63,6 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-
                 </Grid.RowDefinitions>
 
                 <Label Grid.Column="0" HorizontalContentAlignment="Right"  Grid.Row="1" Content="Employee:" FontWeight="Bold"/>

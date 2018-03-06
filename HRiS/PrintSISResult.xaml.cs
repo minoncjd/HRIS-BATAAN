@@ -52,38 +52,65 @@ namespace HRiS
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            using (var db= new LetranIntegratedSystemEntities())
+            using (var db = new LetranIntegratedSystemEntities())
             {
 
-          
+
                 var period = Convert.ToInt32(cbPeriod.SelectedValue);
                 var sem = Convert.ToInt32(cbSemester.SelectedValue);
                 var rt = Convert.ToInt32(cbReportType.SelectedValue);
                 var educlevel = Convert.ToInt32(cbEducLevel.SelectedValue);
                 var sy = Convert.ToInt32(cbSchoolYear.SelectedValue);
                 var reportID = Convert.ToInt32(cbReportType.SelectedValue);
-                
+
                 //var periodid = db.Periods.Where(m => m.SchoolYearID == sy && m.EducLevelID == educlevel).FirstOrDefault();
-               // var periodkey = periodid.PeriodID;
-                if (reportID == 1)
+                // var periodkey = periodid.PeriodID;
+
+                if (educlevel == 4 || educlevel == 3 )
                 {
-                    PrintWindow x = new PrintWindow();
+                    if (reportID == 4)
+                    {
+                        PrintWindow x = new PrintWindow();
+                        x.rptid = 33;
+                        x.period = period;
+                        x.ShowDialog();
+                    }
+                    else if (reportID == 3 || reportID == 2)
+                    {
+                         PrintWindow x = new PrintWindow();
+                         x.rptid = 31;
+                         x.period = period;
+                         x.ShowDialog();
+                    }
+                    else if (reportID == 5)
+                    {
+                        PrintWindow x = new PrintWindow();
+                        x.rptid = 34;
+                        x.period = period;
+                        x.ShowDialog();
 
-                    x.rptid = 32;
-                    x.period = period;
-                    x.sem = sem;
-                    x.ShowDialog();
+                    }
 
-                }
-                else if (reportID == 2 || reportID == 3)
-                {
-                    PrintWindow x = new PrintWindow();
+                } 
+                //if (reportID == 1)
+                //{
+                  //  PrintWindow x = new PrintWindow();
 
-                    x.rptid = 31;
-                    x.period = period;
+                    //x.rptid = 32;
+                    //x.period = period;
+                    //x.sem = sem;
+                    //x.ShowDialog();
+
+                //}
+               // else if (reportID == 2 || reportID == 3)
+                //{
+                 //   PrintWindow x = new PrintWindow();
+
+                  //  x.rptid = 31;
+                   // x.period = period;
                  
-                    x.ShowDialog();
-                }
+                   // x.ShowDialog();
+              //  }
 
             }
         }
@@ -103,10 +130,11 @@ namespace HRiS
                 RList.Add(new ReportList { ReportID = 2, Report = "SIS Result Per Faculty (JHS)" });
                 RList.Add(new ReportList { ReportID = 3, Report = "SIS Result Per Faculty (COLL)" });
                 RList.Add(new ReportList { ReportID = 4 , Report = "SIS Summary Result Per Faculty (COLL)" });
+                RList.Add(new ReportList { ReportID = 5, Report = "List of students who did not take faculty survey (COLL)" });
 
                 if (educlevel == 4)
                 {
-                    cbReportType.ItemsSource = RList.Where(m => m.ReportID == 3 || m.ReportID ==4).ToList();
+                    cbReportType.ItemsSource = RList.Where(m => m.ReportID == 3 || m.ReportID ==4 || m.ReportID == 5).ToList();
                 }
                 else if (educlevel == 3)
                 {

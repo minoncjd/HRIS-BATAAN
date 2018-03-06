@@ -391,7 +391,7 @@ namespace HRiS
                         else if (ReportID == 31)
                         {                           
                             report = new Reports.SISDetailedResultPerPeriod();
-                            report.SetDatabaseLogon("softrack", "softrack");
+                            //report.SetDatabaseLogon("softrack", "softrack");
                             report.SetParameterValue("@PERID_KEY", period);                         
 
                             crViewer1.ViewerCore.ReportSource = report;
@@ -400,9 +400,27 @@ namespace HRiS
                         else if (ReportID == 32)
                         {
                             report = new Reports.SISDetailedResultPerPeriodSHS();
-                            report.SetDatabaseLogon("softrack", "softrack");
+                            //report.SetDatabaseLogon("softrack", "softrack");
                             report.SetParameterValue("@PERID_KEY", period);
-                            report.SetParameterValue("@Semid", period);
+                            report.SetParameterValue("@Semid", sem);
+                            crViewer1.ViewerCore.ReportSource = report;
+                        }
+
+                        else if (ReportID == 33)
+                        {
+                            report = new Reports.SisFacultyCollegeResult();
+                           // report.SetDatabaseLogon("softrack", "softrack");
+                            report.SetParameterValue("@PeriodID", period);
+                 
+                            crViewer1.ViewerCore.ReportSource = report;
+                        }
+
+                        else if (ReportID == 34)
+                        {
+                            report = new Reports.SISListStudentsNotSurvey();
+                            //report.SetDatabaseLogon("softrack", "softrack");
+                            report.SetParameterValue("@PeriodID", period);
+
                             crViewer1.ViewerCore.ReportSource = report;
                         }
 
