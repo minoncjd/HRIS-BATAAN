@@ -52,22 +52,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>1FB9B651E7B940D693D3802D1C6AFEBBC51A7736</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E2A8358599494DAB8DAA8CBB78F159E335E72036</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>jay4.pfx</ManifestKeyFile>
+    <ManifestKeyFile>jay.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>jay4.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>jay.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
@@ -89,7 +89,7 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Interop.zkemkeeper">
-      <HintPath>obj\Debug\Interop.zkemkeeper.dll</HintPath>
+      <HintPath>..\..\HRIS - Backup\HRiS\HRiS\bin\Debug\Interop.zkemkeeper.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="MahApps.Metro">
@@ -210,6 +210,9 @@
     <Compile Include="AddEmployeeSchedules.xaml.cs">
       <DependentUpon>AddEmployeeSchedules.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddOffCampusActivity.xaml.cs">
+      <DependentUpon>AddOffCampusActivity.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeAbsent.xaml.cs">
       <DependentUpon>EmployeeAbsent.xaml</DependentUpon>
     </Compile>
@@ -262,6 +265,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\HRISShift.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\HRISShiftDetail.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="PrintDTR.xaml.cs">
@@ -1570,6 +1576,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AddOffCampusActivity.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AttendanceBiometric.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -2010,7 +2020,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SubstitutionFormRPT.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="jay4.pfx" />
     <EntityDeploy Include="Model\Turnsitle.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Turnsitle.Designer.cs</LastGenOutput>
@@ -2023,6 +2032,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="jay.pfx" />
     <None Include="Model\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>

@@ -12,18 +12,16 @@ namespace HRiS.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class HRISOffCampusActivity
+    public partial class HRISShiftDetail
     {
-        public int OffCampusActivityID { get; set; }
+        public int ShiftDetailsID { get; set; }
+        public Nullable<int> DayID { get; set; }
+        public string ShiftCode { get; set; }
         public Nullable<int> EmployeeID { get; set; }
-        public string Reason { get; set; }
-        public Nullable<System.DateTime> DateStart { get; set; }
-        public Nullable<System.DateTime> DateEnd { get; set; }
-        public Nullable<System.DateTime> DateFiled { get; set; }
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
-        public string TotalHours { get; set; }
+        public Nullable<System.TimeSpan> StartTime { get; set; }
+        public Nullable<System.TimeSpan> EndTime { get; set; }
     
-        public virtual Employee Employee { get; set; }
+        public virtual HRISShiftDetail HRISShiftDetails1 { get; set; }
+        public virtual HRISShiftDetail HRISShiftDetail1 { get; set; }
     }
 }

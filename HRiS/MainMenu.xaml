@@ -810,6 +810,22 @@
                         </Rectangle>
                     </Controls:Tile>
 
+                    <Controls:Tile TitleFontSize="12" Title="File Off Campus ACtivity"  Style="{StaticResource SmallTileStyle}"  FontFamily="Roboto" x:Name="TileFileOffCampusAct" Click="TileFileOffCampusAct_Click">
+                        <Rectangle Fill="White" Height="50" Width="60" Margin="0,0,0,15">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Visual="{StaticResource appbar_timer_check}" Stretch="Fill" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Controls:Tile>
+
+                    <Controls:Tile TitleFontSize="12" Title="File Leave"  Style="{StaticResource SmallTileStyle}"  FontFamily="Roboto" x:Name="TileFileLeave" Click="TileFileLeave_Click">
+                        <Rectangle Fill="White" Height="50" Width="60" Margin="0,0,0,15">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Visual="{StaticResource appbar_timer_check}" Stretch="Fill" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Controls:Tile>
+
 
 
 

@@ -27,7 +27,6 @@ namespace HRiS.Model
             this.HRISChangeVacationLeaves = new HashSet<HRISChangeVacationLeave>();
             this.HRISMakeUpClasses = new HashSet<HRISMakeUpClass>();
             this.HRISNoticeofAbsences = new HashSet<HRISNoticeofAbsence>();
-            this.HRISOffCampusActivities = new HashSet<HRISOffCampusActivity>();
             this.HRISOvertimes = new HashSet<HRISOvertime>();
             this.HRISPostTrainings = new HashSet<HRISPostTraining>();
             this.HRISSubstituteClasses = new HashSet<HRISSubstituteClass>();
@@ -35,6 +34,7 @@ namespace HRiS.Model
             this.LeaveBalances = new HashSet<LeaveBalance>();
             this.Leaves = new HashSet<Leave>();
             this.EmployeeHistories = new HashSet<EmployeeHistory>();
+            this.HRISOffCampusActivities = new HashSet<HRISOffCampusActivity>();
         }
     
         public int EmployeeID { get; set; }
@@ -105,6 +105,7 @@ namespace HRiS.Model
         public string NameSuffix { get; set; }
         public Nullable<int> EmployeeScheduleId { get; set; }
         public Nullable<int> EmploymentTypeID { get; set; }
+        public string BankAccountNo { get; set; }
     
         public virtual AcademicDepartment AcademicDepartment { get; set; }
         public virtual Area Area { get; set; }
@@ -138,8 +139,6 @@ namespace HRiS.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HRISNoticeofAbsence> HRISNoticeofAbsences { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HRISOffCampusActivity> HRISOffCampusActivities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HRISOvertime> HRISOvertimes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HRISPostTraining> HRISPostTrainings { get; set; }
@@ -153,5 +152,7 @@ namespace HRiS.Model
         public virtual ICollection<Leave> Leaves { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeHistory> EmployeeHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HRISOffCampusActivity> HRISOffCampusActivities { get; set; }
     }
 }

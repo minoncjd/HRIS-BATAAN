@@ -1136,6 +1136,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.CollegeCurriculum' does
           <Property Name="NameSuffix" Type="nvarchar" MaxLength="100" />
           <Property Name="EmployeeScheduleId" Type="int" />
           <Property Name="EmploymentTypeID" Type="int" />
+          <Property Name="BankAccountNo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="EmployeeAnnouncement">
           <Key>
@@ -1690,6 +1691,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.CollegeCurriculum' does
           <Property Name="RemedialGrade" Type="float" />
           <Property Name="RemedialGradeDate" Type="datetime" />
           <Property Name="IsLock" Type="bit" />
+          <Property Name="Term" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'LetranIntegratedSystem.dbo.GraduateCurriculum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2180,6 +2182,9 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.GraduateCurriculum' doe
           <Property Name="DateStart" Type="datetime" />
           <Property Name="DateEnd" Type="datetime" />
           <Property Name="DateFiled" Type="datetime" />
+          <Property Name="StartTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="EndTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="TotalHours" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="HRISOnlineJobApplication">
           <Key>
@@ -2315,6 +2320,17 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.GraduateCurriculum' doe
           <Property Name="Description" Type="varchar" MaxLength="250" />
           <Property Name="StartTime" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="EndTime" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HRISShiftDetails">
+          <Key>
+            <PropertyRef Name="ShiftDetailsID" />
+          </Key>
+          <Property Name="ShiftDetailsID" Type="int" Nullable="false" />
+          <Property Name="DayID" Type="int" />
+          <Property Name="ShiftCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="StartTime" Type="time" Precision="7" />
+          <Property Name="EndTime" Type="time" Precision="7" />
         </EntityType>
         <EntityType Name="HRISSubstituteClass">
           <Key>
@@ -2772,6 +2788,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.intranet_leave_tran' do
           <Property Name="ScheduleStatusID" Type="int" />
           <Property Name="SectionID2" Type="int" />
           <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DatePrintedOnline" Type="datetime" />
         </EntityType>
         <EntityType Name="ScheduleStatus">
           <Key>
@@ -6288,6 +6305,18 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HRISShiftDetails_HRISShiftDetails">
+          <End Role="HRISShiftDetails" Type="Self.HRISShiftDetails" Multiplicity="1" />
+          <End Role="HRISShiftDetails1" Type="Self.HRISShiftDetails" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="HRISShiftDetails">
+              <PropertyRef Name="ShiftDetailsID" />
+            </Principal>
+            <Dependent Role="HRISShiftDetails1">
+              <PropertyRef Name="ShiftDetailsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HRISSubstituteClass_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="HRISSubstituteClass" Type="Self.HRISSubstituteClass" Multiplicity="*" />
@@ -7381,14 +7410,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
         <Function Name="GetHRiSServiceAwardees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="YR_KEY" Type="int" Mode="In" />
         </Function>
-        <Function Name="GetHRiSsisPerFaculty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="PERID_KEY" Type="int" Mode="In" />
-          <Parameter Name="FACID_KEY" Type="int" Mode="In" />
-        </Function>
-        <Function Name="GetHRiSsisPerSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="PERID_KEY" Type="int" Mode="In" />
-          <Parameter Name="SCHDID_KEY" Type="int" Mode="In" />
-        </Function>
         <EntityContainer Name="LetranIntegratedSystemModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AcademicArea" EntityType="Self.AcademicArea" Schema="dbo" store:Type="Tables" />
@@ -7557,6 +7578,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <EntitySet Name="HRISOvertimeDetails" EntityType="Self.HRISOvertimeDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HRISPostTraining" EntityType="Self.HRISPostTraining" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HRISShift" EntityType="Self.HRISShift" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HRISShiftDetails" EntityType="Self.HRISShiftDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HRISSubstituteClass" EntityType="Self.HRISSubstituteClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HRISSubstituteDetails" EntityType="Self.HRISSubstituteDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Institutional" EntityType="Self.Institutional" Schema="dbo" store:Type="Tables" />
@@ -8798,6 +8820,10 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <AssociationSet Name="FK_HRISPostTraining_HRISActivityType" Association="Self.FK_HRISPostTraining_HRISActivityType">
             <End Role="HRISActivityType" EntitySet="HRISActivityType" />
             <End Role="HRISPostTraining" EntitySet="HRISPostTraining" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HRISShiftDetails_HRISShiftDetails" Association="Self.FK_HRISShiftDetails_HRISShiftDetails">
+            <End Role="HRISShiftDetails" EntitySet="HRISShiftDetails" />
+            <End Role="HRISShiftDetails1" EntitySet="HRISShiftDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_HRISSubstituteClass_Employee" Association="Self.FK_HRISSubstituteClass_Employee">
             <End Role="Employee" EntitySet="Employee" />
@@ -10319,7 +10345,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <NavigationProperty Name="HRISChangeVacationLeaves" Relationship="Self.FK_HRISChangeVacationLeave_Employee" FromRole="Employee" ToRole="HRISChangeVacationLeave" />
           <NavigationProperty Name="HRISMakeUpClasses" Relationship="Self.FK_HRISMakeUpClass_Employee" FromRole="Employee" ToRole="HRISMakeUpClass" />
           <NavigationProperty Name="HRISNoticeofAbsences" Relationship="Self.FK_HRISNoticeofAbsence_Employee" FromRole="Employee" ToRole="HRISNoticeofAbsence" />
-          <NavigationProperty Name="HRISOffCampusActivities" Relationship="Self.FK_HRISOffCampusActivity_Employee" FromRole="Employee" ToRole="HRISOffCampusActivity" />
           <NavigationProperty Name="HRISOvertimes" Relationship="Self.FK_HRISOvertime_Employee" FromRole="Employee" ToRole="HRISOvertime" />
           <NavigationProperty Name="HRISPostTrainings" Relationship="Self.FK_HRISPostTraining_Employee" FromRole="Employee" ToRole="HRISPostTraining" />
           <NavigationProperty Name="HRISSubstituteClasses" Relationship="Self.FK_HRISSubstituteClass_Employee" FromRole="Employee" ToRole="HRISSubstituteClass" />
@@ -10329,6 +10354,8 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <NavigationProperty Name="LeaveBalances" Relationship="LetranIntegratedSystemModel.FK_LeaveBalance_Employee" FromRole="Employee" ToRole="LeaveBalance" />
           <NavigationProperty Name="Leaves" Relationship="LetranIntegratedSystemModel.FK_Leave_Employee" FromRole="Employee" ToRole="Leave" />
           <NavigationProperty Name="EmployeeHistories" Relationship="LetranIntegratedSystemModel.FK_EmployeeHistory_Employee" FromRole="Employee" ToRole="EmployeeHistory" />
+          <Property Name="BankAccountNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HRISOffCampusActivities" Relationship="LetranIntegratedSystemModel.FK_HRISOffCampusActivity_Employee" FromRole="Employee" ToRole="HRISOffCampusActivity" />
         </EntityType>
         <EntityType Name="EmployeeAnnouncement">
           <Key>
@@ -10960,6 +10987,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <NavigationProperty Name="Period" Relationship="Self.FK_GradeSHS_Period" FromRole="GradeSHS" ToRole="Period" />
           <NavigationProperty Name="Student" Relationship="Self.FK_GradeSHS_Student" FromRole="GradeSHS" ToRole="Student" />
           <NavigationProperty Name="Subject" Relationship="Self.FK_GradeSHS_Subject" FromRole="GradeSHS" ToRole="Subject" />
+          <Property Name="Term" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="GraduationApplication">
           <Key>
@@ -11453,18 +11481,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="NumberDays" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_HRISNoticeofAbsence_Employee" FromRole="HRISNoticeofAbsence" ToRole="Employee" />
-        </EntityType>
-        <EntityType Name="HRISOffCampusActivity">
-          <Key>
-            <PropertyRef Name="OffCampusActivityID" />
-          </Key>
-          <Property Name="OffCampusActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeID" Type="Int32" />
-          <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="DateStart" Type="DateTime" Precision="3" />
-          <Property Name="DateEnd" Type="DateTime" Precision="3" />
-          <Property Name="DateFiled" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_HRISOffCampusActivity_Employee" FromRole="HRISOffCampusActivity" ToRole="Employee" />
         </EntityType>
         <EntityType Name="HRISOnlineJobApplication">
           <Key>
@@ -12098,6 +12114,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <NavigationProperty Name="StudentSchedules" Relationship="Self.FK_StudentSchedule_Schedule" FromRole="Schedule" ToRole="StudentSchedule" />
           <NavigationProperty Name="ScheduleStatu" Relationship="Self.FK_Schedule_ScheduleStatus" FromRole="Schedule" ToRole="ScheduleStatus" />
           <NavigationProperty Name="Section1" Relationship="Self.FK_Schedule_Section2" FromRole="Schedule" ToRole="Section" />
+          <Property Name="DatePrintedOnline" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="ScheduleStatu">
           <Key>
@@ -14918,18 +14935,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HRISOffCampusActivity_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-          <End Role="HRISOffCampusActivity" Type="Self.HRISOffCampusActivity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeID" />
-            </Principal>
-            <Dependent Role="HRISOffCampusActivity">
-              <PropertyRef Name="EmployeeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_HRISOvertime_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="HRISOvertime" Type="Self.HRISOvertime" Multiplicity="*" />
@@ -17026,7 +17031,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <EntitySet Name="HRISMakeUpClasses" EntityType="Self.HRISMakeUpClass" />
           <EntitySet Name="HRISMakeUpClassDetails" EntityType="Self.HRISMakeUpClassDetail" />
           <EntitySet Name="HRISNoticeofAbsences" EntityType="Self.HRISNoticeofAbsence" />
-          <EntitySet Name="HRISOffCampusActivities" EntityType="Self.HRISOffCampusActivity" />
           <EntitySet Name="HRISOnlineJobApplications" EntityType="Self.HRISOnlineJobApplication" />
           <EntitySet Name="HRISOnlineJobApplicationEducations" EntityType="Self.HRISOnlineJobApplicationEducation" />
           <EntitySet Name="HRISOnlineJobApplicationLicenses" EntityType="Self.HRISOnlineJobApplicationLicens" />
@@ -17733,10 +17737,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <AssociationSet Name="FK_HRISNoticeofAbsence_Employee" Association="Self.FK_HRISNoticeofAbsence_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="HRISNoticeofAbsence" EntitySet="HRISNoticeofAbsences" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HRISOffCampusActivity_Employee" Association="Self.FK_HRISOffCampusActivity_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="HRISOffCampusActivity" EntitySet="HRISOffCampusActivities" />
           </AssociationSet>
           <AssociationSet Name="FK_HRISOvertime_Employee" Association="Self.FK_HRISOvertime_Employee">
             <End Role="Employee" EntitySet="Employees" />
@@ -18495,6 +18495,16 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
             <End Role="HRISOvertime" EntitySet="HRISOvertimes" />
             <End Role="HRISOvertimeDetail" EntitySet="HRISOvertimeDetails" />
           </AssociationSet>
+          <EntitySet Name="HRISOffCampusActivities" EntityType="LetranIntegratedSystemModel.HRISOffCampusActivity" />
+          <AssociationSet Name="FK_HRISOffCampusActivity_Employee" Association="LetranIntegratedSystemModel.FK_HRISOffCampusActivity_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="HRISOffCampusActivity" EntitySet="HRISOffCampusActivities" />
+          </AssociationSet>
+          <EntitySet Name="HRISShiftDetails" EntityType="LetranIntegratedSystemModel.HRISShiftDetail" />
+          <AssociationSet Name="FK_HRISShiftDetails_HRISShiftDetails" Association="LetranIntegratedSystemModel.FK_HRISShiftDetails_HRISShiftDetails">
+            <End Role="HRISShiftDetail" EntitySet="HRISShiftDetails" />
+            <End Role="HRISShiftDetail1" EntitySet="HRISShiftDetails" />
+          </AssociationSet>
           <FunctionImport Name="GetEmployeeDTR" ReturnType="Collection(LetranIntegratedSystemModel.GetEmployeeDTR_Result)">
             <Parameter Name="startDate" Mode="In" Type="String" />
             <Parameter Name="endDate" Mode="In" Type="String" />
@@ -18991,6 +19001,58 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="HRISOffCampusActivity">
+          <Key>
+            <PropertyRef Name="OffCampusActivityID" />
+          </Key>
+          <Property Name="OffCampusActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DateStart" Type="DateTime" Precision="3" />
+          <Property Name="DateEnd" Type="DateTime" Precision="3" />
+          <Property Name="DateFiled" Type="DateTime" Precision="3" />
+          <Property Name="StartTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EndTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TotalHours" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="LetranIntegratedSystemModel.FK_HRISOffCampusActivity_Employee" FromRole="HRISOffCampusActivity" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_HRISOffCampusActivity_Employee">
+          <End Type="LetranIntegratedSystemModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="LetranIntegratedSystemModel.HRISOffCampusActivity" Role="HRISOffCampusActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="HRISOffCampusActivity">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="HRISShiftDetail">
+          <Key>
+            <PropertyRef Name="ShiftDetailsID" />
+          </Key>
+          <Property Name="ShiftDetailsID" Type="Int32" Nullable="false" />
+          <Property Name="DayID" Type="Int32" />
+          <Property Name="ShiftCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="StartTime" Type="Time" Precision="7" />
+          <Property Name="EndTime" Type="Time" Precision="7" />
+          <NavigationProperty Name="HRISShiftDetails1" Relationship="LetranIntegratedSystemModel.FK_HRISShiftDetails_HRISShiftDetails" FromRole="HRISShiftDetail" ToRole="HRISShiftDetail1" />
+          <NavigationProperty Name="HRISShiftDetail1" Relationship="LetranIntegratedSystemModel.FK_HRISShiftDetails_HRISShiftDetails" FromRole="HRISShiftDetail1" ToRole="HRISShiftDetail" />
+        </EntityType>
+        <Association Name="FK_HRISShiftDetails_HRISShiftDetails">
+          <End Type="LetranIntegratedSystemModel.HRISShiftDetail" Role="HRISShiftDetail" Multiplicity="1" />
+          <End Type="LetranIntegratedSystemModel.HRISShiftDetail" Role="HRISShiftDetail1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="HRISShiftDetail">
+              <PropertyRef Name="ShiftDetailsID" />
+            </Principal>
+            <Dependent Role="HRISShiftDetail1">
+              <PropertyRef Name="ShiftDetailsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <ComplexType Name="GetEmployeeDTR_Result">
           <Property Type="DateTime" Name="DATE" Nullable="true" />
           <Property Type="String" Name="DAY" Nullable="true" MaxLength="3" />
@@ -19005,9 +19067,11 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <Property Type="String" Name="BREAKIN" Nullable="true" MaxLength="15" />
           <Property Type="String" Name="TIMEOUT" Nullable="true" MaxLength="15" />
           <Property Type="String" Name="LeaveCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="OffCampusTotalHours" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="Days" Nullable="true" Precision="10" Scale="1" />
           <Property Type="String" Name="TotalHours" Nullable="true" MaxLength="8000" />
           <Property Type="Int32" Name="EmployeeID" Nullable="true" />
+          <Property Type="String" Name="RemainingLateBreak" Nullable="true" MaxLength="8000" />
           <Property Type="String" Name="RemainingBreak" Nullable="true" MaxLength="6" />
           <Property Type="String" Name="TotalWorkingHours" Nullable="true" MaxLength="8000" />
           <Property Type="String" Name="Late" Nullable="true" MaxLength="6" />
@@ -19971,6 +20035,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="LetranIntegratedSystemModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="BankAccountNo" ColumnName="BankAccountNo" />
                 <ScalarProperty Name="EmploymentTypeID" ColumnName="EmploymentTypeID" />
                 <ScalarProperty Name="EmployeeScheduleId" ColumnName="EmployeeScheduleId" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
@@ -20599,6 +20664,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <EntitySetMapping Name="GradeSHS">
             <EntityTypeMapping TypeName="LetranIntegratedSystemModel.GradeSH">
               <MappingFragment StoreEntitySet="GradeSHS">
+                <ScalarProperty Name="Term" ColumnName="Term" />
                 <ScalarProperty Name="GradeSHSID" ColumnName="GradeSHSID" />
                 <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
                 <ScalarProperty Name="PeriodID" ColumnName="PeriodID" />
@@ -21091,18 +21157,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
                 <ScalarProperty Name="DateFiled" ColumnName="DateFiled" />
                 <ScalarProperty Name="Reason" ColumnName="Reason" />
                 <ScalarProperty Name="NumberDays" ColumnName="NumberDays" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HRISOffCampusActivities">
-            <EntityTypeMapping TypeName="LetranIntegratedSystemModel.HRISOffCampusActivity">
-              <MappingFragment StoreEntitySet="HRISOffCampusActivity">
-                <ScalarProperty Name="OffCampusActivityID" ColumnName="OffCampusActivityID" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="Reason" ColumnName="Reason" />
-                <ScalarProperty Name="DateStart" ColumnName="DateStart" />
-                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
-                <ScalarProperty Name="DateFiled" ColumnName="DateFiled" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -21632,6 +21686,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <EntitySetMapping Name="Schedules">
             <EntityTypeMapping TypeName="LetranIntegratedSystemModel.Schedule">
               <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="DatePrintedOnline" ColumnName="DatePrintedOnline" />
                 <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
                 <ScalarProperty Name="Days" ColumnName="Days" />
                 <ScalarProperty Name="RoomID" ColumnName="RoomID" />
@@ -22673,32 +22728,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetHRiSsisPerFaculty" FunctionName="LetranIntegratedSystemModel.Store.GetHRiSsisPerFaculty">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="LetranIntegratedSystemModel.GetHRiSsisPerFaculty_Result">
-                <ScalarProperty Name="FacultyName" ColumnName="FacultyName" />
-                <ScalarProperty Name="Respondents" ColumnName="Respondents" />
-                <ScalarProperty Name="Result" ColumnName="Result" />
-                <ScalarProperty Name="QuestionNo" ColumnName="QuestionNo" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetHRiSsisPerSchedule" FunctionName="LetranIntegratedSystemModel.Store.GetHRiSsisPerSchedule">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="LetranIntegratedSystemModel.GetHRiSsisPerSchedule_Result">
-                <ScalarProperty Name="FacultyName" ColumnName="FacultyName" />
-                <ScalarProperty Name="SubjectDescription" ColumnName="SubjectDescription" />
-                <ScalarProperty Name="SectionName" ColumnName="SectionName" />
-                <ScalarProperty Name="Days" ColumnName="Days" />
-                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-                <ScalarProperty Name="RoomName" ColumnName="RoomName" />
-                <ScalarProperty Name="Respondents" ColumnName="Respondents" />
-                <ScalarProperty Name="Result" ColumnName="Result" />
-                <ScalarProperty Name="QuestionNo" ColumnName="QuestionNo" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="HRISEmployeeSchedules">
             <EntityTypeMapping TypeName="LetranIntegratedSystemModel.HRISEmployeeSchedule">
               <MappingFragment StoreEntitySet="HRISEmployeeSchedule">
@@ -22869,6 +22898,33 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="HRISOffCampusActivities">
+            <EntityTypeMapping TypeName="LetranIntegratedSystemModel.HRISOffCampusActivity">
+              <MappingFragment StoreEntitySet="HRISOffCampusActivity">
+                <ScalarProperty Name="TotalHours" ColumnName="TotalHours" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="DateFiled" ColumnName="DateFiled" />
+                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+                <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="OffCampusActivityID" ColumnName="OffCampusActivityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HRISShiftDetails">
+            <EntityTypeMapping TypeName="LetranIntegratedSystemModel.HRISShiftDetail">
+              <MappingFragment StoreEntitySet="HRISShiftDetails">
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ShiftCode" ColumnName="ShiftCode" />
+                <ScalarProperty Name="DayID" ColumnName="DayID" />
+                <ScalarProperty Name="ShiftDetailsID" ColumnName="ShiftDetailsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetEmployeeDTR" FunctionName="LetranIntegratedSystemModel.Store.GetEmployeeDTR">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LetranIntegratedSystemModel.GetEmployeeDTR_Result">
@@ -22885,9 +22941,11 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
                 <ScalarProperty Name="BREAKIN" ColumnName="BREAKIN" />
                 <ScalarProperty Name="TIMEOUT" ColumnName="TIMEOUT" />
                 <ScalarProperty Name="LeaveCode" ColumnName="LeaveCode" />
+                <ScalarProperty Name="OffCampusTotalHours" ColumnName="OffCampusTotalHours" />
                 <ScalarProperty Name="Days" ColumnName="Days" />
                 <ScalarProperty Name="TotalHours" ColumnName="TotalHours" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="RemainingLateBreak" ColumnName="RemainingLateBreak" />
                 <ScalarProperty Name="RemainingBreak" ColumnName="RemainingBreak" />
                 <ScalarProperty Name="TotalWorkingHours" ColumnName="TotalWorkingHours" />
                 <ScalarProperty Name="Late" ColumnName="Late" />
@@ -23069,7 +23127,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISMakeUpClass" Width="1.5" PointX="22.25" PointY="158.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISMakeUpClassDetail" Width="1.5" PointX="24.5" PointY="167" IsExpanded="true" />
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISNoticeofAbsence" Width="1.5" PointX="6" PointY="205.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISOffCampusActivity" Width="1.5" PointX="6" PointY="209.125" IsExpanded="true" />
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISOnlineJobApplication" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISOnlineJobApplicationEducation" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISOnlineJobApplicationLicens" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
@@ -23323,7 +23380,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
         <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISChangeVacationLeave_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISMakeUpClass_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISNoticeofAbsence_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISOffCampusActivity_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISOvertime_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISPostTraining_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISSubstituteClass_Employee" ManuallyRouted="false" />
@@ -23501,6 +23557,10 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
         <AssociationConnector Association="LetranIntegratedSystemModel.FK_CRSVoucherDetails_SubChartOfAccounts" ManuallyRouted="false" />
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISOvertimeDetail" Width="1.5" PointX="8.25" PointY="212.375" />
         <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISOvertimeDetails_HRISOvertime" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISOffCampusActivity" Width="1.5" PointX="6" PointY="223.875" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISOffCampusActivity_Employee" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISShiftDetail" Width="1.5" PointX="26.375" PointY="27.75" />
+        <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISShiftDetails_HRISShiftDetails" />
       </Diagram>
     </Diagrams>
   </Designer>

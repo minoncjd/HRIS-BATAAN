@@ -32,7 +32,7 @@ namespace HRiS
             {
                 using (var db = new LetranIntegratedSystemEntities())
                 {
-                    if (txtDays.Text != null && startDate.SelectedDate != null && endDate.SelectedDate != null && cbEmp.SelectedItem != null && cbLeaveType.SelectedItem != null)
+                    if (txtDays.Text != null && startDate.SelectedDate != null && cbEmp.SelectedItem != null && cbLeaveType.SelectedItem != null)
                     {
                         int empID = Convert.ToInt32(cbEmp.SelectedValue);
                         int leavetypeid = Convert.ToInt32(cbLeaveType.SelectedValue);
@@ -68,7 +68,7 @@ namespace HRiS
                         leave.LeaveTypeID = leavetypeid;
                         leave.Reason = txtReason.Text;
                         leave.StartDate = startDate.SelectedDate;
-                        leave.EndDate = endDate.SelectedDate;
+                        leave.EndDate = startDate.SelectedDate;
                         leave.Days = Convert.ToDecimal(txtDays.Text);
                         leave.FiledDate = dateFiled.SelectedDate;
                         db.Leaves.Add(leave);
@@ -107,8 +107,7 @@ namespace HRiS
             cbEmp.Text = "";
             cbLeaveType.Text = "";
             startDate.Text = "";
-            endDate.Text = "";
-            
+            dateFiled.Text = "";                
         }
         private void LoadLeaveBalance()
         {

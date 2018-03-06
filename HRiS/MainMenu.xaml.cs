@@ -527,6 +527,23 @@ namespace HRiS
             this.Cursor = Cursors.Arrow;
         }
 
+        private void TileFileOffCampusAct_Click(object sender, RoutedEventArgs e)
+        {
+            this.Cursor = Cursors.Wait;
+            AddOffCampusActivity x = new AddOffCampusActivity();
+            x.ShowDialog();
+            this.Cursor = Cursors.Arrow;
+
+        }
+
+        private void TileFileLeave_Click(object sender, RoutedEventArgs e)
+        {
+            this.Cursor = Cursors.Wait;
+            AddEmployeeLeave x = new AddEmployeeLeave();
+            x.ShowDialog();
+            this.Cursor = Cursors.Arrow;
+        }
+
 
 
         //private void HamburgerMenuControl_OnItemClick(object sender, ItemClickEventArgs e)

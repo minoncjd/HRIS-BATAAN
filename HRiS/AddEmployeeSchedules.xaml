@@ -48,8 +48,10 @@
         <GroupBox  Background="#FF001834" BorderBrush="#FF001834">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width=".4*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -66,18 +68,18 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Column="0" HorizontalContentAlignment="Right"  Grid.Row="1" Content="Employee" FontWeight="Bold"/>
-                <Label Grid.Column="0" Grid.Row="2" HorizontalContentAlignment="Right" Content="Monday"/>
-                <Label Grid.Column="0"  Grid.Row="3" HorizontalContentAlignment="Right" Content="Tuesday"/>
-                <Label Grid.Column="0"  Grid.Row="4" HorizontalContentAlignment="Right" Content="Wednesday"/>
-                <Label Grid.Column="0"  Grid.Row="5" HorizontalContentAlignment="Right" Content="Thursday"/>
-                <Label Grid.Column="0"  Grid.Row="6" HorizontalContentAlignment="Right" Content="Friday"/>
-                <Label Grid.Column="0"  Grid.Row="7" HorizontalContentAlignment="Right" Content="Saturday"/>
-                <Label Grid.Column="0"  Grid.Row="8" HorizontalContentAlignment="Right" Content="Sunday"/>
+                <Label Grid.Column="1" HorizontalContentAlignment="Right"  Grid.Row="1" Content="Employee" FontWeight="Bold"/>
+                <Label Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Right" Content="Monday"/>
+                <Label Grid.Column="1"  Grid.Row="3" HorizontalContentAlignment="Right" Content="Tuesday"/>
+                <Label Grid.Column="1"  Grid.Row="4" HorizontalContentAlignment="Right" Content="Wednesday"/>
+                <Label Grid.Column="1"  Grid.Row="5" HorizontalContentAlignment="Right" Content="Thursday"/>
+                <Label Grid.Column="1"  Grid.Row="6" HorizontalContentAlignment="Right" Content="Friday"/>
+                <Label Grid.Column="1"  Grid.Row="7" HorizontalContentAlignment="Right" Content="Saturday"/>
+                <Label Grid.Column="1"  Grid.Row="8" HorizontalContentAlignment="Right" Content="Sunday"/>
 
-                <ComboBox Grid.Column="1" Grid.Row="1" Name="cbEmp" Margin="5,5,100,5" Controls:TextBoxHelper.Watermark="Employee"/>
-                
-                <Grid Grid.Column="1" Grid.Row="2">
+                <ComboBox Grid.Column="2" Grid.Row="1" Name="cbEmp" Margin="5,5,100,5" Controls:TextBoxHelper.Watermark="Employee"/>
+
+                <Grid Grid.Column="2" Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="5"/>
@@ -87,7 +89,7 @@
                     <wpfTool:TimePicker x:Name="monEndTime" Grid.Column="2" Grid.Row="2" Margin="10" FontSize="16" StartTime="6:00"  />
                 </Grid>
 
-                <Grid Grid.Column="1" Grid.Row="3">
+                <Grid Grid.Column="2" Grid.Row="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="5"/>
@@ -97,7 +99,7 @@
                     <wpfTool:TimePicker x:Name="tueEndTime" Grid.Column="2" Grid.Row="3" Margin="10" FontSize="16" StartTime="6:00"  />
                 </Grid>
 
-                <Grid Grid.Column="1" Grid.Row="4">
+                <Grid Grid.Column="2" Grid.Row="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="5"/>
@@ -107,7 +109,7 @@
                     <wpfTool:TimePicker x:Name="wedEndTime" Grid.Column="2" Grid.Row="3" Margin="10" FontSize="16" StartTime="6:00"  />
                 </Grid>
 
-                <Grid Grid.Column="1" Grid.Row="5">
+                <Grid Grid.Column="2" Grid.Row="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="5"/>
@@ -117,7 +119,7 @@
                     <wpfTool:TimePicker x:Name="thuEndTime" Grid.Column="2" Grid.Row="3" Margin="10" FontSize="16" StartTime="6:00"  />
                 </Grid>
 
-                <Grid Grid.Column="1" Grid.Row="6">
+                <Grid Grid.Column="2" Grid.Row="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="5"/>
@@ -127,7 +129,7 @@
                     <wpfTool:TimePicker x:Name="friEndTime" Grid.Column="2" Grid.Row="3" Margin="10" FontSize="16" StartTime="6:00"  />
                 </Grid>
 
-                <Grid Grid.Column="1" Grid.Row="7">
+                <Grid Grid.Column="2" Grid.Row="7">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="5"/>
@@ -137,7 +139,7 @@
                     <wpfTool:TimePicker x:Name="satEndTime" Grid.Column="2" Grid.Row="3" Margin="10" FontSize="16" StartTime="6:00"  />
                 </Grid>
 
-                <Grid Grid.Column="1" Grid.Row="8">
+                <Grid Grid.Column="2" Grid.Row="8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="5"/>
@@ -147,7 +149,7 @@
                     <wpfTool:TimePicker x:Name="sunEndTime" Grid.Column="2" Grid.Row="3" Margin="10" FontSize="16" StartTime="6:00"  />
                 </Grid>
 
-                <Button Grid.Row="10" Content="SUBMIT" Name="btnAdd" Margin="149,0,70,0" Click="btnAdd_Click" Grid.ColumnSpan="2"/>
+                <Button Grid.Row="9" Content="SUBMIT" Name="btnAdd"  Click="btnAdd_Click" Grid.Column="1" Margin="68,34,33,10" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
 
 
             </Grid>

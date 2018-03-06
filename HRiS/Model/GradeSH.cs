@@ -30,6 +30,7 @@ namespace HRiS.Model
         public Nullable<double> RemedialGrade { get; set; }
         public Nullable<System.DateTime> RemedialGradeDate { get; set; }
         public Nullable<bool> IsLock { get; set; }
+        public int Term { get; set; }
     
         public virtual Period Period { get; set; }
         public virtual Student Student { get; set; }

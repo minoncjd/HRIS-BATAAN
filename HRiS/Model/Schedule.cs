@@ -36,6 +36,7 @@ namespace HRiS.Model
         public Nullable<int> ScheduleStatusID { get; set; }
         public Nullable<int> SectionID2 { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
+        public Nullable<System.DateTime> DatePrintedOnline { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdjustmentDetail> AdjustmentDetails { get; set; }
