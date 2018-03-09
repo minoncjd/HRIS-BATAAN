@@ -157,6 +157,11 @@ warning 6002: The table/view 'softrak.dbo.TIME00' does not have a primary key de
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
+    <Diagrams>
+      <Diagram DiagramId="1837285ff0434ac2b221dd534d649d02" Name="Diagram1">
+        <EntityTypeShape EntityType="softrakModel.LEAf" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="softrakModel.TIME00" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+      </Diagram>
+    </Diagrams>
   </Designer>
 </edmx:Edmx>

@@ -60,8 +60,7 @@
             <Button x:Name="btnClose" Content="CLOSE" HorizontalAlignment="Left" Margin="200,302,0,0" VerticalAlignment="Top" Width="110" Height="28"/>
             <ComboBox IsEditable="True" Controls:TextBoxHelper.Watermark="Select Employee" x:Name="cbEmployee" HorizontalAlignment="Left" Margin="66,238,0,0" VerticalAlignment="Top" Width="211"/>
             <ComboBox IsEnabled="True" Controls:TextBoxHelper.Watermark="Select Report Type" x:Name="cbReportType" HorizontalAlignment="Left" Margin="66,129,0,0" VerticalAlignment="Top" Width="211">
-                <ComboBoxItem Content="DTR" Tag="1"></ComboBoxItem>
-                <ComboBoxItem Content="Attendance Summary" Tag="2"></ComboBoxItem>
+     
             </ComboBox>
             <Label x:Name="label1" Content="Report Type" HorizontalAlignment="Left" Margin="66,103,0,0" VerticalAlignment="Top" Width="102"/>
 

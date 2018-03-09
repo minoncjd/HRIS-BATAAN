@@ -19060,6 +19060,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <Property Type="String" Name="Name" Nullable="true" MaxLength="102" />
           <Property Type="String" Name="AcaAcronym" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="EmployeePositionName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="bioid" Nullable="true" />
           <Property Type="String" Name="StartTime" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="EndTime" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="TIMEIN" Nullable="true" MaxLength="15" />
@@ -22934,6 +22935,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="AcaAcronym" ColumnName="AcaAcronym" />
                 <ScalarProperty Name="EmployeePositionName" ColumnName="EmployeePositionName" />
+                <ScalarProperty Name="bioid" ColumnName="bioid" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
                 <ScalarProperty Name="TIMEIN" ColumnName="TIMEIN" />

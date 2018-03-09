@@ -15,7 +15,7 @@ namespace HRiS.Model
     
     public partial class softrakEntities : DbContext
     {
-        public softrakEntities()    
+        public softrakEntities()
             : base("name=softrakEntities")
         {
         }

@@ -62,7 +62,7 @@ namespace HRiS
                     oca.DateFiled = dateFile.SelectedDate;
                     oca.Reason = txtReason.Text;
                     TimeSpan duration = DateTime.Parse(endTime.Text).Subtract(DateTime.Parse(startTime.Text));
-                    oca.TotalHours = duration.ToString(@"hh\:mm");
+                    oca.TotalHours = duration.ToString(@"h\:mm");
                     oca.StartTime = startTime.Text;
                     oca.EndTime = endTime.Text;
                     db.HRISOffCampusActivities.Add(oca);

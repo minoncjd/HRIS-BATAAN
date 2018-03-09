@@ -208,9 +208,9 @@
                     <Label Grid.Row="0" VerticalContentAlignment="Bottom" Margin="0" HorizontalAlignment="Right" Grid.Column="3" Foreground="White" FontFamily="Arial" FontSize="18" FontWeight="Bold" Padding="5,0" Name="time"/>
                     <Label Grid.Row="1" VerticalContentAlignment="Bottom" Margin="0" HorizontalAlignment="Right" Grid.Column="3" Foreground="White" FontFamily="Arial" FontSize="18" FontWeight="Bold" Padding="5,0,5,5" Name="thedate"></Label>
                 </Grid>
-                
+
                 <Menu Grid.Row="1" Grid.ColumnSpan="4"  FontFamily="Arial" FontSize="10" Background="White" Height="30" Name="menu1"  >
-                    
+
                     <MenuItem Height="30" VerticalContentAlignment="Center" FontSize="12">
                         <MenuItem.HeaderTemplate>
                             <DataTemplate>
@@ -235,16 +235,7 @@
                             </MenuItem.Icon>
                         </MenuItem>
 
-                        <MenuItem  VerticalContentAlignment="Center" Header="Over Time" Background="White" Name="mOverTime" Click="mOverTime_Click">
-                            <MenuItem.Icon>
-                                <Rectangle Fill="#FF002753" Width="15" Height="15">
-                                    <Rectangle.OpacityMask>
-                                        <VisualBrush Visual="{StaticResource appbar_man_walk}" Stretch="Fill" />
-                                    </Rectangle.OpacityMask>
-                                </Rectangle>
-                            </MenuItem.Icon>
-                        </MenuItem>
-
+                  
                         <MenuItem  VerticalContentAlignment="Center" Header="Employee History" Background="White" Name="mEmployeeHistoryList" Click="mEmployeeHistoryList_Click">
                             <MenuItem.Icon>
                                 <Rectangle Fill="#FF002753" Width="15" Height="15">
@@ -278,7 +269,7 @@
 
 
                     </MenuItem>
-                    
+
                     <MenuItem Height="30" VerticalContentAlignment="Center" FontSize="12">
                         <MenuItem.HeaderTemplate>
                             <DataTemplate>
@@ -343,7 +334,7 @@
                                 </Rectangle>
                             </MenuItem.Icon>
                         </MenuItem>
-                        
+
                         <MenuItem  VerticalContentAlignment="Center" Header="Leave Balances" Background="White" Name="miLeaveBal" Click="miLeaveBal_Click">
                             <MenuItem.Icon>
                                 <Rectangle Fill="#FF002753" Width="15" Height="15">
@@ -381,8 +372,8 @@
                             </MenuItem.Icon>
                         </MenuItem>
                         <Separator/>
-                         
-                        
+
+
                     </MenuItem>
 
                     <MenuItem Height="30" VerticalContentAlignment="Center" FontSize="12">
@@ -398,7 +389,7 @@
                                 </StackPanel>
                             </DataTemplate>
                         </MenuItem.HeaderTemplate>
-                       
+
                         <MenuItem  VerticalContentAlignment="Center" Header="Biometrics Attendance" Background="White" Name="miBio" Click="miBio_Click">
                             <MenuItem.Icon>
                                 <Rectangle Fill="#FF002753" Width="15" Height="15">
@@ -408,12 +399,12 @@
                                 </Rectangle>
                             </MenuItem.Icon>
                         </MenuItem>
-                 
 
-         
-                        
+
+
+
                     </MenuItem>
-                    
+
                     <!--test -->
                     <MenuItem Height="30" VerticalContentAlignment="Center" FontSize="12">
                         <MenuItem.HeaderTemplate>
@@ -440,8 +431,8 @@
                         </MenuItem>
 
 
-                        
-                        
+
+
                     </MenuItem>
 
                     <MenuItem Height="30" VerticalContentAlignment="Center" FontSize="12">
@@ -561,7 +552,7 @@
                             </MenuItem.Icon>
                         </MenuItem>
 
-                      
+
                         <MenuItem  VerticalContentAlignment="Center" Header="Employee's Department" Name="miEmpDept" Background="White" Click="miEmpDept_Click">
                             <MenuItem.Icon>
                                 <Rectangle Fill="#FF002753" Width="15" Height="15">
@@ -596,7 +587,7 @@
                                 </StackPanel>
                             </DataTemplate>
                         </MenuItem.HeaderTemplate>-->
-                       
+
                         <MenuItem  VerticalContentAlignment="Center" Header="Leave Cancel List" Background="White" Name="miLeaveCancel" Click="miLeaveCancel_Click">
                             <MenuItem.Icon>
                                 <Rectangle Fill="#FF002753" Width="15" Height="15">
@@ -727,7 +718,7 @@
                             </DataTemplate>
                         </MenuItem.HeaderTemplate>
 
-                      
+
                     </MenuItem>
                 </Menu>
 
@@ -759,16 +750,17 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="78"/>
-                    <ColumnDefinition Width="222"/>
+                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="177"/>
                     <ColumnDefinition Width="72*"/>
                     <ColumnDefinition Width="23*"/>
                     <ColumnDefinition Width="80"/>
                     <ColumnDefinition Width="95*"/>
                 </Grid.ColumnDefinitions>
 
-                <Image Grid.Row="2" Grid.ColumnSpan="6" Source="Images/letranknights.png"  Opacity="0.2"/>
+                <Image Grid.Row="2" Grid.ColumnSpan="7" Source="Images/letranknights.png"  Opacity="0.2"/>
 
-                <WrapPanel Margin="10" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.RowSpan="3" Grid.ColumnSpan="6">
+                <WrapPanel Margin="10" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.RowSpan="3" Grid.ColumnSpan="7">
 
                     <Controls:Tile TitleFontSize="12" Title="Employee List"  Style="{StaticResource SmallTileStyle}"  FontFamily="Roboto" x:Name="TileEmployeeList" Click="TileEmployeeList_Click">
                         <Rectangle Fill="White" Height="50" Width="60" Margin="0,0,0,15">
@@ -794,18 +786,18 @@
                         </Rectangle>
                     </Controls:Tile>
 
-                    <Controls:Tile TitleFontSize="12" Title="File OT"  Style="{StaticResource SmallTileStyle}"  FontFamily="Roboto" x:Name="TileOT" Click="TileOT_Click">
+                    <Controls:Tile TitleFontSize="12" Title="SIS"  Style="{StaticResource SmallTileStyle}"  FontFamily="Roboto" x:Name="TileSIS" Click="TileSIS_Click">
                         <Rectangle Fill="White" Height="50" Width="60" Margin="0,0,0,15">
                             <Rectangle.OpacityMask>
-                                <VisualBrush Visual="{StaticResource appbar_timer_check}" Stretch="Fill" />
+                                <VisualBrush Visual="{StaticResource appbar_paper}" Stretch="Fill" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Controls:Tile>
 
-                    <Controls:Tile TitleFontSize="12" Title="SIS"  Style="{StaticResource SmallTileStyle}"  FontFamily="Roboto" x:Name="TileSIS" Click="TileSIS_Click">
+                    <Controls:Tile TitleFontSize="12" Title="File OT"  Style="{StaticResource SmallTileStyle}"  FontFamily="Roboto" x:Name="TileOT" Click="TileOT_Click">
                         <Rectangle Fill="White" Height="50" Width="60" Margin="0,0,0,15">
                             <Rectangle.OpacityMask>
-                                <VisualBrush Visual="{StaticResource appbar_timer_check}" Stretch="Fill" />
+                                <VisualBrush Visual="{StaticResource appbar_clock}" Stretch="Fill" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Controls:Tile>
@@ -813,7 +805,7 @@
                     <Controls:Tile TitleFontSize="12" Title="File Off Campus ACtivity"  Style="{StaticResource SmallTileStyle}"  FontFamily="Roboto" x:Name="TileFileOffCampusAct" Click="TileFileOffCampusAct_Click">
                         <Rectangle Fill="White" Height="50" Width="60" Margin="0,0,0,15">
                             <Rectangle.OpacityMask>
-                                <VisualBrush Visual="{StaticResource appbar_timer_check}" Stretch="Fill" />
+                                <VisualBrush Visual="{StaticResource appbar_map_folds}" Stretch="Fill" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Controls:Tile>
@@ -821,7 +813,7 @@
                     <Controls:Tile TitleFontSize="12" Title="File Leave"  Style="{StaticResource SmallTileStyle}"  FontFamily="Roboto" x:Name="TileFileLeave" Click="TileFileLeave_Click">
                         <Rectangle Fill="White" Height="50" Width="60" Margin="0,0,0,15">
                             <Rectangle.OpacityMask>
-                                <VisualBrush Visual="{StaticResource appbar_timer_check}" Stretch="Fill" />
+                                <VisualBrush Visual="{StaticResource appbar_plane_rotated_45}" Stretch="Fill" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Controls:Tile>
@@ -868,7 +860,7 @@
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Controls:Tile>
-                
+
 
                     <!--<Controls:HamburgerMenu x:Name="HamburgerMenuControl"
                         Foreground="White"
@@ -921,7 +913,7 @@
                         </Controls:HamburgerMenu.ItemsSource>
 
                     </Controls:HamburgerMenu>-->
-                    
+
 
                 </WrapPanel>
 

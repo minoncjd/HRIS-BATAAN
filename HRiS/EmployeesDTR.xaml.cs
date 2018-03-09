@@ -22,7 +22,7 @@ namespace HRiS
     /// </summary>
     public partial class EmployeesDTR : MetroWindow
     {
-        List<EmployeeAttendanceList> EList = new List<EmployeeAttendanceList>();
+        
         public EmployeesDTR()
         {
             InitializeComponent();

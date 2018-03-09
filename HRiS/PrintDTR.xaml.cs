@@ -21,11 +21,13 @@ namespace HRiS
     /// </summary>
     public partial class PrintDTR : MetroWindow
     {
-        public List<EmployeeAttendanceList> lEmployeeAttendanceList = new List<EmployeeAttendanceList>();
+        
         List<HRiSClass.EmpCombo> EList = new List<HRiSClass.EmpCombo>();
         public PrintDTR()
         {
             InitializeComponent();
+
+            
         }
 
         private void rbDepartment_Checked(object sender, RoutedEventArgs e)
@@ -85,6 +87,9 @@ namespace HRiS
                     cbDepartment.DisplayMemberPath = "AcaDepartmentName";
                     cbDepartment.SelectedValuePath = "AcaDeptID";
 
+                    cbReportType.Items.Add("DTR");
+                    cbReportType.Items.Add("Attendance Report");
+
 
                 }
 
@@ -100,7 +105,7 @@ namespace HRiS
 
         private void btnPrint_Click_1(object sender, RoutedEventArgs e)
         {
-            Mouse.OverrideCursor = Cursors.Wait;
+            //Mouse.OverrideCursor = Cursors.Wait;
             if (dpStartDate.SelectedDate == null || dpEndDate.SelectedDate == null)
             {
                 MessageBox.Show("Date fields cannot be empty.", "System Error!", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -111,8 +116,8 @@ namespace HRiS
 
             var startDate = dpStartDate.SelectedDate.Value.ToShortDateString();
             var endDate = dpEndDate.SelectedDate.Value.ToShortDateString();
-            //var reporttype = Convert.ToInt32(cbReportType.SelectedValue);
-            var reporttype =1;
+            var reporttype = cbReportType.Text;
+            //var reporttype =1 ;
             var empid = Convert.ToInt32(cbEmployee.SelectedValue);          
             var deptid = Convert.ToInt32(cbDepartment.SelectedValue);
            
@@ -120,8 +125,7 @@ namespace HRiS
             using (var db = new LetranIntegratedSystemEntities())
             {
                 
-                List<Model.Employee> employees = new List<Model.Employee>();
-                lEmployeeAttendanceList = new List<EmployeeAttendanceList>();
+                List<Model.Employee> employees = new List<Model.Employee>();           
                 List<GetEmployeeDTR_Result> lresult = new List<GetEmployeeDTR_Result>();
                
                 //if (rbAll.IsChecked == true)
@@ -134,7 +138,7 @@ namespace HRiS
 
                 //}
 
-                if (reporttype == 1)
+                if (reporttype == "DTR")
                 {
                     if (rbDepartment.IsChecked == true)
                     {
@@ -166,7 +170,7 @@ namespace HRiS
                     x.ShowDialog();
                 }
 
-                else if (reporttype == 2)
+                else if (reporttype == "Attendance Report")
                 {
                     if (rbDepartment.IsChecked == true)
                     {
@@ -203,27 +207,10 @@ namespace HRiS
     }
 
 
-    public class EmployeeAttendanceList
+    public class ReportType
     {
-        public string EmployeeNumber { get; set; }
-        public string EmployeeName { get; set; }
-        public string Department { get; set; }
-        public string Position { get; set; }
-        public string TimeIn { get; set; }
-        public string BreakOut { get; set; }
-        public string BreakIn { get; set; }
-        public string TimeOut { get; set; }
-        public DateTime Date { get; set; }
-        public string Day { get; set; }
-        public string LeaveCode { get; set; }
-        public string StartDate { get; set; }
-        public string EndDate { get; set; }
-        public string Regular { get; set; }
-        public string Late { get; set; }
-        public string UnderTime { get; set; }
-        public string TotalHoursRendered { get; set; }
-        public string TotalLate { get; set; }
-        public string TotalUndertime { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 
 

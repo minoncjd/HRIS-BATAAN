@@ -19,6 +19,7 @@ namespace HRiS.Model
         public string Name { get; set; }
         public string AcaAcronym { get; set; }
         public string EmployeePositionName { get; set; }
+        public int bioid { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public string TIMEIN { get; set; }
