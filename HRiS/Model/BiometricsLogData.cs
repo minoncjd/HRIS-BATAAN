@@ -19,5 +19,8 @@ namespace HRiS.Model
         public System.DateTime DTIME { get; set; }
         public string MODE { get; set; }
         public string REMARK { get; set; }
+        public string REG { get; set; }
+        public string LATE { get; set; }
+        public string UNDERTIME { get; set; }
     }
 }

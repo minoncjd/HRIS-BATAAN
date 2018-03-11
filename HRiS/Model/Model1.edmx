@@ -599,6 +599,9 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.backpayment20161stsem' 
           <Property Name="DTIME" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="MODE" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="REMARK" Type="nvarchar" MaxLength="50" />
+          <Property Name="REG" Type="nvarchar" MaxLength="50" />
+          <Property Name="LATE" Type="nvarchar" MaxLength="50" />
+          <Property Name="UNDERTIME" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CancelledOR">
           <Key>
@@ -18421,7 +18424,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
             <End Role="SchoolYear" EntitySet="SchoolYears" />
             <End Role="ChartOfAccount" EntitySet="ChartOfAccounts" />
           </AssociationSet>
-          <EntitySet Name="BiometricsLogDatas" EntityType="LetranIntegratedSystemModel.BiometricsLogData" />
           <EntitySet Name="EmploymentTypes" EntityType="LetranIntegratedSystemModel.EmploymentType" />
           <EntitySet Name="HRISEmployeeAbsents" EntityType="LetranIntegratedSystemModel.HRISEmployeeAbsent" />
           <EntitySet Name="LeaveBalances" EntityType="LetranIntegratedSystemModel.LeaveBalance" />
@@ -18505,6 +18507,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
             <End Role="HRISShiftDetail" EntitySet="HRISShiftDetails" />
             <End Role="HRISShiftDetail1" EntitySet="HRISShiftDetails" />
           </AssociationSet>
+          <EntitySet Name="BiometricsLogDatas" EntityType="LetranIntegratedSystemModel.BiometricsLogData" />
           <FunctionImport Name="GetEmployeeDTR" ReturnType="Collection(LetranIntegratedSystemModel.GetEmployeeDTR_Result)">
             <Parameter Name="startDate" Mode="In" Type="String" />
             <Parameter Name="endDate" Mode="In" Type="String" />
@@ -18707,16 +18710,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="BiometricsLogData">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EMPN" Type="Int32" Nullable="false" />
-          <Property Name="DTIME" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="MODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="EmploymentType">
           <Key>
             <PropertyRef Name="EmploymentTypeID" />
@@ -19053,6 +19046,19 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BiometricsLogData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMPN" Type="Int32" Nullable="false" />
+          <Property Name="DTIME" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="MODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="REG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LATE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UNDERTIME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <ComplexType Name="GetEmployeeDTR_Result">
           <Property Type="DateTime" Name="DATE" Nullable="true" />
           <Property Type="String" Name="DAY" Nullable="true" MaxLength="3" />
@@ -19074,6 +19080,8 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
           <Property Type="Int32" Name="EmployeeID" Nullable="true" />
           <Property Type="String" Name="RemainingLateBreak" Nullable="true" MaxLength="8000" />
           <Property Type="String" Name="RemainingBreak" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="RemainingBreakTimein" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="UnderTimeHalfDay" Nullable="true" MaxLength="6" />
           <Property Type="String" Name="TotalWorkingHours" Nullable="true" MaxLength="8000" />
           <Property Type="String" Name="Late" Nullable="true" MaxLength="6" />
           <Property Type="String" Name="UnderTime" Nullable="true" MaxLength="6" />
@@ -22748,17 +22756,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BiometricsLogDatas">
-            <EntityTypeMapping TypeName="LetranIntegratedSystemModel.BiometricsLogData">
-              <MappingFragment StoreEntitySet="BiometricsLogData">
-                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
-                <ScalarProperty Name="MODE" ColumnName="MODE" />
-                <ScalarProperty Name="DTIME" ColumnName="DTIME" />
-                <ScalarProperty Name="EMPN" ColumnName="EMPN" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="EmploymentTypes">
             <EntityTypeMapping TypeName="LetranIntegratedSystemModel.EmploymentType">
               <MappingFragment StoreEntitySet="EmploymentType">
@@ -22926,6 +22923,20 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="BiometricsLogDatas">
+            <EntityTypeMapping TypeName="LetranIntegratedSystemModel.BiometricsLogData">
+              <MappingFragment StoreEntitySet="BiometricsLogData">
+                <ScalarProperty Name="UNDERTIME" ColumnName="UNDERTIME" />
+                <ScalarProperty Name="LATE" ColumnName="LATE" />
+                <ScalarProperty Name="REG" ColumnName="REG" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="MODE" ColumnName="MODE" />
+                <ScalarProperty Name="DTIME" ColumnName="DTIME" />
+                <ScalarProperty Name="EMPN" ColumnName="EMPN" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetEmployeeDTR" FunctionName="LetranIntegratedSystemModel.Store.GetEmployeeDTR">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LetranIntegratedSystemModel.GetEmployeeDTR_Result">
@@ -22949,6 +22960,8 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="RemainingLateBreak" ColumnName="RemainingLateBreak" />
                 <ScalarProperty Name="RemainingBreak" ColumnName="RemainingBreak" />
+                <ScalarProperty Name="RemainingBreakTimein" ColumnName="RemainingBreakTimein" />
+                <ScalarProperty Name="UnderTimeHalfDay" ColumnName="UnderTimeHalfDay" />
                 <ScalarProperty Name="TotalWorkingHours" ColumnName="TotalWorkingHours" />
                 <ScalarProperty Name="Late" ColumnName="Late" />
                 <ScalarProperty Name="UnderTime" ColumnName="UnderTime" />
@@ -23222,7 +23235,6 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.SeniorHighCurriculum" Width="1.5" PointX="25.75" PointY="24.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISEmployeeSchedule" Width="1.5" PointX="18" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISShift" Width="1.5" PointX="15.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="LetranIntegratedSystemModel.BiometricsLogData" Width="1.5" PointX="8.75" PointY="27.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.EmploymentType" Width="1.5" PointX="27.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISEmployeeAbsent" Width="1.5" PointX="27.75" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.LeaveBalance" Width="1.5" PointX="6" PointY="220.625" IsExpanded="true" />
@@ -23563,6 +23575,7 @@ warning 6002: The table/view 'LetranIntegratedSystem.dbo.SeniorHighCurriculum' d
         <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISOffCampusActivity_Employee" />
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.HRISShiftDetail" Width="1.5" PointX="26.375" PointY="27.75" />
         <AssociationConnector Association="LetranIntegratedSystemModel.FK_HRISShiftDetails_HRISShiftDetails" />
+        <EntityTypeShape EntityType="LetranIntegratedSystemModel.BiometricsLogData" Width="1.5" PointX="9.375" PointY="26.75" />
       </Diagram>
     </Diagrams>
   </Designer>

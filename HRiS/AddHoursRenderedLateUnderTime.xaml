@@ -1,0 +1,66 @@
+﻿<Controls:MetroWindow x:Class="HRiS.AddHoursRenderedLateUnderTime"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" GlowBrush="Black"
+        Title="Add Total Hours, Late and Under Time" Height="250.539" Width="410"  ShowInTaskbar="True" WindowStartupLocation="CenterScreen" WindowTitleBrush="#FF001834" ShowMaxRestoreButton="False" ShowMinButton="False" Loaded="MetroWindow_Loaded">
+    <Controls:MetroWindow.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF001834"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Arial"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" >
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFB0B0B0"/>
+                    <Setter Property="Foreground" Value="#FF19283F"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="FontFamily" Value="Arial"></Setter>
+
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="LargeTileStyle" TargetType="Controls:Tile">
+            <Setter Property="Width" Value="300" />
+            <Setter Property="Height" Value="125" />
+            <Setter Property="TitleFontSize" Value="10" />
+            <Setter Property="Background" Value="#FF002753"/>
+        </Style>
+        <Style x:Key="SmallTileStyle" TargetType="Controls:Tile">
+            <Setter Property="Width" Value="125" />
+            <Setter Property="Height" Value="125" />
+            <Setter Property="TitleFontSize" Value="10" />
+            <Setter Property="Background" Value="#FF002753"/>
+        </Style>
+    </Controls:MetroWindow.Resources>
+    <Grid>
+        <GroupBox Background="#FF001834" BorderBrush="#FF001834" Margin="10,10,0,10" HorizontalAlignment="Left" Width="382">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="277*"/>
+                    <ColumnDefinition Width="103*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="tbLate" HorizontalAlignment="Left" Controls:TextBoxHelper.Watermark="Late" Height="32" Margin="140,85,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="86"/>
+                <TextBox x:Name="tbUnderTime" Controls:TextBoxHelper.Watermark="UnderTime" HorizontalAlignment="Left" Height="32" Margin="243,85,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="86" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="tbTotalHours" Controls:TextBoxHelper.Watermark="Total Hours" HorizontalAlignment="Left" Height="32" Margin="36,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"/>
+                <Label x:Name="label" Content="Late" HorizontalAlignment="Left" Margin="140,54,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="label_Copy" Content="Total Hours" HorizontalAlignment="Left" Margin="36,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.557,0.269"/>
+                <Label x:Name="label_Copy1" Content="Under Time" HorizontalAlignment="Left" Margin="243,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.312,0.615" Grid.ColumnSpan="2"/>
+                <Label x:Name="label1_Copy" Content="Date:" HorizontalAlignment="Left" Margin="69,10,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="tbDate" IsReadOnly="True"  HorizontalAlignment="Left" Height="22" Margin="114,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" Grid.ColumnSpan="2"/>
+                <Button x:Name="btnSubmit" Content="SUBMIT" HorizontalAlignment="Left" Margin="100,137,0,0" VerticalAlignment="Top" Width="170" Height="27" Click="btnSubmit_Click"/>
+
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Controls:MetroWindow>

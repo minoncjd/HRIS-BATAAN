@@ -313,6 +313,31 @@ namespace HRiS
         {
             GetBiometrics();
         }
+
+        private void add_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = (BiometricList)(dgTurnstile.SelectedItem);
+            string empno = Convert.ToString(cbEmployee.SelectedValue);
+            var employee = db.Employees.Where(m => m.EmployeeNo == empno).FirstOrDefault();
+
+            AddHoursRenderedLateUnderTime x = new AddHoursRenderedLateUnderTime();
+            x.empid = employee.EmployeeID;
+            x.empname = cbEmployee.Text;
+            x.curentdate = selectedItem.BiometricDate.ToShortDateString();
+            //x.timein = selectedItem.TimeIn;
+            //x.breakin = selectedItem.BreakIn;
+            //x.breakout = selectedItem.BreakOut;
+            //x.timeout = Convert.ToDateTime(selectedItem.TimeOut);
+            x.remark = selectedItem.Remarks;
+            x.Date = Convert.ToDateTime(selectedItem.BiometricDate);
+
+            x.timeinID = selectedItem.TimeinID;
+            x.breakoutID = selectedItem.BreakOutID;
+            x.breakinID = selectedItem.BreakInID;
+            x.timeoutID = selectedItem.TimeOutID;
+            x.Owner = this;
+            x.ShowDialog();
+        }
     }
 
     public class BiometricList

@@ -52,22 +52,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>E2A8358599494DAB8DAA8CBB78F159E335E72036</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>3299D9A24D10E816057F7F8DDA1E7941BE7613A3</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>jay.pfx</ManifestKeyFile>
+    <ManifestKeyFile>key.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>jay.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>key.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
@@ -89,7 +89,7 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Interop.zkemkeeper">
-      <HintPath>..\..\HRIS - Backup\HRiS\HRiS\bin\Debug\Interop.zkemkeeper.dll</HintPath>
+      <HintPath>..\..\HRIS GIT\HRiS\obj\Debug\Interop.zkemkeeper.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="MahApps.Metro">
@@ -209,6 +209,9 @@
     </Compile>
     <Compile Include="AddEmployeeSchedules.xaml.cs">
       <DependentUpon>AddEmployeeSchedules.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddHoursRenderedLateUnderTime.xaml.cs">
+      <DependentUpon>AddHoursRenderedLateUnderTime.xaml</DependentUpon>
     </Compile>
     <Compile Include="AddOffCampusActivity.xaml.cs">
       <DependentUpon>AddOffCampusActivity.xaml</DependentUpon>
@@ -1566,6 +1569,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AddHoursRenderedLateUnderTime.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddLeave.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -2042,7 +2049,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="jay.pfx" />
+    <None Include="key.pfx" />
     <None Include="Model\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
@@ -2281,16 +2288,6 @@
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="FlashControlV71">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Interop.zkemkeeper">
       <Visible>False</Visible>
       <Group>
       </Group>

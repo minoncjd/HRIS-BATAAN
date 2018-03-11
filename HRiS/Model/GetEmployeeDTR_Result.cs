@@ -33,6 +33,8 @@ namespace HRiS.Model
         public int EmployeeID { get; set; }
         public string RemainingLateBreak { get; set; }
         public string RemainingBreak { get; set; }
+        public string RemainingBreakTimein { get; set; }
+        public string UnderTimeHalfDay { get; set; }
         public string TotalWorkingHours { get; set; }
         public string Late { get; set; }
         public string UnderTime { get; set; }

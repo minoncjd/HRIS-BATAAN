@@ -40,7 +40,7 @@ namespace HRiS
                 {
                     EList = new List<HRiSClass.EmpCombo>();
                    
-                    var emp = db.Employees.Where(m => m.Archive == false && m.EmployeeScheduleId == null).ToList();
+                    var emp = db.Employees.Where(m => m.Archive == false).ToList();
 
                     foreach (var i in emp)
                     {
@@ -82,7 +82,7 @@ namespace HRiS
                         ho.EmployeeID = empid;
                         ho.DateFiled = dateFiled.SelectedDate.Value;
                         db.HRISOvertimes.Add(ho);
-                        ho.HRISOvertimeDetails.Add(new HRISOvertimeDetail() { Date = dateFiled.SelectedDate.Value, CalendarDay = tbCalendarDay.Text, Reason = tbReason.Text, StartTime = startTime.Text, EndTime = endTime.Text});
+                        ho.HRISOvertimeDetails.Add(new HRISOvertimeDetail() { Date = otdate.SelectedDate.Value.Date, CalendarDay = tbCalendarDay.Text, Reason = tbReason.Text, StartTime = startTime.Text, EndTime = endTime.Text});
                         db.SaveChanges();
                         MessageBox.Show("OT successfully filed.", "System Success!", MessageBoxButton.OK, MessageBoxImage.Information);
                         Clear();

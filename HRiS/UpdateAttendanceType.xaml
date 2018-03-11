@@ -54,7 +54,6 @@
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -71,6 +70,7 @@
                 <Label Grid.Column="0" HorizontalContentAlignment="Right"  Grid.Row="5" Content="Break In:"/>
                 <Label Grid.Column="0" HorizontalContentAlignment="Right"  Grid.Row="6" Content="Time Out:"/>
                 <Label Grid.Column="0" HorizontalContentAlignment="Right"  Grid.Row="7" Content="Remark:"/>
+
                 <TextBox Grid.Column="1" Grid.Row="1" Margin="5,5,60,5" Controls:TextBoxHelper.Watermark="Employee Name" Name="txtEmployee" IsReadOnly="True"/>
                 <DatePicker Grid.Row="2" Grid.Column="2" Margin="5,5,60,5" IsEnabled="False" Name="dpDate"/>
                 <wpfTool:TimePicker  x:Name="timeIn" Grid.Column="1" Grid.Row="3" Margin="5,5,251,5" FontSize="16" StartTime="6:00"  />

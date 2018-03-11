@@ -128,6 +128,21 @@
                                 </MenuItem.HeaderTemplate>
                             </MenuItem>
 
+                            <MenuItem x:Name="add" Click="add_Click" >
+                                <MenuItem.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Rectangle Fill="#FF001834" Width="14.6" Height="15" Margin="-15,0,10,0">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Visual="{StaticResource appbar_user_add}" Stretch="Fill" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                            <TextBlock><Run Text="Add Total Hours, Late and Under Time"/></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </MenuItem.HeaderTemplate>
+                            </MenuItem>
+
 
                         </ContextMenu>
                     </DataGrid.ContextMenu>
