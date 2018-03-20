@@ -12,13 +12,11 @@ namespace HRiS.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class HRISShiftDetail
+    public partial class HRISHoliday
     {
-        public int ShiftDetailsID { get; set; }
-        public Nullable<int> DayID { get; set; }
-        public string ShiftCode { get; set; }
-        public Nullable<int> EmployeeID { get; set; }
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
+        public int ID { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        public string Description { get; set; }
+        public Nullable<int> Type { get; set; }
     }
 }

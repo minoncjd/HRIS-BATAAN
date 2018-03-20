@@ -71,6 +71,7 @@ namespace HRiS
                         leave.EndDate = startDate.SelectedDate;
                         leave.Days = Convert.ToDecimal(txtDays.Text);
                         leave.FiledDate = dateFiled.SelectedDate;
+                    
                         db.Leaves.Add(leave);
                         db.SaveChanges();
 
@@ -107,7 +108,8 @@ namespace HRiS
             cbEmp.Text = "";
             cbLeaveType.Text = "";
             startDate.Text = "";
-            dateFiled.Text = "";                
+            dateFiled.Text = "";
+                  
         }
         private void LoadLeaveBalance()
         {

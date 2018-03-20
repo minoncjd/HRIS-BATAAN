@@ -163,8 +163,8 @@ namespace HRiS
                             esl.EmployeeNo = x.EmployeeNo;
                             esl.EmployeeName = x.EmployeeName;
                             esl.ShiftCode = x.ShiftCode;
-                            esl.StartTime = x.StartTime;
-                            esl.EndTime = x.EndTime;
+                            //esl.StartTime = x.StartTime;
+                            //esl.EndTime = x.EndTime;
 
                             lEmployeeShiftList.Add(esl);
                         }

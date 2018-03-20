@@ -382,8 +382,7 @@ namespace HRiS
                                 report.SetDataSource(Report30);
                                 report.SetParameterValue("StartDate", startDate);
                                 report.SetParameterValue("EndDate", endDate);
-                                report.SetParameterValue("Department", department);
-
+                                report.SetParameterValue("deptname", department);
                                 crViewer1.ViewerCore.ReportSource = report;
                             }
                         }

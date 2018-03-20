@@ -85,7 +85,7 @@ namespace HRiS
                 using (var db = new LetranIntegratedSystemEntities())
                 {
                     BiometricsLogData bld = new BiometricsLogData();
-                    if (cbEmployee.SelectedItem != null && timeIn.Text != "" && timeOut.Text != null && dpDate.SelectedDate != null)
+                    if (cbEmployee.SelectedItem != null && dpDate.SelectedDate != null)
                     {
                         var empid = Convert.ToInt32(cbEmployee.SelectedValue);
                         var emp = db.Employees.Where(m => m.EmployeeID == empid).FirstOrDefault();

@@ -21,9 +21,8 @@ namespace HRiS
     /// </summary>
     public partial class AddEmployeeHistory : MetroWindow
     {
-        public int deptid;
-        public int positionid;
-        public int empid;
+        List<HRiSClass.EmpCombo> EList = new List<HRiSClass.EmpCombo>();
+
         public AddEmployeeHistory()
         {
             InitializeComponent();
@@ -35,11 +34,14 @@ namespace HRiS
             {
                 using (var db = new LetranIntegratedSystemEntities())
                 {
-                    
+                    var empid = Convert.ToInt32(cbEmployee.SelectedValue);
+                    var employee = db.Employees.Where(m => m.EmployeeID == empid).FirstOrDefault();
+                    var dept = db.AcademicDepartments.Where(m => m.AcaDeptID == employee.EmployeeDepartmentID).FirstOrDefault();
+                    var pos = db.EmployeePositions.Where(m => m.EmployeePositionID == employee.EmployeePositionID).FirstOrDefault();
                     EmployeeHistory eh = new EmployeeHistory();
                     eh.EmployeeID = empid;
-                    eh.DepartmentID = deptid;
-                    eh.EmployeePositionID = positionid;
+                    eh.DepartmentID = dept.AcaDeptID;
+                    eh.EmployeePositionID = pos.EmployeePositionID;
                     eh.StartDate = startDate.SelectedDate;
                     eh.Remark = txtRemark.Text;
                     eh.EndDate = endDate.SelectedDate;
@@ -57,35 +59,52 @@ namespace HRiS
             }
         }
 
-        public void Clear()
-        {
-           
-            txtEmployee.Text = "";
-            startDate.SelectedDate = null;
-            endDate.SelectedDate = null;
-        }
-
-        
-        public void EmployeeDetails()
+        public void LoadComboBox()
         {
             try
             {
                 using (var db = new LetranIntegratedSystemEntities())
                 {
-                    var employee = db.Employees.Where(m => m.EmployeeID == empid).FirstOrDefault();
-                    txtEmployee.Text = employee.LastName + ", " + employee.FirstName;
+                    EList = new List<HRiSClass.EmpCombo>();
+
+                    var emp = db.Employees.Where(m => m.Archive == false).ToList();
+
+                    foreach (var i in emp)
+                    {
+                        HRiSClass.EmpCombo ec = new HRiSClass.EmpCombo();
+                        ec.EmployeeID = i.EmployeeID;
+                        ec.EmployeeNumber = i.EmployeeNo;
+                        ec.EmployeeName = i.LastName.ToUpper() + ", " + i.FirstName.ToUpper();
+                        EList.Add(ec);
+                    }
+
+                    cbEmployee.ItemsSource = EList.OrderBy(m => m.EmployeeName);
+                    cbEmployee.DisplayMemberPath = "EmployeeName";
+                    cbEmployee.SelectedValuePath = "EmployeeID";
+
                 }
             }
             catch (Exception)
             {
 
-                throw;
+                MessageBox.Show("Something went wrong.", "System Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
+
+        public void Clear()
+        {
+           
+            cbEmployee.Text = "";
+            startDate.SelectedDate = null;
+            endDate.SelectedDate = null;
+        }
+
+     
+
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            EmployeeDetails();
+            LoadComboBox();
         }
     }
 }

@@ -30,8 +30,7 @@ namespace HRiS.Model
             public string EmployeeNo { get; set; }
             public string EmployeeName { get; set; }
             public string ShiftCode { get; set; }
-            public string StartTime { get; set; }
-            public string EndTime { get; set; }
+           
 
         }
 

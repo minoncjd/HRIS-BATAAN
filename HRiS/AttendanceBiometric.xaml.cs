@@ -101,9 +101,9 @@ namespace HRiS
         }
 
         public void GetAllBiometrics()
-        {
-            try
-            {
+      {
+        //    try
+        //    {
                 db = new LetranIntegratedSystemEntities();
                 sof = new softrakEntities();
                 BList = new List<BiometricList>();
@@ -152,17 +152,17 @@ namespace HRiS
                    
                     dgTurnstile.ItemsSource = BList.OrderByDescending(m => m.BiometricDate);
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Something went wrong.", "System Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    MessageBox.Show("Something went wrong.", "System Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            //}
         }
            
         public void GetBiometrics()
         {
-            try
-            {
+            //try
+            //{
                 db = new LetranIntegratedSystemEntities();
                 sof = new softrakEntities();
                 BList = new List<BiometricList>();
@@ -209,11 +209,11 @@ namespace HRiS
                 {
                     MessageBox.Show("Employee cannot be empty.", "System Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Something went wrong.", "System Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    MessageBox.Show("Something went wrong.", "System Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            //}
         }
 
         public class EmpCombo

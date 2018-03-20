@@ -278,8 +278,10 @@ namespace HRiS.Model
         public virtual DbSet<EmployeeHistory> EmployeeHistories { get; set; }
         public virtual DbSet<HRISOvertimeDetail> HRISOvertimeDetails { get; set; }
         public virtual DbSet<HRISOffCampusActivity> HRISOffCampusActivities { get; set; }
-        public virtual DbSet<HRISShiftDetail> HRISShiftDetails { get; set; }
+        public virtual DbSet<HRISHoliday> HRISHolidays { get; set; }
         public virtual DbSet<BiometricsLogData> BiometricsLogDatas { get; set; }
+        public virtual DbSet<HRISShiftDetail> HRISShiftDetails { get; set; }
+        public virtual DbSet<HRISEmployeesShift> HRISEmployeesShifts { get; set; }
     
         public virtual ObjectResult<GetHRiSBirthdayCelebrants_Result> GetHRiSBirthdayCelebrants(Nullable<int> mONTH_KEY)
         {
@@ -437,6 +439,28 @@ namespace HRiS.Model
                 new ObjectParameter("bioid", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetEmployeeAttendanceTest_Result>("GetEmployeeAttendanceTest", startDateParameter, endDateParameter, bioidParameter);
+        }
+    
+        public virtual ObjectResult<AdmissionGetReservationPayment_Result> AdmissionGetReservationPayment(string fIRSTNAME_KEY, string lASTNAME_KEY, string mIDDLENAME_KEY)
+        {
+            var fIRSTNAME_KEYParameter = fIRSTNAME_KEY != null ?
+                new ObjectParameter("FIRSTNAME_KEY", fIRSTNAME_KEY) :
+                new ObjectParameter("FIRSTNAME_KEY", typeof(string));
+    
+            var lASTNAME_KEYParameter = lASTNAME_KEY != null ?
+                new ObjectParameter("LASTNAME_KEY", lASTNAME_KEY) :
+                new ObjectParameter("LASTNAME_KEY", typeof(string));
+    
+            var mIDDLENAME_KEYParameter = mIDDLENAME_KEY != null ?
+                new ObjectParameter("MIDDLENAME_KEY", mIDDLENAME_KEY) :
+                new ObjectParameter("MIDDLENAME_KEY", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AdmissionGetReservationPayment_Result>("AdmissionGetReservationPayment", fIRSTNAME_KEYParameter, lASTNAME_KEYParameter, mIDDLENAME_KEYParameter);
+        }
+    
+        public virtual ObjectResult<GetEmployeeSchedules_Result> GetEmployeeSchedules()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetEmployeeSchedules_Result>("GetEmployeeSchedules");
         }
     
         public virtual ObjectResult<GetEmployeeDTR_Result> GetEmployeeDTR(string startDate, string endDate, Nullable<int> bioid)

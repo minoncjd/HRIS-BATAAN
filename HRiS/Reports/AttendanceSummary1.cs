@@ -16,14 +16,14 @@ namespace HRiS.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class AttendanceSummary : ReportClass {
+    public class AttendanceSummary1 : ReportClass {
         
-        public AttendanceSummary() {
+        public AttendanceSummary1() {
         }
         
         public override string ResourceName {
             get {
-                return "AttendanceSummary.rpt";
+                return "AttendanceSummary1.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace HRiS.Reports {
         
         public override string FullResourceName {
             get {
-                return "HRiS.Reports.AttendanceSummary.rpt";
+                return "HRiS.Reports.AttendanceSummary1.rpt";
             }
             set {
                 // Do nothing
@@ -74,7 +74,7 @@ namespace HRiS.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection2 {
             get {
                 return this.ReportDefinition.Sections[3];
             }
@@ -82,7 +82,7 @@ namespace HRiS.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection1 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
             get {
                 return this.ReportDefinition.Sections[4];
             }
@@ -90,7 +90,7 @@ namespace HRiS.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection2 {
             get {
                 return this.ReportDefinition.Sections[5];
             }
@@ -98,7 +98,7 @@ namespace HRiS.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection1 {
             get {
                 return this.ReportDefinition.Sections[6];
             }
@@ -106,7 +106,23 @@ namespace HRiS.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_startDate {
+        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
+            get {
+                return this.ReportDefinition.Sections[7];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
+            get {
+                return this.ReportDefinition.Sections[8];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_StartDate {
             get {
                 return this.DataDefinition.ParameterFields[0];
             }
@@ -114,7 +130,7 @@ namespace HRiS.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_endDate {
+        public CrystalDecisions.Shared.IParameterField Parameter_EndDate {
             get {
                 return this.DataDefinition.ParameterFields[1];
             }
@@ -122,7 +138,7 @@ namespace HRiS.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_deptname {
+        public CrystalDecisions.Shared.IParameterField Parameter_department {
             get {
                 return this.DataDefinition.ParameterFields[2];
             }
@@ -130,9 +146,9 @@ namespace HRiS.Reports {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedAttendanceSummary : Component, ICachedReport {
+    public class CachedAttendanceSummary1 : Component, ICachedReport {
         
-        public CachedAttendanceSummary() {
+        public CachedAttendanceSummary1() {
         }
         
         [Browsable(false)]
@@ -169,7 +185,7 @@ namespace HRiS.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            AttendanceSummary rpt = new AttendanceSummary();
+            AttendanceSummary1 rpt = new AttendanceSummary1();
             rpt.Site = this.Site;
             return rpt;
         }

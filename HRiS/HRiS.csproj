@@ -52,7 +52,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>3299D9A24D10E816057F7F8DDA1E7941BE7613A3</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>2D7E20282F69ECAE1AF9777CDAFD27C4521D3680</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>key.pfx</ManifestKeyFile>
@@ -61,7 +61,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -210,6 +210,9 @@
     <Compile Include="AddEmployeeSchedules.xaml.cs">
       <DependentUpon>AddEmployeeSchedules.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddHoliday.xaml.cs">
+      <DependentUpon>AddHoliday.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddHoursRenderedLateUnderTime.xaml.cs">
       <DependentUpon>AddHoursRenderedLateUnderTime.xaml</DependentUpon>
     </Compile>
@@ -240,11 +243,17 @@
     <Compile Include="EmployeesHistory.xaml.cs">
       <DependentUpon>EmployeesHistory.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HolidayList.xaml.cs">
+      <DependentUpon>HolidayList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LeaveApproved.xaml.cs">
       <DependentUpon>LeaveApproved.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AdmissionGetReservationPayment_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\BiometricsLogData.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -267,10 +276,19 @@
     <Compile Include="Model\GetEmployeeDTR_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\GetEmployeeSchedules_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\HRISEmployeeAbsent.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\HRISEmployeeSchedule.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\HRISEmployeesShift.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\HRISHoliday.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\HRISShift.cs">
@@ -286,9 +304,21 @@
       <DependentUpon>PrintSISResult.xaml</DependentUpon>
     </Compile>
     <Compile Include="Reports\AttendanceSummary.cs">
+      <DependentUpon>AttendanceSummary.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AttendanceSummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\AttendanceSummary2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AttendanceSummary2.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\AttendanceSummary1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AttendanceSummary1.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\CrystalReport1.cs">
@@ -1518,6 +1548,9 @@
     <Compile Include="UpdateEmployee.xaml.cs">
       <DependentUpon>UpdateEmployee.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UpdateEmployeeSchedule.xaml.cs">
+      <DependentUpon>UpdateEmployeeSchedule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UpdateLeaveApplication.xaml.cs">
       <DependentUpon>UpdateLeaveApplication.xaml</DependentUpon>
     </Compile>
@@ -1566,6 +1599,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddEmployeeSchedules.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddHoliday.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1686,6 +1723,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EmployeesHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HolidayList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1834,6 +1875,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UpdateEmployeeSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UpdateLeaveApplication.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1876,6 +1921,14 @@
     <EmbeddedResource Include="Reports\AttendanceSummary.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>AttendanceSummary.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\AttendanceSummary2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AttendanceSummary2.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\AttendanceSummary1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AttendanceSummary1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\CrystalReport1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

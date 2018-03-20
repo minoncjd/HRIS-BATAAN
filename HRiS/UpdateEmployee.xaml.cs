@@ -947,16 +947,6 @@ namespace HRiS
 
         private void chkActive_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (chkActive.IsChecked == false)
-            {
-                AddEmployeeHistory ae = new AddEmployeeHistory();
-                var emp = db.Employees.Where(m => m.EmployeeID == EmpID).FirstOrDefault();
-                ae.empid = EmpID;
-                ae.positionid = Convert.ToInt32(emp.EmployeePositionID);
-                ae.deptid = Convert.ToInt32(emp.EmployeeDepartmentID);
-                ae.ShowDialog();
-
-            }
         }
     }
 }

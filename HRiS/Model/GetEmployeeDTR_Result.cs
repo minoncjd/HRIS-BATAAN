@@ -31,6 +31,10 @@ namespace HRiS.Model
         public decimal Days { get; set; }
         public string TotalHours { get; set; }
         public int EmployeeID { get; set; }
+        public string OTStartTime { get; set; }
+        public string OTEndTime { get; set; }
+        public string OT { get; set; }
+        public string description { get; set; }
         public string RemainingLateBreak { get; set; }
         public string RemainingBreak { get; set; }
         public string RemainingBreakTimein { get; set; }
@@ -38,5 +42,6 @@ namespace HRiS.Model
         public string TotalWorkingHours { get; set; }
         public string Late { get; set; }
         public string UnderTime { get; set; }
+        public int TotalHoursCovered { get; set; }
     }
 }

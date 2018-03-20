@@ -10,15 +10,11 @@
 namespace HRiS.Model
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class HRISShiftDetail
+    public partial class AdmissionGetReservationPayment_Result
     {
-        public int ShiftDetailsID { get; set; }
-        public Nullable<int> DayID { get; set; }
-        public string ShiftCode { get; set; }
-        public Nullable<int> EmployeeID { get; set; }
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
+        public int StudentID { get; set; }
+        public Nullable<double> Amount { get; set; }
+        public string Semester { get; set; }
     }
 }

@@ -105,38 +105,29 @@ namespace HRiS
 
         private void btnPrint_Click_1(object sender, RoutedEventArgs e)
         {
-            //Mouse.OverrideCursor = Cursors.Wait;
+            Mouse.OverrideCursor = Cursors.Wait;
+            var startDate = dpStartDate.SelectedDate.Value.ToShortDateString();
+            var endDate = dpEndDate.SelectedDate.Value.ToShortDateString();
+            var reporttype = cbReportType.Text;
+            var empid = Convert.ToInt32(cbEmployee.SelectedValue);
+            var deptid = Convert.ToInt32(cbDepartment.SelectedValue);
+
             if (dpStartDate.SelectedDate == null || dpEndDate.SelectedDate == null)
             {
                 MessageBox.Show("Date fields cannot be empty.", "System Error!", MessageBoxButton.OK, MessageBoxImage.Error);
                 Mouse.OverrideCursor = Cursors.Arrow;
                 return;
              
-            }
-
-            var startDate = dpStartDate.SelectedDate.Value.ToShortDateString();
-            var endDate = dpEndDate.SelectedDate.Value.ToShortDateString();
-            var reporttype = cbReportType.Text;
-            //var reporttype =1 ;
-            var empid = Convert.ToInt32(cbEmployee.SelectedValue);          
-            var deptid = Convert.ToInt32(cbDepartment.SelectedValue);
-           
+            }   
 
             using (var db = new LetranIntegratedSystemEntities())
             {
                 
                 List<Model.Employee> employees = new List<Model.Employee>();           
                 List<GetEmployeeDTR_Result> lresult = new List<GetEmployeeDTR_Result>();
-               
-                //if (rbAll.IsChecked == true)
-                //{
-                //    //employees = (from a in db.Employees
-                //    //             where !(a.bioid == null) && a.Archive == false && a.EmployeeDepartmentID != null
-                //    //             select a).Distinct().ToList();
 
-                //    employees = db.Employees.Where(m => m.bioid != null && m.EmployeeDepartmentID != null && m.Archive == false).ToList();
+                var department = db.AcademicDepartments.Where(m => m.AcaDeptID == deptid).FirstOrDefault();
 
-                //}
 
                 if (reporttype == "DTR")
                 {
@@ -168,6 +159,7 @@ namespace HRiS
 
                     x.Report29 = lresult;
                     x.ShowDialog();
+
                 }
 
                 else if (reporttype == "Attendance Report")
@@ -192,11 +184,11 @@ namespace HRiS
 
                     Mouse.OverrideCursor = Cursors.Arrow;
                     PrintWindow x = new PrintWindow();
-
+                    
                     x.rptid = 30;
                     x.startDate = dpStartDate.SelectedDate.Value.ToString("MM/dd/yy");
                     x.endDate = dpEndDate.SelectedDate.Value.ToString("MM/dd/yy");
-                    x.department = cbDepartment.Text;
+                    x.department = department.AcaAcronym;
                     x.Report30 = lresult;
                     x.ShowDialog();
                 }

@@ -62,6 +62,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                  
                 </Grid.RowDefinitions>
                 <Label Grid.Column="1" HorizontalContentAlignment="Right"   Grid.Row="1" Content="Employee:" FontWeight="Bold"/>
                 <Label Grid.Column="1"  Grid.Row="0"  HorizontalContentAlignment="Right" Content="Remaining Leave Credits:"/>
@@ -96,12 +97,11 @@
                 <Label Grid.Column="1"  Grid.Row="6" HorizontalContentAlignment="Right" Content="Date Filed:"/>
                 <TextBox Grid.Column="2" Grid.Row="4" Margin="0,5,50,5" Controls:TextBoxHelper.Watermark="Days" Name="txtDays"/>
 
-
                 <DatePicker x:Name="startDate"  Grid.Row="3" Grid.Column="2" Margin="0,5,50,5"/>
 
                 <TextBox Grid.Column="2" Grid.Row="5" Margin="0,5,50,5" Controls:TextBoxHelper.Watermark="Reason/Remark" Name="txtReason"/>
                 <DatePicker x:Name="dateFiled"  Grid.Row="6" Grid.Column="2" Margin="0,5,50,5"/>
-                <Button Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Content="ADD LEAVE" Name="btnAdd" Margin="80,33,60,38" Click="btnAdd_Click" Grid.RowSpan="2"/>
+                <Button Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Content="ADD LEAVE" Name="btnAdd" Margin="80,33,60,10" Click="btnAdd_Click" Grid.RowSpan="2"/>
             </Grid>
 
 

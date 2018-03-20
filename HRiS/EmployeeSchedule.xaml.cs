@@ -23,6 +23,7 @@ namespace HRiS
     public partial class EmployeeSchedule : MetroWindow
     {
         List<HRiSClass.EmployeeShiftList> lEmployeeShiftList = new List<HRiSClass.EmployeeShiftList>();
+        List<HRiSClass.EmpCombo> EList = new List<HRiSClass.EmpCombo>();
 
         public EmployeeSchedule()
         {
@@ -32,41 +33,111 @@ namespace HRiS
         private void editSched_Click(object sender, RoutedEventArgs e)
         {
             var x = ((EmployeeShiftList)dgEmployeeScheduleList.SelectedItem);
-            UpdateEmployeeShift ue = new UpdateEmployeeShift();
-            ue.empnumber = x.EmployeeNo;
+            UpdateEmployeeSchedule ue = new UpdateEmployeeSchedule();
+            ue.empid = x.EmployeeID;
             ue.Owner = this;
             ue.ShowDialog();
         }
 
-
-        public void GetEmployeeScheduleList()
+        public void LoadComboBox()
         {
             try
             {
                 using (var db = new LetranIntegratedSystemEntities())
                 {
+                    EList = new List<HRiSClass.EmpCombo>();
+
+                    var emp = db.Employees.Where(m => m.Archive == false).ToList();
+
+                    foreach (var i in emp)
+                    {
+                        HRiSClass.EmpCombo ec = new HRiSClass.EmpCombo();
+                        ec.EmployeeID = i.EmployeeID;
+                        ec.EmployeeNumber = i.EmployeeNo;
+                        ec.EmployeeName = i.LastName.ToUpper() + ", " + i.FirstName.ToUpper();
+                        EList.Add(ec);
+                    }
+
+                    cbEmployee.ItemsSource = EList.OrderBy(m => m.EmployeeName);
+                    cbEmployee.DisplayMemberPath = "EmployeeName";
+                    cbEmployee.SelectedValuePath = "EmployeeID";
+
+
+
+                }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Something went wrong.", "System Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
+        }
+
+
+        //public void GetEmployeeScheduleList()
+        //{
+        //    try
+        //    {
+        //        using (var db = new LetranIntegratedSystemEntities())
+        //        {
+        //            lEmployeeShiftList = new List<HRiSClass.EmployeeShiftList>();
+        //            var empSchedule = (from a in db.HRISEmployeeSchedules
+        //                               join b in db.Employees on a.EmployeeNumber equals b.EmployeeNo
+        //                               join c in db.HRISShifts on a.ShiftCode equals c.ShiftCode
+        //                               where b.Archive == false
+        //                               select new { b.EmployeeNo, EmployeeName = b.LastName.ToUpper() + ", " + b.FirstName.ToUpper(), a.ShiftCode, c.StartTime, c.EndTime }).ToList();
+
+        //            foreach (var x in empSchedule)
+        //            {
+
+        //                HRiSClass.EmployeeShiftList employeeShift = new HRiSClass.EmployeeShiftList();
+        //                employeeShift.EmployeeNo = x.EmployeeNo;
+        //                employeeShift.EmployeeName = x.EmployeeName;
+        //                employeeShift.ShiftCode = x.ShiftCode;
+        //                employeeShift.StartTime = x.StartTime;
+        //                employeeShift.EndTime = x.EndTime;
+
+        //                lEmployeeShiftList.Add(employeeShift);
+        //            }
+
+        //            dgEmployeeScheduleList.ItemsSource = lEmployeeShiftList.OrderBy(m => m.EmployeeName);
+
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
+
+        private void GetEmployeeSchedules()
+        {
+            try
+            {
+               
+
+                using (var db = new LetranIntegratedSystemEntities())
+                {
                     lEmployeeShiftList = new List<HRiSClass.EmployeeShiftList>();
-                    var empSchedule = (from a in db.HRISEmployeeSchedules
-                                       join b in db.Employees on a.EmployeeNumber equals b.EmployeeNo
-                                       join c in db.HRISShifts on a.ShiftCode equals c.ShiftCode
-                                       where b.Archive == false
-                                       select new { b.EmployeeNo, EmployeeName = b.LastName.ToUpper() + ", " + b.FirstName.ToUpper(), a.ShiftCode, c.StartTime, c.EndTime }).ToList();
+                    var empSchedule = db.GetEmployeeSchedules().ToList().OrderBy(m => m.Name);
 
                     foreach (var x in empSchedule)
                     {
-                      
+
                         HRiSClass.EmployeeShiftList employeeShift = new HRiSClass.EmployeeShiftList();
-                        employeeShift.EmployeeNo = x.EmployeeNo;
-                        employeeShift.EmployeeName = x.EmployeeName;
-                        employeeShift.ShiftCode = x.ShiftCode;
-                        employeeShift.StartTime = x.StartTime;
-                        employeeShift.EndTime = x.EndTime;
+
+                        employeeShift.EmployeeNo = x.Employeeno;
+                        employeeShift.EmployeeName = x.Name;
+                        employeeShift.ShiftCode = x.EmployeeShiftCode;
+                        employeeShift.EmployeeID = x.EmployeeID;
 
                         lEmployeeShiftList.Add(employeeShift);
                     }
 
                     dgEmployeeScheduleList.ItemsSource = lEmployeeShiftList.OrderBy(m => m.EmployeeName);
-
                 }
             }
             catch (Exception)
@@ -74,8 +145,8 @@ namespace HRiS
 
                 throw;
             }
-        }
 
+        }
         private void rbEmpnum_Checked(object sender, RoutedEventArgs e)
         {
 
@@ -99,68 +170,69 @@ namespace HRiS
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
 
-            try
-            {
-                using (var db = new LetranIntegratedSystemEntities())
-                {
-                    lEmployeeShiftList = new List<HRiSClass.EmployeeShiftList>();
-                    var empSchedule = (from a in db.HRISEmployeeSchedules
-                                       join b in db.Employees on a.EmployeeNumber equals b.EmployeeNo
-                                       join c in db.HRISShifts on a.ShiftCode equals c.ShiftCode
-                                       where b.Archive == false
-                                       select new { b.EmployeeNo, EmployeeName = b.LastName.ToUpper() + ", " + b.FirstName.ToUpper(), a.ShiftCode, c.StartTime, c.EndTime }).ToList();
+            //try
+            //{
+            //    using (var db = new LetranIntegratedSystemEntities())
+            //    {
+                   
+            //        lEmployeeShiftList = new List<HRiSClass.EmployeeShiftList>();
+            //        var empSchedule = db.GetEmployeeSchedules().ToList().OrderBy(m => m.Name);
 
-                    foreach (var x in empSchedule)
-                    {
+            //        foreach (var x in empSchedule)
+            //        {
 
-                        HRiSClass.EmployeeShiftList employeeShift = new HRiSClass.EmployeeShiftList();
-                        employeeShift.EmployeeNo = x.EmployeeNo;
-                        employeeShift.EmployeeName = x.EmployeeName;
-                        employeeShift.ShiftCode = x.ShiftCode;
-                        employeeShift.StartTime = x.StartTime;
-                        employeeShift.EndTime = x.EndTime;
+            //            HRiSClass.EmployeeShiftList employeeShift = new HRiSClass.EmployeeShiftList();
 
-                        lEmployeeShiftList.Add(employeeShift);
-                    }
+            //            employeeShift.EmployeeNo = x.Employeeno;
+            //            employeeShift.EmployeeName = x.Name;
+            //            employeeShift.ShiftCode = x.EmployeeShiftCode;
+            //            employeeShift.EmployeeID = x.EmployeeID;
+
+            //            lEmployeeShiftList.Add(employeeShift);
+            //        }
+
+            //        dgEmployeeScheduleList.ItemsSource = lEmployeeShiftList.OrderBy(m => m.EmployeeName);
+                  
 
 
-                    if (rbEmpname.IsChecked == true)
-                    {                    
-                        lEmployeeShiftList = lEmployeeShiftList.Where(m => m.EmployeeName.Contains(txtSearch.Text)).ToList();
-                    }
-                    else if (rbShiftCode.IsChecked == true)
-                    {
-                        lEmployeeShiftList = lEmployeeShiftList.Where(m => m.ShiftCode.Contains(txtSearch.Text)).ToList();
+            //        if (rbEmpname.IsChecked == true)
+            //        {
+            //            lEmployeeShiftList = lEmployeeShiftList.Where(m => m.EmployeeName.Contains(txtSearch.Text)).ToList();
+            //        }
+            //        else if (rbShiftCode.IsChecked == true)
+            //        {
+            //            lEmployeeShiftList = lEmployeeShiftList.Where(m => m.ShiftCode.Contains(txtSearch.Text)).ToList();
 
-                    }
-                    else if (rbEmpn.IsChecked == true)
-                    {
-                        lEmployeeShiftList = lEmployeeShiftList.Where(m => m.EmployeeNo.Contains(txtSearch.Text)).ToList();
-                    }
+            //        }
+            //        else if (rbEmpn.IsChecked == true)
+            //        {
+            //            lEmployeeShiftList = lEmployeeShiftList.Where(m => m.EmployeeNo.Contains(txtSearch.Text)).ToList();
+            //        }
 
-                    dgEmployeeScheduleList.ItemsSource = lEmployeeShiftList.OrderBy(m => m.EmployeeName);
+            //        dgEmployeeScheduleList.ItemsSource = lEmployeeShiftList.OrderBy(m => m.EmployeeName);
 
-                }
-            }
-            catch (Exception)
-            {
+            //    }
+            //}
+            //catch (Exception)
+            //{
 
-                throw;
-            }
+            //    throw;
+            //}
 
            
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            AddEmployeeSchedule x = new AddEmployeeSchedule();
+            AddEmployeeSchedules x = new AddEmployeeSchedules();
             x.Owner = this;
             x.ShowDialog();
         }
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            GetEmployeeScheduleList();
+            LoadComboBox();
+            GetEmployeeSchedules();
         }
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -170,7 +242,41 @@ namespace HRiS
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            GetEmployeeScheduleList();
+            GetEmployeeSchedules();
+
+        }
+
+        private void cbEmployee_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var empid = Convert.ToInt32(cbEmployee.SelectedValue);
+            try
+            {
+                using (var db = new LetranIntegratedSystemEntities())
+                {
+                    lEmployeeShiftList = new List<HRiSClass.EmployeeShiftList>();
+                    var empSchedule = db.GetEmployeeSchedules().Where(m => m.EmployeeID == empid).ToList().OrderBy(m => m.Name);
+
+                    foreach (var x in empSchedule)
+                    {
+
+                        HRiSClass.EmployeeShiftList employeeShift = new HRiSClass.EmployeeShiftList();
+
+                        employeeShift.EmployeeNo = x.Employeeno;
+                        employeeShift.EmployeeName = x.Name;
+                        employeeShift.ShiftCode = x.EmployeeShiftCode;
+                        employeeShift.EmployeeID = x.EmployeeID;
+
+                        lEmployeeShiftList.Add(employeeShift);
+                    }
+
+                    dgEmployeeScheduleList.ItemsSource = lEmployeeShiftList.OrderBy(m => m.EmployeeName);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
 
         }
     }

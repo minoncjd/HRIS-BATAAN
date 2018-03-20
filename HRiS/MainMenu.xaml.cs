@@ -544,6 +544,22 @@ namespace HRiS
             this.Cursor = Cursors.Arrow;
         }
 
+        private void miHoliday_Click(object sender, RoutedEventArgs e)
+        {
+            this.Cursor = Cursors.Wait;
+            HolidayList x = new HolidayList();
+            x.ShowDialog();
+            this.Cursor = Cursors.Arrow;
+        }
+
+        private void miTileEmployeeSchedule_Click(object sender, RoutedEventArgs e)
+        {
+            this.Cursor = Cursors.Wait;
+            AddEmployeeSchedules x = new AddEmployeeSchedules();
+            x.ShowDialog();
+            this.Cursor = Cursors.Arrow;
+        }
+
 
 
         //private void HamburgerMenuControl_OnItemClick(object sender, ItemClickEventArgs e)

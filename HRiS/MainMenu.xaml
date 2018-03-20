@@ -541,6 +541,28 @@
                             </MenuItem.Icon>
                         </MenuItem>
 
+                        <MenuItem  VerticalContentAlignment="Center" Header="List of Holidays" Name="miHoliday" Background="White" Click="miHoliday_Click">
+                            <MenuItem.Icon>
+                                <Rectangle Fill="#FF002753" Width="15" Height="15">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Visual="{StaticResource appbar_man_suitcase}" Stretch="Fill" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem  VerticalContentAlignment="Center" Header="Add Employee Schedule" Name="miTileEmployeeSchedule" Background="White" Click="miTileEmployeeSchedule_Click">
+                            <MenuItem.Icon>
+                                <Rectangle Fill="#FF002753" Width="15" Height="15">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Visual="{StaticResource appbar_man_suitcase}" Stretch="Fill" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+
+
 
                         <MenuItem  VerticalContentAlignment="Center" Header="Employee's Shift" Name="miEmpShifts" Background="White" Click="miEmpShifts_Click">
                             <MenuItem.Icon>
@@ -860,6 +882,8 @@
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Controls:Tile>
+                    
+                    
 
 
                     <!--<Controls:HamburgerMenu x:Name="HamburgerMenuControl"

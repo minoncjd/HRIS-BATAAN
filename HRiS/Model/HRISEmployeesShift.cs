@@ -12,13 +12,14 @@ namespace HRiS.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class HRISShiftDetail
+    public partial class HRISEmployeesShift
     {
-        public int ShiftDetailsID { get; set; }
-        public Nullable<int> DayID { get; set; }
-        public string ShiftCode { get; set; }
+        public int EmployeeShiftID { get; set; }
+        public string EmployeeShiftCode { get; set; }
         public Nullable<int> EmployeeID { get; set; }
+        public string DayName { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
+        public Nullable<int> DayID { get; set; }
     }
 }

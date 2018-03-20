@@ -145,5 +145,17 @@ namespace HRiS
         {
 
         }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {      
+            AddEmployeeHistory ae = new AddEmployeeHistory();
+            ae.ShowDialog();
+
+        }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            GetEmployeeHistory();
+        }
     }
 }
