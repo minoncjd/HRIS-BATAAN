@@ -124,7 +124,7 @@ namespace HRiS
         {
             this.Cursor = Cursors.Wait;
             Employees x = new Employees();
-              x.ShowDialog();
+            x.ShowDialog();
             this.Cursor = Cursors.Arrow;
         }
 
@@ -440,8 +440,8 @@ namespace HRiS
         private void mEmployeeList_Click(object sender, RoutedEventArgs e)
         {
             this.Cursor = Cursors.Wait;
-            //EmployeeList x = new EmployeeList();
-            //x.ShowDialog();
+            Employees x = new Employees();
+            x.ShowDialog();
             this.Cursor = Cursors.Arrow;
         }
 

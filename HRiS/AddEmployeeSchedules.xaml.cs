@@ -87,7 +87,17 @@ namespace HRiS
                         sd1.EmployeeID = empid;
                         sd1.EmployeeShiftCode = tbShiftCode.Text == null ? " " : tbShiftCode.Text; ;
                         sd1.StartTime = monStartTime.Text == null ? null : monStartTime.Text; ;
-                        sd1.EndTime = monEndTime.Text == null ? null : monEndTime.Text; ;
+                        sd1.EndTime = monEndTime.Text == null ? null : monEndTime.Text; 
+
+                        if (moncbNoBreak.IsChecked == true)
+                        {
+                            sd1.IsNoBreak_ = true;
+                        }
+                        else
+                        {
+                            sd1.IsNoBreak_ = false;
+                        }
+                        
                         db.HRISEmployeesShifts.Add(sd1);
                         db.SaveChanges();
 
@@ -98,6 +108,16 @@ namespace HRiS
                         sd2.EmployeeShiftCode = tbShiftCode.Text == null ? " " : tbShiftCode.Text; ;
                         sd2.StartTime = tueStartTime.Text == null ? null : tueStartTime.Text; ;
                         sd2.EndTime = tueEndTime.Text == null ? null : tueEndTime.Text; ;
+
+                        if (tuescbNoBreak.IsChecked == true)
+                        {
+                            sd2.IsNoBreak_ = true;
+                        }
+                        else
+                        {
+                            sd2.IsNoBreak_ = false;
+                        }
+
                         db.HRISEmployeesShifts.Add(sd2);
                         db.SaveChanges();
 
@@ -108,6 +128,15 @@ namespace HRiS
                         sd3.EmployeeShiftCode = tbShiftCode.Text == null ? " " : tbShiftCode.Text; ;
                         sd3.StartTime = wedStartTime.Text == null ? null : wedStartTime.Text; ;
                         sd3.EndTime = wedEndTime.Text == null ? null : wedEndTime.Text; ;
+
+                        if (wedcbNoBreak.IsChecked == true)
+                        {
+                            sd3.IsNoBreak_ = true;
+                        }
+                        else
+                        {
+                            sd3.IsNoBreak_ = false;
+                        }
                         db.HRISEmployeesShifts.Add(sd3);
                         db.SaveChanges();
 
@@ -118,6 +147,15 @@ namespace HRiS
                         sd4.EmployeeShiftCode = tbShiftCode.Text == null ? " " : tbShiftCode.Text; ;
                         sd4.StartTime = thuStartTime.Text == null ? null : thuStartTime.Text; ;
                         sd4.EndTime = thuEndTime.Text == null ? null : thuEndTime.Text; ;
+
+                        if (thucbNoBreak.IsChecked == true)
+                        {
+                            sd4.IsNoBreak_ = true;
+                        }
+                        else
+                        {
+                            sd4.IsNoBreak_ = false;
+                        }
                         db.HRISEmployeesShifts.Add(sd4);
                         db.SaveChanges();
 
@@ -127,7 +165,16 @@ namespace HRiS
                         sd5.EmployeeID = empid;
                         sd5.EmployeeShiftCode = tbShiftCode.Text == null ? " " : tbShiftCode.Text; ;
                         sd5.StartTime = friStartTime.Text == null ? null : friStartTime.Text; ;
-                        sd5.EndTime = friEndTime.Text == null ? null : friEndTime.Text; ;
+                        sd5.EndTime = friEndTime.Text == null ? null : friEndTime.Text;
+
+                        if (fricbNoBreak.IsChecked == true)
+                        {
+                            sd5.IsNoBreak_ = true;
+                        }
+                        else
+                        {
+                            sd5.IsNoBreak_ = false;
+                        }
                         db.HRISEmployeesShifts.Add(sd5);
                         db.SaveChanges();
 
@@ -137,7 +184,17 @@ namespace HRiS
                         sd6.EmployeeID = empid;
                         sd6.EmployeeShiftCode = tbShiftCode.Text == null ? " " : tbShiftCode.Text; ;
                         sd6.StartTime = satStartTime.Text == null ? null : satStartTime.Text; ;
-                        sd6.EndTime = satEndTime.Text == null ? null : satEndTime.Text; ;
+                        sd6.EndTime = satEndTime.Text == null ? null : satEndTime.Text;
+
+                        if (satcbNoBreak.IsChecked == true)
+                        {
+                            sd6.IsNoBreak_ = true;
+                        }
+                        else
+                        {
+                            sd6.IsNoBreak_ = false;
+                        }
+
                         db.HRISEmployeesShifts.Add(sd6);
                         db.SaveChanges();
 
@@ -148,6 +205,17 @@ namespace HRiS
                         sd7.EmployeeShiftCode = tbShiftCode.Text == null ? " " : tbShiftCode.Text;
                         sd7.StartTime = sunStartTime.Text == null ? null : sunStartTime.Text;
                         sd7.EndTime = sunEndTime.Text == null ? null : sunEndTime.Text;
+
+
+                        if (suncbNoBreak.IsChecked == true)
+                        {
+                            sd7.IsNoBreak_ = true;
+                        }
+                        else
+                        {
+                            sd7.IsNoBreak_ = false;
+                        }
+
                         db.HRISEmployeesShifts.Add(sd7);
                         db.SaveChanges();
 
@@ -180,6 +248,14 @@ namespace HRiS
             friStartTime.Text = "";
             friEndTime.Text = "";
             cbEmp.Text = "";
+            moncbNoBreak.IsChecked = false;
+            tuescbNoBreak.IsChecked = false;
+            wedcbNoBreak.IsChecked = false;
+            thucbNoBreak.IsChecked = false;
+            fricbNoBreak.IsChecked = false;
+            satcbNoBreak.IsChecked = false;
+            suncbNoBreak.IsChecked = false;
+
             tbShiftCode.Text = "";
             cbDefault.IsChecked = false;
         }
@@ -214,6 +290,13 @@ namespace HRiS
             friStartTime.Text = "";
             friEndTime.Text = "";
             tbShiftCode.Text = "";
+            moncbNoBreak.IsChecked = false;
+            tuescbNoBreak.IsChecked = false;
+            wedcbNoBreak.IsChecked = false;
+            thucbNoBreak.IsChecked = false;
+            fricbNoBreak.IsChecked = false;
+            satcbNoBreak.IsChecked = false;
+            suncbNoBreak.IsChecked = false;
         }
     }
 }

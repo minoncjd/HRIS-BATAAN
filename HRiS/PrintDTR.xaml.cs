@@ -90,8 +90,12 @@ namespace HRiS
                     cbReportType.Items.Add("DTR");
                     cbReportType.Items.Add("Attendance Report");
 
+                    cbDesignation.ItemsSource = db.EmployeeDesignations.OrderBy(m => m.EmployeeDesignationName).ToList();
+                    cbDesignation.DisplayMemberPath = "EmployeeDesignationName";
+                    cbDesignation.SelectedValuePath = "EmployeeDesignationID";
 
-                }
+
+                }   
 
 
             }
@@ -111,14 +115,21 @@ namespace HRiS
             var reporttype = cbReportType.Text;
             var empid = Convert.ToInt32(cbEmployee.SelectedValue);
             var deptid = Convert.ToInt32(cbDepartment.SelectedValue);
+            var designationid = Convert.ToInt32(cbDesignation.SelectedValue);
 
             if (dpStartDate.SelectedDate == null || dpEndDate.SelectedDate == null)
             {
                 MessageBox.Show("Date fields cannot be empty.", "System Error!", MessageBoxButton.OK, MessageBoxImage.Error);
                 Mouse.OverrideCursor = Cursors.Arrow;
+                return;       
+            }
+
+            if (rbDesignation.IsChecked == false && rbDepartment.IsChecked == false && rbEmployeeName.IsChecked == false)
+            {
+                MessageBox.Show("Date fields cannot be empty.", "System Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                Mouse.OverrideCursor = Cursors.Arrow;
                 return;
-             
-            }   
+            }
 
             using (var db = new LetranIntegratedSystemEntities())
             {
@@ -127,18 +138,32 @@ namespace HRiS
                 List<GetEmployeeDTR_Result> lresult = new List<GetEmployeeDTR_Result>();
 
                 var department = db.AcademicDepartments.Where(m => m.AcaDeptID == deptid).FirstOrDefault();
+                string dept;
+                if (department == null)
+                {
+                    dept = cbDesignation.Text;
+                }
+                else
+                {
+                    dept = department.AcaDepartmentName;
+                }
+                if (rbDepartment.IsChecked == true)
+                {
+                    employees = db.Employees.Where(m => m.EmployeeDepartmentID == deptid && m.EmployeeDepartmentID != null && m.bioid != null && m.Archive == false).ToList();
+                }
+                else if (rbEmployeeName.IsChecked == true)
+                {
+                    employees = db.Employees.Where(m => m.EmployeeID == empid).ToList();
+                }
+                else if (rbDesignation.IsChecked == true)
+                {
+                    employees = db.Employees.Where(m => m.EmployeeDesignation == designationid).ToList();
+                }
 
 
                 if (reporttype == "DTR")
                 {
-                    if (rbDepartment.IsChecked == true)
-                    {
-                        employees = db.Employees.Where(m => m.EmployeeDepartmentID == deptid && m.EmployeeDepartmentID != null && m.bioid != null && m.Archive == false).ToList();
-                    }
-                    else if (rbEmployeeNumber.IsChecked == true)
-                    {
-                        employees = db.Employees.Where(m => m.EmployeeID == empid && m.EmployeeDepartmentID != null).ToList();
-                    }
+                    
 
                     foreach (var emp in employees)
                     {
@@ -164,15 +189,7 @@ namespace HRiS
 
                 else if (reporttype == "Attendance Report")
                 {
-                    if (rbDepartment.IsChecked == true)
-                    {
-                        employees = db.Employees.Where(m => m.EmployeeDepartmentID == deptid && m.EmployeeDepartmentID != null && m.bioid != null && m.Archive == false).ToList();
-                    }
-                    else if (rbEmployeeNumber.IsChecked == true)
-                    {
-                        employees = db.Employees.Where(m => m.EmployeeID == empid && m.EmployeeDepartmentID != null).ToList();
-                    }
-
+                    
                     foreach (var emp in employees)
                     {
                         
@@ -188,13 +205,19 @@ namespace HRiS
                     x.rptid = 30;
                     x.startDate = dpStartDate.SelectedDate.Value.ToString("MM/dd/yy");
                     x.endDate = dpEndDate.SelectedDate.Value.ToString("MM/dd/yy");
-                    x.department = department.AcaAcronym;
+
+                    x.department = dept;
                     x.Report30 = lresult;
                     x.ShowDialog();
                 }
-                
+           
 
             }                         
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 

@@ -65,7 +65,7 @@
                   
                 </Grid.RowDefinitions>
                 <Label Grid.Column="1" HorizontalContentAlignment="Right"   Grid.Row="1" Content="Employee:" FontWeight="Bold"/>
-                <Label Grid.Column="1"  Grid.Row="0"  HorizontalContentAlignment="Right" Content="Remaining Leave Credits:"/>
+                <!--<Label Grid.Column="1"  Grid.Row="0"  HorizontalContentAlignment="Right" Content="Remaining Leave Credits:"/>-->
                 <ComboBox Grid.Column="2" Grid.Row="1" Name="cbEmp" Margin="0,5,50,5" Controls:TextBoxHelper.Watermark="Employee" SelectionChanged="cbEmp_SelectionChanged"/>
                 <StackPanel Grid.Column="2" Grid.Row="0">
                     <Grid>
@@ -78,12 +78,12 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Right"  Content="VL:"/>
-                        <TextBox Grid.Column="1" Grid.Row="0" Margin="5,5,0,0" Name="txtVL"/>
+                        <!--<Label Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Right"  Content="VL:"/>-->
+                        <!--<TextBox Grid.Column="1" Grid.Row="0" Margin="5,5,0,0" Name="txtVL"/>--><!--
                         <Label Grid.Column="2" Grid.Row="0" HorizontalContentAlignment="Right"  Content="SL:"/>
                         <TextBox Grid.Column="3" Grid.Row="0" Margin="5,5,0,0" Name="txtSL"/>
                         <Label Grid.Column="4" Grid.Row="0" HorizontalContentAlignment="Right"  Content="SIL:"/>
-                        <TextBox Grid.Column="5" Grid.Row="0" Margin="5,5,0,0" Name="txtSIL"/>
+                        <TextBox Grid.Column="5" Grid.Row="0" Margin="5,5,0,0" Name="txtSIL"/>-->
                     </Grid>
                 </StackPanel>
 
@@ -95,7 +95,10 @@
                 <Label Grid.Column="1"  Grid.Row="5" HorizontalContentAlignment="Right" Content="Reason/Remark:"/>
                 <Label Grid.Column="1" Grid.Row="4" HorizontalContentAlignment="Right" Content="Days:"/>
                 <Label Grid.Column="1"  Grid.Row="6" HorizontalContentAlignment="Right" Content="Date Filed:"/>
-                <TextBox Grid.Column="2" Grid.Row="4" Margin="0,5,50,5" Controls:TextBoxHelper.Watermark="Days" Name="txtDays"/>
+                <ComboBox Grid.Column="2" Grid.Row="4" Name="cbDays"  Margin="0,5,50,5" Controls:TextBoxHelper.Watermark="Days">
+                    <ComboBoxItem Content="1" />
+                    <ComboBoxItem Content=".5" />
+                </ComboBox>
 
                 <DatePicker x:Name="startDate"  Grid.Row="3" Grid.Column="2" Margin="0,5,50,5"/>
 

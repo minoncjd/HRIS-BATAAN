@@ -82,7 +82,7 @@
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="120"/>
                 </Grid.ColumnDefinitions>
 
@@ -96,8 +96,11 @@
                 <Button x:Name="btnRefresh" Content="REFRESH"  Grid.Row="0" Margin="0,0,10,0" Grid.Column="7" IsDefault="True" Click="btnRefresh_Click"/>-->
                 <Button x:Name="btnAdd" Content="ADD"  Grid.Row="0" Margin="0,0,10,0" Grid.Column="1" IsDefault="True" Click="btnAdd_Click"/>
                 <Button x:Name="btnRefresh" Content="REFRESH"  Grid.Row="0" Margin="0,0,10,0" Grid.Column="2" IsDefault="True" Click="btnRefresh_Click"/>
-                <Label Grid.Row="0" VerticalAlignment="Bottom" Grid.Column="3" Content="Search by Name:" FontWeight="Bold"/>
+                <Label Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="3" Content="By Name:" FontWeight="Bold"/>
                 <ComboBox IsEditable="True"  x:Name="cbEmployee" Grid.Row="0" Grid.Column="4" SelectionChanged="cbEmployee_SelectionChanged" />
+
+                <Label Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="5" Content="By Department:" FontWeight="Bold"/>
+                <ComboBox IsEditable="True"  x:Name="cbDepartment" Grid.Row="0" Grid.Column="6" SelectionChanged="cbDepartment_SelectionChanged" />
             </Grid>
 
 
@@ -141,6 +144,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Empno" Width=".1*" Binding="{Binding EmployeeNo}"/>
                         <DataGridTextColumn Header="Employee Name" Width=".3*" Binding="{Binding EmployeeName}"/>
+                        <DataGridTextColumn Header="Department" Width=".3*" Binding="{Binding Department}"/>
                         <DataGridTextColumn Header="Shift Code" Width=".3*" Binding="{Binding ShiftCode}"/>
                         
                     </DataGrid.Columns>

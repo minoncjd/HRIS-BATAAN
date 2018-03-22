@@ -2143,6 +2143,7 @@ warning 6002: The table/view 'LetranIntegratedSystem1.dbo.GraduateCurriculum' do
           <Property Name="DayName" Type="nvarchar" MaxLength="150" />
           <Property Name="StartTime" Type="nvarchar" MaxLength="150" />
           <Property Name="EndTime" Type="nvarchar" MaxLength="150" />
+          <Property Name="IsNoBreak?" Type="bit" />
         </EntityType>
         <EntityType Name="HRISHolidays">
           <Key>
@@ -19082,6 +19083,7 @@ warning 6002: The table/view 'LetranIntegratedSystem1.dbo.SeniorHighCurriculum' 
           <Property Name="StartTime" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="EndTime" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="DayID" Type="Int32" />
+          <Property Name="IsNoBreak_" Type="Boolean" />
         </EntityType>
         <ComplexType Name="AdmissionGetReservationPayment_Result">
           <Property Type="Int32" Name="StudentID" Nullable="false" />
@@ -19093,6 +19095,8 @@ warning 6002: The table/view 'LetranIntegratedSystem1.dbo.SeniorHighCurriculum' 
           <Property Type="String" Name="Employeeno" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Name" Nullable="true" MaxLength="102" />
           <Property Type="String" Name="EmployeeShiftCode" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="AcaAcronym" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="AcaDeptID" Nullable="true" />
         </ComplexType>
         <ComplexType Name="GetEmployeeDTR_Result">
           <Property Type="DateTime" Name="DATE" Nullable="true" />
@@ -19117,6 +19121,7 @@ warning 6002: The table/view 'LetranIntegratedSystem1.dbo.SeniorHighCurriculum' 
           <Property Type="String" Name="OTEndTime" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="OT" Nullable="true" MaxLength="102" />
           <Property Type="String" Name="description" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="isnobreak_" Nullable="true" />
           <Property Type="String" Name="RemainingLateBreak" Nullable="true" MaxLength="8000" />
           <Property Type="String" Name="RemainingBreak" Nullable="true" MaxLength="6" />
           <Property Type="String" Name="RemainingBreakTimein" Nullable="true" MaxLength="6" />
@@ -22990,6 +22995,7 @@ warning 6002: The table/view 'LetranIntegratedSystem1.dbo.SeniorHighCurriculum' 
           <EntitySetMapping Name="HRISEmployeesShifts">
             <EntityTypeMapping TypeName="LetranIntegratedSystemModel.HRISEmployeesShift">
               <MappingFragment StoreEntitySet="HRISEmployeesShift">
+                <ScalarProperty Name="IsNoBreak_" ColumnName="IsNoBreak?" />
                 <ScalarProperty Name="DayID" ColumnName="DayID" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
@@ -23016,6 +23022,8 @@ warning 6002: The table/view 'LetranIntegratedSystem1.dbo.SeniorHighCurriculum' 
                 <ScalarProperty Name="Employeeno" ColumnName="Employeeno" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="EmployeeShiftCode" ColumnName="EmployeeShiftCode" />
+                <ScalarProperty Name="AcaAcronym" ColumnName="AcaAcronym" />
+                <ScalarProperty Name="AcaDeptID" ColumnName="AcaDeptID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -23044,6 +23052,7 @@ warning 6002: The table/view 'LetranIntegratedSystem1.dbo.SeniorHighCurriculum' 
                 <ScalarProperty Name="OTEndTime" ColumnName="OTEndTime" />
                 <ScalarProperty Name="OT" ColumnName="OT" />
                 <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="isnobreak_" ColumnName="isnobreak?" />
                 <ScalarProperty Name="RemainingLateBreak" ColumnName="RemainingLateBreak" />
                 <ScalarProperty Name="RemainingBreak" ColumnName="RemainingBreak" />
                 <ScalarProperty Name="RemainingBreakTimein" ColumnName="RemainingBreakTimein" />

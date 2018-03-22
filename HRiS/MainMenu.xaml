@@ -564,7 +564,7 @@
 
 
 
-                        <MenuItem  VerticalContentAlignment="Center" Header="Employee's Shift" Name="miEmpShifts" Background="White" Click="miEmpShifts_Click">
+                        <!--<MenuItem  VerticalContentAlignment="Center" Header="Employee's Shift" Name="miEmpShifts" Background="White" Click="miEmpShifts_Click">
                             <MenuItem.Icon>
                                 <Rectangle Fill="#FF002753" Width="15" Height="15">
                                     <Rectangle.OpacityMask>
@@ -572,7 +572,7 @@
                                     </Rectangle.OpacityMask>
                                 </Rectangle>
                             </MenuItem.Icon>
-                        </MenuItem>
+                        </MenuItem>-->
 
 
                         <MenuItem  VerticalContentAlignment="Center" Header="Employee's Department" Name="miEmpDept" Background="White" Click="miEmpDept_Click">

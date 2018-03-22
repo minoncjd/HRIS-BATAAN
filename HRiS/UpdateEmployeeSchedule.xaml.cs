@@ -51,42 +51,71 @@ namespace HRiS
                     {
                         monStartTime.Text = empschedmon.StartTime;
                         monEndTime.Text = empschedmon.EndTime;
+                        if (empschedmon.IsNoBreak_ == true)
+                        {
+                            moncbNoBreak.IsChecked = true;
+                        }
+                  
                     }
 
                     if (empschedtue != null)
                     {
                         tueStartTime.Text = empschedtue.StartTime;
                         tueEndTime.Text = empschedtue.EndTime;
+                        if (empschedtue.IsNoBreak_ == true)
+                        {
+                            tuescbNoBreak.IsChecked = true;
+                        }
                     }
 
                     if (empschedwed != null)
                     {
                         wedStartTime.Text = empschedwed.StartTime;
                         wedEndTime.Text = empschedwed.EndTime;
+                        if (empschedwed.IsNoBreak_ == true)
+                        {
+                            wedcbNoBreak.IsChecked = true;
+                        }
                     }
 
                     if (empschedthu != null)
                     {
                         thuStartTime.Text = empschedthu.StartTime;
                         thuEndTime.Text = empschedthu.EndTime;
+                        if (empschedthu.IsNoBreak_ == true)
+                        {
+                            thucbNoBreak.IsChecked = true;
+                        }
                     }
 
                     if (empschedfri != null)
                     {
                         friStartTime.Text = empschedfri.StartTime;
                         friEndTime.Text = empschedfri.EndTime;
+                        if (empschedfri.IsNoBreak_ == true)
+                        {
+                            fricbNoBreak.IsChecked = true;
+                        }
                     }
 
                     if (empschedsat != null)
                     {
                         satStartTime.Text = empschedsat.StartTime;
                         satEndTime.Text = empschedsat.EndTime;
+                        if (empschedsat.IsNoBreak_ == true)
+                        {
+                           satcbNoBreak.IsChecked = true;
+                        }
                     }
 
                     if (empschedsun != null)
                     {
                         sunStartTime.Text = empschedsun.StartTime;
                         sunEndTime.Text = empschedsun.EndTime;
+                        if (empschedsun.IsNoBreak_ == true)
+                        {
+                            suncbNoBreak.IsChecked = true;
+                        }
 
                     }
                   
@@ -108,9 +137,35 @@ namespace HRiS
 
         private void cbDefault_Checked(object sender, RoutedEventArgs e)
         {
+            monStartTime.Text = "8:00 AM";
+            tueStartTime.Text = "8:00 AM";
+            wedStartTime.Text = "8:00 AM";
+            thuStartTime.Text = "8:00 AM";
+            friStartTime.Text = "8:00 AM";
 
+            monEndTime.Text = "5:00 PM";
+            tueEndTime.Text = "5:00 PM";
+            wedEndTime.Text = "5:00 PM";
+            thuEndTime.Text = "5:00 PM";
+            friEndTime.Text = "5:00 PM";
+
+            tbShiftCode.Text = "8:00 AM - 5:00 PM";
         }
 
+        private void cbDefault_Unchecked(object sender, RoutedEventArgs e)
+        {
+            monEndTime.Text = "";
+            monStartTime.Text = "";
+            tueEndTime.Text = "";
+            tueStartTime.Text = "";
+            wedEndTime.Text = "";
+            wedStartTime.Text = "";
+            thuEndTime.Text = "";
+            thuStartTime.Text = "";
+            friStartTime.Text = "";
+            friEndTime.Text = "";
+            tbShiftCode.Text = "";
+        }
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -126,6 +181,8 @@ namespace HRiS
                     var empschedsat = db.HRISEmployeesShifts.Where(m => m.EmployeeID == empid && m.DayID == 6).FirstOrDefault();
                     var empschedsun = db.HRISEmployeesShifts.Where(m => m.EmployeeID == empid && m.DayID == 7).FirstOrDefault();
 
+                    
+
                     if (empschedmon.StartTime != monStartTime.Text)
                     {
                         empschedmon.StartTime = monStartTime.Text;
@@ -136,8 +193,17 @@ namespace HRiS
                         empschedmon.EndTime = monEndTime.Text;
                         db.SaveChanges();
                     }
-
-
+                    if (moncbNoBreak.IsChecked == true)
+                    {
+                        empschedmon.IsNoBreak_ = true;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        empschedmon.IsNoBreak_ = false;
+                        db.SaveChanges();
+                    }
+            
                     if (empschedtue.StartTime != tueStartTime.Text)
                     {
                         empschedtue.StartTime = tueStartTime.Text;
@@ -146,6 +212,16 @@ namespace HRiS
                     if (empschedtue.EndTime != tueEndTime.Text)
                     {
                         empschedtue.EndTime = tueEndTime.Text;
+                        db.SaveChanges();
+                    }
+                    if (tuescbNoBreak.IsChecked == true)
+                    {
+                        empschedtue.IsNoBreak_ = true;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        empschedtue.IsNoBreak_ = false;
                         db.SaveChanges();
                     }
 
@@ -160,6 +236,18 @@ namespace HRiS
                         empschedwed.EndTime = wedEndTime.Text;
                         db.SaveChanges();
                     }
+                    if (wedcbNoBreak.IsChecked == true)
+                    {
+                        empschedwed.IsNoBreak_ = true;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        empschedwed.IsNoBreak_ = false;
+                        db.SaveChanges();
+                    }
+
+
 
                     if (empschedthu.StartTime != thuStartTime.Text)
                     {
@@ -169,6 +257,16 @@ namespace HRiS
                     if (empschedthu.EndTime != thuEndTime.Text)
                     {
                         empschedthu.EndTime = thuEndTime.Text;
+                        db.SaveChanges();
+                    }
+                    if (thucbNoBreak.IsChecked == true)
+                    {
+                        empschedthu.IsNoBreak_ = true;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        empschedthu.IsNoBreak_ = false;
                         db.SaveChanges();
                     }
 
@@ -183,6 +281,16 @@ namespace HRiS
                         empschedfri.EndTime = friEndTime.Text;
                         db.SaveChanges();
                     }
+                    if (fricbNoBreak.IsChecked == true)
+                    {
+                        empschedfri.IsNoBreak_ = true;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        empschedfri.IsNoBreak_ = false;
+                        db.SaveChanges();
+                    }
 
                     if (empschedsat.StartTime != satStartTime.Text)
                     {
@@ -194,6 +302,16 @@ namespace HRiS
                         empschedsat.EndTime = satEndTime.Text;
                         db.SaveChanges();
                     }
+                    if (satcbNoBreak.IsChecked == true)
+                    {
+                        empschedsat.IsNoBreak_ = true;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        empschedsat.IsNoBreak_ = false;
+                        db.SaveChanges();
+                    }
 
                     if (empschedsun.StartTime != sunStartTime.Text)
                     {
@@ -203,6 +321,16 @@ namespace HRiS
                     if (empschedsun.EndTime != sunEndTime.Text)
                     {
                         empschedsun.EndTime = sunEndTime.Text;
+                        db.SaveChanges();
+                    }
+                    if (suncbNoBreak.IsChecked == true)
+                    {
+                        empschedsun.IsNoBreak_ = true;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        empschedsun.IsNoBreak_ = false;
                         db.SaveChanges();
                     }
 
@@ -230,12 +358,13 @@ namespace HRiS
             friEndTime.Text = "";
             tbEmp.Text = "";
             tbShiftCode.Text = "";
+            satEndTime.Text = "";
+            satStartTime.Text = "";
+            sunEndTime.Text = "";
+            sunStartTime.Text = "";
         }
 
-        private void cbDefault_Unchecked(object sender, RoutedEventArgs e)
-        {
 
-        }
 
         public class EmployeeSchedule
         {

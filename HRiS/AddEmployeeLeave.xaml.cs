@@ -32,36 +32,36 @@ namespace HRiS
             {
                 using (var db = new LetranIntegratedSystemEntities())
                 {
-                    if (txtDays.Text != null && startDate.SelectedDate != null && cbEmp.SelectedItem != null && cbLeaveType.SelectedItem != null)
+                    if (cbDays.Text != null && startDate.SelectedDate != null && cbEmp.SelectedItem != null && cbLeaveType.SelectedItem != null)
                     {
                         int empID = Convert.ToInt32(cbEmp.SelectedValue);
                         int leavetypeid = Convert.ToInt32(cbLeaveType.SelectedValue);
 
 
-                        if (leavetypeid == 1)
-                        {
-                            if (Convert.ToDecimal(txtDays.Text) > Convert.ToDecimal(txtSL.Text))
-                            {
-                                MessageBox.Show("Not enough leave balance", "System Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
-                                return;
-                            }
-                        }
-                        else if (leavetypeid == 2)
-                        {
-                            if (Convert.ToDecimal(txtDays.Text) > Convert.ToDecimal(txtVL.Text))
-                            {
-                                MessageBox.Show("Not enough leave balance", "System Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
-                                return;
-                            }
-                        }
-                        else if (leavetypeid == 3)
-                        {
-                            if (Convert.ToDecimal(txtDays.Text) > Convert.ToDecimal(txtSIL.Text))
-                            {
-                                MessageBox.Show("Not enough leave balance", "System Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
-                                return;
-                            }
-                        }
+                        //if (leavetypeid == 1)
+                        //{
+                        //    if (Convert.ToDecimal(txtDays.Text) > Convert.ToDecimal(txtSL.Text))
+                        //    {
+                        //        MessageBox.Show("Not enough leave balance", "System Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        //        return;
+                        //    }
+                        //}
+                        //else if (leavetypeid == 2)
+                        //{
+                        //    if (Convert.ToDecimal(txtDays.Text) > Convert.ToDecimal(txtVL.Text))
+                        //    {
+                        //        MessageBox.Show("Not enough leave balance", "System Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        //        return;
+                        //    }
+                        //}
+                        //else if (leavetypeid == 3)
+                        //{
+                        //    if (Convert.ToDecimal(txtDays.Text) > Convert.ToDecimal(txtSIL.Text))
+                        //    {
+                        //        MessageBox.Show("Not enough leave balance", "System Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        //        return;
+                        //    }
+                        //}
 
                         Leave leave = new Leave();
                         leave.EmployeeID = empID;
@@ -69,13 +69,13 @@ namespace HRiS
                         leave.Reason = txtReason.Text;
                         leave.StartDate = startDate.SelectedDate;
                         leave.EndDate = startDate.SelectedDate;
-                        leave.Days = Convert.ToDecimal(txtDays.Text);
+                        leave.Days = Convert.ToDecimal(cbDays.Text);
                         leave.FiledDate = dateFiled.SelectedDate;
                     
                         db.Leaves.Add(leave);
                         db.SaveChanges();
 
-                        UpdateLeaveBalance();
+                        //UpdateLeaveBalance();
 
                         MessageBox.Show("Added Succesful", "System Succes!", MessageBoxButton.OK, MessageBoxImage.Information);
                         clear();
@@ -100,10 +100,10 @@ namespace HRiS
 
         private void clear()
         {
-            txtVL.Text = "";
-            txtSL.Text = "";
-            txtSIL.Text = "";
-            txtDays.Text = "";
+            //txtVL.Text = "";
+            //txtSL.Text = "";
+            //txtSIL.Text = "";
+            cbDays.Text = "";
             txtReason.Text = "";
             cbEmp.Text = "";
             cbLeaveType.Text = "";
@@ -113,34 +113,34 @@ namespace HRiS
         }
         private void LoadLeaveBalance()
         {
-            try
-            {
-                using (var db = new LetranIntegratedSystemEntities())
-                {
+            //try
+            //{
+            //    using (var db = new LetranIntegratedSystemEntities())
+            //    {
                   
-                    int empid = Convert.ToInt32(cbEmp.SelectedValue);
-                    var leaveBalance = db.LeaveBalances.Where(m => m.EmployeeID == empid).FirstOrDefault();
+            //        int empid = Convert.ToInt32(cbEmp.SelectedValue);
+            //        var leaveBalance = db.LeaveBalances.Where(m => m.EmployeeID == empid).FirstOrDefault();
 
-                    if (leaveBalance != null)
-                    {
-                        txtVL.Text = leaveBalance.VacationLeaveBalance.ToString();
-                        txtSL.Text = leaveBalance.SickLeaveBalance.ToString();
-                        txtSIL.Text = leaveBalance.ServiceIncentiveLeave.ToString();
+            //        if (leaveBalance != null)
+            //        {
+            //            txtVL.Text = leaveBalance.VacationLeaveBalance.ToString();
+            //            txtSL.Text = leaveBalance.SickLeaveBalance.ToString();
+            //            txtSIL.Text = leaveBalance.ServiceIncentiveLeave.ToString();
 
-                    }
-                    else
-                    {
-                        txtVL.Text = "0";
-                        txtSL.Text = "0";
-                        txtSIL.Text = "0";
-                    }
+            //        }
+            //        else
+            //        {
+            //            txtVL.Text = "0";
+            //            txtSL.Text = "0";
+            //            txtSIL.Text = "0";
+            //        }
                    
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Something went wrong.", "System Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //    MessageBox.Show("Something went wrong.", "System Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
 
         }
 
@@ -152,10 +152,12 @@ namespace HRiS
             
                 using (var db = new LetranIntegratedSystemEntities())
                 {
-                    
-                    var emp = (from a in db.LeaveBalances
-                               join b in db.Employees on a.EmployeeID equals b.EmployeeID
-                               select new { b.FirstName, b.LastName, b.EmployeeNo, b.EmployeeID }).ToList();
+
+                    //var emp = (from a in db.LeaveBalances
+                    //           join b in db.Employees on a.EmployeeID equals b.EmployeeID
+                    //           select new { b.FirstName, b.LastName, b.EmployeeNo, b.EmployeeID }).ToList();
+
+                    var emp = db.Employees.Where(m => m.Archive == false).ToList();
 
                     foreach (var i in emp)
                     {
@@ -203,18 +205,18 @@ namespace HRiS
 
                     if (leavetypeid == 1)
                     {
-                        leavebalance.SickLeaveBalance = leavebalance.SickLeaveBalance - Convert.ToDecimal(txtDays.Text);                  
+                        leavebalance.SickLeaveBalance = leavebalance.SickLeaveBalance - Convert.ToDecimal(cbDays.Text);                  
                         db.SaveChanges();
 
                     }
                     else if (leavetypeid == 2)
                     {
-                        leavebalance.VacationLeaveBalance = leavebalance.VacationLeaveBalance - Convert.ToDecimal(txtDays.Text);
+                        leavebalance.VacationLeaveBalance = leavebalance.VacationLeaveBalance - Convert.ToDecimal(cbDays.Text);
                         db.SaveChanges();
                     }
                     else if (leavetypeid == 3)
                     {
-                        leavebalance.ServiceIncentiveLeave = leavebalance.ServiceIncentiveLeave - Convert.ToDecimal(txtDays.Text);
+                        leavebalance.ServiceIncentiveLeave = leavebalance.ServiceIncentiveLeave - Convert.ToDecimal(cbDays.Text);
                         db.SaveChanges();
                     }
 
@@ -235,7 +237,7 @@ namespace HRiS
 
         private void cbEmp_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            LoadLeaveBalance();
+           // LoadLeaveBalance();
         }
     }
 }

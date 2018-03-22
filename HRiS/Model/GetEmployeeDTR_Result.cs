@@ -35,6 +35,7 @@ namespace HRiS.Model
         public string OTEndTime { get; set; }
         public string OT { get; set; }
         public string description { get; set; }
+        public bool isnobreak_ { get; set; }
         public string RemainingLateBreak { get; set; }
         public string RemainingBreak { get; set; }
         public string RemainingBreakTimein { get; set; }

@@ -128,7 +128,7 @@
                                     </DataTemplate>
                                 </MenuItem.HeaderTemplate>
                             </MenuItem>
-                            <!--<MenuItem Name="addAcct" Click="addAcct_Click" >
+                            <MenuItem Name="addAcct" Click="addAcct_Click" >
                                 <MenuItem.HeaderTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
@@ -141,8 +141,8 @@
                                         </StackPanel>
                                     </DataTemplate>
                                 </MenuItem.HeaderTemplate>
-                            </MenuItem>-->
-                            <!--<MenuItem Name="addFaculty" Click="addFaculty_Click" >
+                            </MenuItem>
+                            <MenuItem Name="addFaculty" Click="addFaculty_Click" >
                                 <MenuItem.HeaderTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
@@ -155,7 +155,7 @@
                                         </StackPanel>
                                     </DataTemplate>
                                 </MenuItem.HeaderTemplate>
-                            </MenuItem>-->
+                            </MenuItem>
                             <MenuItem Name="addBioNumber" Click="addBioNumber_Click" >
                                 <MenuItem.HeaderTemplate>
                                     <DataTemplate>

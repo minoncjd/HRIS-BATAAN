@@ -21,5 +21,6 @@ namespace HRiS.Model
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public Nullable<int> DayID { get; set; }
+        public Nullable<bool> IsNoBreak_ { get; set; }
     }
 }

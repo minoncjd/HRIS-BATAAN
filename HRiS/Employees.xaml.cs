@@ -325,5 +325,124 @@ namespace HRiS
             }
         
         }
+
+        private void addFaculty_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (var db = new LetranIntegratedSystemEntities())
+                {
+                    var x = ((EmployeeClass)dgEmployeeList.SelectedItem);
+
+                    if (db.Faculties.Where(m => m.EmpNo == x.EmployeeNumber).FirstOrDefault() == null)
+                    {
+                        Faculty f = new Faculty();
+                        f.EmpNo = x.EmployeeNumber;
+                        f.EmployeeID = db.Employees.Where(m => m.EmployeeNo == x.EmployeeNumber).FirstOrDefault().EmployeeID;
+                        f.FacultyCode = x.EmployeeNumber;
+                        db.Faculties.Add(f);
+                        db.SaveChanges();
+                        MessageBox.Show("Faculty successfully added.", "System Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Faculty already exists.", "System Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Something went wrong.", "System Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void addAcct_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                db = new LetranIntegratedSystemEntities();
+                string roleid = "";
+                AspNetUser aspuser = new AspNetUser();
+                AspNetUserRole asproleuser = new AspNetUserRole();
+                var x = ((EmployeeClass)dgEmployeeList.SelectedItem);
+                var user = db.AspNetUsers.Where(m => m.UserName == x.EmployeeNumber).FirstOrDefault();
+                if (user != null)
+                {
+                    MessageBox.Show("User account for this person already exists!", "System Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                else
+                {
+                    var emp = db.Employees.Where(m => m.EmployeeNo == x.EmployeeNumber).FirstOrDefault();
+
+                    roleid = "4";
+
+                    //if (emp.EmployeeDesignation == 1 || emp.EmployeeDepartmentID == 19)
+                    //{
+                    //    roleid = "2";
+                    //}
+                    //if (emp.EmployeeDesignation == 2)
+                    //{
+                    //    roleid = "5";
+                    //}
+                    //if (emp.EmployeeDepartmentID == 34)
+                    //{
+                    //    roleid = "9";
+                    //}
+                    //else if (emp.EmployeeDepartmentID == 35)
+                    //{
+                    //    roleid = "10";
+                    //}
+                    //else if (emp.EmployeeDepartmentID == 18)
+                    //{
+                    //    roleid = "8";
+                    //}
+
+                    if (String.IsNullOrEmpty(roleid))
+                    {
+                        MessageBox.Show("Role is not specified", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                    if (String.IsNullOrEmpty(emp.PrimaryEmail))
+                    {
+                        MessageBox.Show("Email cannot be empty.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                    aspuser.Id = Guid.NewGuid().ToString();
+                    aspuser.UserName = emp.EmployeeNo;
+                    aspuser.Email = emp.PrimaryEmail;
+                    aspuser.EmailConfirmed = true;
+                    aspuser.PhoneNumberConfirmed = false;
+                    aspuser.TwoFactorEnabled = false;
+                    aspuser.LockoutEnabled = true;
+                    aspuser.AccessFailedCount = 0;
+                    aspuser.SecurityStamp = Guid.NewGuid().ToString();
+                    var passwordHasher = new Microsoft.AspNet.Identity.PasswordHasher();
+                    aspuser.PasswordHash = passwordHasher.HashPassword("letran1620");
+                    var adduser = db.AspNetUsers.Add(aspuser);
+                    asproleuser.UserId = adduser.Id;
+                    asproleuser.RoleId = roleid;
+                    db.AspNetUserRoles.Add(asproleuser);
+
+                    if (roleid == "5")
+                    {
+                        if (db.Faculties.Where(m => m.EmpNo == emp.EmployeeNo).FirstOrDefault() == null)
+                        {
+                            Faculty f = new Faculty();
+                            f.FacultyCode = emp.EmployeeNo;
+                            f.EmpNo = emp.EmployeeNo;
+                            db.Faculties.Add(f);
+                        }
+                    }
+                    db.SaveChanges();
+                    MessageBox.Show("Account successfully created.", "System Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Something went wrong.", "System Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
     }
 }

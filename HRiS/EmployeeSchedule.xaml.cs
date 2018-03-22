@@ -62,6 +62,10 @@ namespace HRiS
                     cbEmployee.DisplayMemberPath = "EmployeeName";
                     cbEmployee.SelectedValuePath = "EmployeeID";
 
+                    var dept = db.AcademicDepartments.ToList();
+                    cbDepartment.ItemsSource = dept.OrderBy(m => m.AcaDepartmentName);
+                    cbDepartment.DisplayMemberPath = "AcaDepartmentName";
+                    cbDepartment.SelectedValuePath = "AcaDeptID";
 
 
                 }
@@ -133,7 +137,7 @@ namespace HRiS
                         employeeShift.EmployeeName = x.Name;
                         employeeShift.ShiftCode = x.EmployeeShiftCode;
                         employeeShift.EmployeeID = x.EmployeeID;
-
+                        employeeShift.Department = x.AcaAcronym;
                         lEmployeeShiftList.Add(employeeShift);
                     }
 
@@ -142,8 +146,7 @@ namespace HRiS
             }
             catch (Exception)
             {
-
-                throw;
+                MessageBox.Show("Something went wrong.", "System Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -278,6 +281,40 @@ namespace HRiS
                 throw;
             }
 
+        }
+
+        private void cbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var deptid = Convert.ToInt32(cbDepartment.SelectedValue);
+            try
+            {
+                using (var db = new LetranIntegratedSystemEntities())
+                {
+                    lEmployeeShiftList = new List<HRiSClass.EmployeeShiftList>();
+                    var empSchedule = db.GetEmployeeSchedules().Where(m => m.AcaDeptID == deptid).ToList().OrderBy(m => m.Name);
+
+                    foreach (var x in empSchedule)
+                    {
+
+                        HRiSClass.EmployeeShiftList employeeShift = new HRiSClass.EmployeeShiftList();
+
+                        employeeShift.EmployeeNo = x.Employeeno;
+                        employeeShift.EmployeeName = x.Name;
+                        employeeShift.ShiftCode = x.EmployeeShiftCode;
+                        employeeShift.EmployeeID = x.EmployeeID;
+                        employeeShift.Department = x.AcaAcronym;
+
+                        lEmployeeShiftList.Add(employeeShift);
+                    }
+
+                    dgEmployeeScheduleList.ItemsSource = lEmployeeShiftList.OrderBy(m => m.EmployeeName);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

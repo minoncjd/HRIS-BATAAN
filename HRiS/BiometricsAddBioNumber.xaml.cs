@@ -59,18 +59,10 @@ namespace HRiS
                 {
                     if (result != null)
                     {
-                        if (result.bioid == null)
-                        {
-                            result.bioid = Convert.ToInt16(tbBionumber.Text);
-                            db.SaveChanges();
-                            tbBionumber.Text = "";
-                            MessageBox.Show("Biometrics number successfully added.", "System Success!", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Biometrics number already exist.", "System Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        }
-
+                        
+                        result.bioid = Convert.ToInt16(tbBionumber.Text);
+                        db.SaveChanges();                  
+                        MessageBox.Show("Biometrics Number has been updated.", "System Success!", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {

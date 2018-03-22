@@ -17,5 +17,7 @@ namespace HRiS.Model
         public string Employeeno { get; set; }
         public string Name { get; set; }
         public string EmployeeShiftCode { get; set; }
+        public string AcaAcronym { get; set; }
+        public Nullable<int> AcaDeptID { get; set; }
     }
 }
