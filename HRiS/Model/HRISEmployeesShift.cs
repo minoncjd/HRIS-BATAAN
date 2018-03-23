@@ -17,10 +17,10 @@ namespace HRiS.Model
         public int EmployeeShiftID { get; set; }
         public string EmployeeShiftCode { get; set; }
         public Nullable<int> EmployeeID { get; set; }
+        public Nullable<int> DayID { get; set; }
         public string DayName { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
-        public Nullable<int> DayID { get; set; }
         public Nullable<bool> IsNoBreak_ { get; set; }
     }
 }

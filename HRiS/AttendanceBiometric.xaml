@@ -128,7 +128,7 @@
                                 </MenuItem.HeaderTemplate>
                             </MenuItem>
 
-                            <MenuItem x:Name="add" Click="add_Click" >
+                            <!--<MenuItem x:Name="add" Click="add_Click" >
                                 <MenuItem.HeaderTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
@@ -141,7 +141,7 @@
                                         </StackPanel>
                                     </DataTemplate>
                                 </MenuItem.HeaderTemplate>
-                            </MenuItem>
+                            </MenuItem>-->
 
 
                         </ContextMenu>

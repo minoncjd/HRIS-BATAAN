@@ -18519,13 +18519,13 @@ warning 6002: The table/view 'LetranIntegratedSystem1.dbo.SeniorHighCurriculum' 
           <EntitySet Name="HRISHolidays" EntityType="LetranIntegratedSystemModel.HRISHoliday" />
           <EntitySet Name="BiometricsLogDatas" EntityType="LetranIntegratedSystemModel.BiometricsLogData" />
           <EntitySet Name="HRISShiftDetails" EntityType="LetranIntegratedSystemModel.HRISShiftDetail" />
-          <EntitySet Name="HRISEmployeesShifts" EntityType="LetranIntegratedSystemModel.HRISEmployeesShift" />
           <FunctionImport Name="AdmissionGetReservationPayment" ReturnType="Collection(LetranIntegratedSystemModel.AdmissionGetReservationPayment_Result)">
             <Parameter Name="FIRSTNAME_KEY" Mode="In" Type="String" />
             <Parameter Name="LASTNAME_KEY" Mode="In" Type="String" />
             <Parameter Name="MIDDLENAME_KEY" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetEmployeeSchedules" ReturnType="Collection(LetranIntegratedSystemModel.GetEmployeeSchedules_Result)" />
+          <EntitySet Name="HRISEmployeesShifts" EntityType="LetranIntegratedSystemModel.HRISEmployeesShift" />
           <FunctionImport Name="GetEmployeeDTR" ReturnType="Collection(LetranIntegratedSystemModel.GetEmployeeDTR_Result)">
             <Parameter Name="startDate" Mode="In" Type="String" />
             <Parameter Name="endDate" Mode="In" Type="String" />
@@ -19072,19 +19072,6 @@ warning 6002: The table/view 'LetranIntegratedSystem1.dbo.SeniorHighCurriculum' 
           <Property Name="StartTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EndTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="HRISEmployeesShift">
-          <Key>
-            <PropertyRef Name="EmployeeShiftID" />
-          </Key>
-          <Property Name="EmployeeShiftID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeShiftCode" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="EmployeeID" Type="Int32" />
-          <Property Name="DayName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="StartTime" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="EndTime" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="DayID" Type="Int32" />
-          <Property Name="IsNoBreak_" Type="Boolean" />
-        </EntityType>
         <ComplexType Name="AdmissionGetReservationPayment_Result">
           <Property Type="Int32" Name="StudentID" Nullable="false" />
           <Property Type="Double" Name="Amount" Nullable="true" />
@@ -19098,6 +19085,19 @@ warning 6002: The table/view 'LetranIntegratedSystem1.dbo.SeniorHighCurriculum' 
           <Property Type="String" Name="AcaAcronym" Nullable="true" MaxLength="10" />
           <Property Type="Int32" Name="AcaDeptID" Nullable="true" />
         </ComplexType>
+        <EntityType Name="HRISEmployeesShift">
+          <Key>
+            <PropertyRef Name="EmployeeShiftID" />
+          </Key>
+          <Property Name="EmployeeShiftID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeShiftCode" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="DayID" Type="Int32" />
+          <Property Name="DayName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="StartTime" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="EndTime" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsNoBreak_" Type="Boolean" />
+        </EntityType>
         <ComplexType Name="GetEmployeeDTR_Result">
           <Property Type="DateTime" Name="DATE" Nullable="true" />
           <Property Type="String" Name="DAY" Nullable="true" MaxLength="3" />
@@ -19121,7 +19121,7 @@ warning 6002: The table/view 'LetranIntegratedSystem1.dbo.SeniorHighCurriculum' 
           <Property Type="String" Name="OTEndTime" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="OT" Nullable="true" MaxLength="102" />
           <Property Type="String" Name="description" Nullable="true" MaxLength="250" />
-          <Property Type="Boolean" Name="isnobreak_" Nullable="true" />
+          <Property Type="Boolean" Name="isnobreak" Nullable="false" />
           <Property Type="String" Name="RemainingLateBreak" Nullable="true" MaxLength="8000" />
           <Property Type="String" Name="RemainingBreak" Nullable="true" MaxLength="6" />
           <Property Type="String" Name="RemainingBreakTimein" Nullable="true" MaxLength="6" />
@@ -22992,20 +22992,6 @@ warning 6002: The table/view 'LetranIntegratedSystem1.dbo.SeniorHighCurriculum' 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HRISEmployeesShifts">
-            <EntityTypeMapping TypeName="LetranIntegratedSystemModel.HRISEmployeesShift">
-              <MappingFragment StoreEntitySet="HRISEmployeesShift">
-                <ScalarProperty Name="IsNoBreak_" ColumnName="IsNoBreak?" />
-                <ScalarProperty Name="DayID" ColumnName="DayID" />
-                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-                <ScalarProperty Name="DayName" ColumnName="DayName" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="EmployeeShiftCode" ColumnName="EmployeeShiftCode" />
-                <ScalarProperty Name="EmployeeShiftID" ColumnName="EmployeeShiftID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="AdmissionGetReservationPayment" FunctionName="LetranIntegratedSystemModel.Store.AdmissionGetReservationPayment">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LetranIntegratedSystemModel.AdmissionGetReservationPayment_Result">
@@ -23027,6 +23013,20 @@ warning 6002: The table/view 'LetranIntegratedSystem1.dbo.SeniorHighCurriculum' 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="HRISEmployeesShifts">
+            <EntityTypeMapping TypeName="LetranIntegratedSystemModel.HRISEmployeesShift">
+              <MappingFragment StoreEntitySet="HRISEmployeesShift">
+                <ScalarProperty Name="IsNoBreak_" ColumnName="IsNoBreak?" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="DayName" ColumnName="DayName" />
+                <ScalarProperty Name="DayID" ColumnName="DayID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeShiftCode" ColumnName="EmployeeShiftCode" />
+                <ScalarProperty Name="EmployeeShiftID" ColumnName="EmployeeShiftID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetEmployeeDTR" FunctionName="LetranIntegratedSystemModel.Store.GetEmployeeDTR">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LetranIntegratedSystemModel.GetEmployeeDTR_Result">
@@ -23052,7 +23052,7 @@ warning 6002: The table/view 'LetranIntegratedSystem1.dbo.SeniorHighCurriculum' 
                 <ScalarProperty Name="OTEndTime" ColumnName="OTEndTime" />
                 <ScalarProperty Name="OT" ColumnName="OT" />
                 <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="isnobreak_" ColumnName="isnobreak?" />
+                <ScalarProperty Name="isnobreak" ColumnName="isnobreak" />
                 <ScalarProperty Name="RemainingLateBreak" ColumnName="RemainingLateBreak" />
                 <ScalarProperty Name="RemainingBreak" ColumnName="RemainingBreak" />
                 <ScalarProperty Name="RemainingBreakTimein" ColumnName="RemainingBreakTimein" />
@@ -23086,7 +23086,7 @@ warning 6002: The table/view 'LetranIntegratedSystem1.dbo.SeniorHighCurriculum' 
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram DiagramId="630bd5bd44094346a6d03cc8ad56f688" Name="Diagram1">
+      <Diagram DiagramId="630bd5bd44094346a6d03cc8ad56f688" Name="Diagram1" ZoomLevel="82">
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.AcademicArea" Width="1.5" PointX="12.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LetranIntegratedSystemModel.AcademicAreaHead" Width="1.5" PointX="15.75" PointY="4.5" IsExpanded="true" />

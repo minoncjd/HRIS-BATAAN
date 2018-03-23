@@ -110,12 +110,7 @@ namespace HRiS
         private void btnPrint_Click_1(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
-            var startDate = dpStartDate.SelectedDate.Value.ToShortDateString();
-            var endDate = dpEndDate.SelectedDate.Value.ToShortDateString();
-            var reporttype = cbReportType.Text;
-            var empid = Convert.ToInt32(cbEmployee.SelectedValue);
-            var deptid = Convert.ToInt32(cbDepartment.SelectedValue);
-            var designationid = Convert.ToInt32(cbDesignation.SelectedValue);
+            
 
             if (dpStartDate.SelectedDate == null || dpEndDate.SelectedDate == null)
             {
@@ -133,7 +128,12 @@ namespace HRiS
 
             using (var db = new LetranIntegratedSystemEntities())
             {
-                
+                var startDate = dpStartDate.SelectedDate.Value.ToShortDateString();
+                var endDate = dpEndDate.SelectedDate.Value.ToShortDateString();
+                var reporttype = cbReportType.Text;
+                var empid = Convert.ToInt32(cbEmployee.SelectedValue);
+                var deptid = Convert.ToInt32(cbDepartment.SelectedValue);
+                var designationid = Convert.ToInt32(cbDesignation.SelectedValue);
                 List<Model.Employee> employees = new List<Model.Employee>();           
                 List<GetEmployeeDTR_Result> lresult = new List<GetEmployeeDTR_Result>();
 

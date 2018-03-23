@@ -181,7 +181,17 @@ namespace HRiS
                     var empschedsat = db.HRISEmployeesShifts.Where(m => m.EmployeeID == empid && m.DayID == 6).FirstOrDefault();
                     var empschedsun = db.HRISEmployeesShifts.Where(m => m.EmployeeID == empid && m.DayID == 7).FirstOrDefault();
 
-                    
+                    if (tbShiftCode.Text != empschedmon.EmployeeShiftCode)
+                    {
+                        empschedmon.EmployeeShiftCode = tbShiftCode.Text;
+                        empschedtue.EmployeeShiftCode = tbShiftCode.Text;
+                        empschedwed.EmployeeShiftCode = tbShiftCode.Text;
+                        empschedthu.EmployeeShiftCode = tbShiftCode.Text;
+                        empschedfri.EmployeeShiftCode = tbShiftCode.Text;
+                        empschedsat.EmployeeShiftCode = tbShiftCode.Text;
+                        empschedsun.EmployeeShiftCode = tbShiftCode.Text;
+                        db.SaveChanges();
+                    }
 
                     if (empschedmon.StartTime != monStartTime.Text)
                     {
