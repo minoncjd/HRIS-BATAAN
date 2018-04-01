@@ -52,22 +52,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>D0050F667F1818775D3DAF9FC2CD431A683F59CC</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>4CB4D5C34D119D4863AA517B5C75F5648A59AA88</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>key1.pfx</ManifestKeyFile>
+    <ManifestKeyFile>key2.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>key1.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>key2.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
@@ -89,7 +89,7 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Interop.zkemkeeper">
-      <HintPath>..\..\HRIS GIT\HRiS\obj\Debug\Interop.zkemkeeper.dll</HintPath>
+      <HintPath>..\..\HRIS\HRiS\bin\Debug\Interop.zkemkeeper.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="MahApps.Metro">
@@ -2104,6 +2104,7 @@
     </EntityDeploy>
     <None Include="key.pfx" />
     <None Include="key1.pfx" />
+    <None Include="key2.pfx" />
     <None Include="Model\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
